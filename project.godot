@@ -34,6 +34,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/daylight.gd"
 }, {
+"base": "Camera2D",
+"class": "DetailCamera",
+"language": "GDScript",
+"path": "res://scripts/camera.gd"
+}, {
 "base": "Screen",
 "class": "Details",
 "language": "GDScript",
@@ -69,7 +74,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/screens/location_details.gd"
 }, {
-"base": "TileMap",
+"base": "Screen",
 "class": "Map",
 "language": "GDScript",
 "path": "res://scripts/map.gd"
@@ -215,6 +220,7 @@ _global_script_class_icons={
 "ColorChoice": "",
 "Controls": "",
 "Daylight": "",
+"DetailCamera": "",
 "Details": "",
 "Dialog": "",
 "Fleet": "",
@@ -267,6 +273,14 @@ Settings="*res://scripts/global/settings.gd"
 Persist="*res://scripts/persist.gd"
 Transition="*res://scripts/global/transition.gd"
 GlobalDialog="*res://scripts/global/dialog.gd"
+
+[debug]
+
+gdscript/warnings/unassigned_variable=false
+gdscript/warnings/unused_variable=false
+gdscript/warnings/unused_argument=false
+gdscript/warnings/unused_signal=false
+gdscript/warnings/return_value_discarded=false
 
 [display]
 

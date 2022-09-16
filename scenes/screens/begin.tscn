@@ -1,10 +1,9 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://styles/panel.tres" type="StyleBox" id=1]
 [ext_resource path="res://fonts/OpenSans-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://scripts/begin.gd" type="Script" id=3]
 [ext_resource path="res://scenes/prefabs/ui/simple_dialog.tscn" type="PackedScene" id=4]
-[ext_resource path="res://fonts/NicoClean-Regular.otf" type="DynamicFontData" id=7]
 [ext_resource path="res://fonts/OpenSans-Bold.ttf" type="DynamicFontData" id=8]
 [ext_resource path="res://shaders/blur.tres" type="Shader" id=9]
 [ext_resource path="res://scripts/ui/simple_color_picker.gd" type="Script" id=10]
@@ -34,23 +33,14 @@ font_data = ExtResource( 8 )
 size = 14
 font_data = ExtResource( 8 )
 
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0, 0, 0, 1 )
-
-[sub_resource type="DynamicFont" id=7]
-size = 32
-extra_spacing_top = 5
-font_data = ExtResource( 7 )
-
-[sub_resource type="DynamicFont" id=8]
-size = 32
-font_data = ExtResource( 7 )
-
 [sub_resource type="ShaderMaterial" id=17]
 shader = ExtResource( 9 )
 shader_param/blur_amount = 2.0
 shader_param/mix_amount = 0.2
 shader_param/color_over = null
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0, 0, 0, 1 )
 
 [sub_resource type="StyleBoxFlat" id=44]
 bg_color = Color( 0, 0, 0, 0.356863 )
@@ -159,9 +149,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -218.5
-margin_top = -189.0
+margin_top = -240.0
 margin_right = 218.5
-margin_bottom = 189.0
+margin_bottom = 240.0
 
 [node name="title" type="Panel" parent="ui/main_menu/list"]
 material = SubResource( 14 )
@@ -192,43 +182,21 @@ custom_fonts/font = SubResource( 16 )
 text = "Please fill out the following info..."
 valign = 1
 
-[node name="seed" type="Panel" parent="ui/main_menu/list"]
-visible = false
-margin_top = 104.0
+[node name="generation_settings" type="Panel" parent="ui/main_menu/list"]
+margin_top = 84.0
 margin_right = 437.0
-margin_bottom = 168.0
-rect_min_size = Vector2( 0, 64 )
-custom_styles/panel = SubResource( 2 )
+margin_bottom = 184.0
+rect_min_size = Vector2( 0, 100 )
 
-[node name="label" type="Label" parent="ui/main_menu/list/seed"]
-anchor_top = 0.5
-anchor_bottom = 0.5
-margin_left = 7.0
-margin_top = -30.0
-margin_right = 112.0
-margin_bottom = 31.0
-rect_min_size = Vector2( 100, 0 )
-custom_fonts/font = SubResource( 7 )
-text = "Seed"
-align = 1
-valign = 1
-
-[node name="value" type="Label" parent="ui/main_menu/list/seed"]
-margin_left = 124.0
-margin_top = 14.0
-margin_right = 438.0
-margin_bottom = 56.0
-size_flags_horizontal = 3
-size_flags_vertical = 7
-custom_fonts/font = SubResource( 8 )
-text = "000000"
-valign = 1
+[node name="list" type="VBoxContainer" parent="ui/main_menu/list/generation_settings"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 
 [node name="details" type="Panel" parent="ui/main_menu/list"]
 material = SubResource( 17 )
-margin_top = 84.0
+margin_top = 188.0
 margin_right = 437.0
-margin_bottom = 308.0
+margin_bottom = 412.0
 rect_min_size = Vector2( 0, 224 )
 custom_styles/panel = SubResource( 2 )
 
@@ -416,9 +384,9 @@ icon = ExtResource( 15 )
 icon_align = 1
 
 [node name="options" type="HBoxContainer" parent="ui/main_menu/list"]
-margin_top = 312.0
+margin_top = 416.0
 margin_right = 437.0
-margin_bottom = 376.0
+margin_bottom = 480.0
 rect_min_size = Vector2( 0, 64 )
 
 [node name="cancel" type="Button" parent="ui/main_menu/list/options"]

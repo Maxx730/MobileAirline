@@ -2,11 +2,15 @@ extends Node
 
 class_name Controls
 
+onready var FocusedButtons: Control = get_node("ui/bottom")
+onready var BackPanelButton: PanelButton = get_node("ui/back")
+
 onready var NextButton: Button = get_node("ui/bottom/switcher/buttons/next")
 onready var PreviousButton: Button = get_node("ui/bottom/switcher/buttons/prev")
 onready var SettingsButton: PanelButton = get_node("ui/top/settings")
 onready var ShopButton: PanelButton = get_node("ui/bottom/shop")
 onready var MapButton: PanelButton = get_node("ui/bottom/map")
+onready var BackButton: PanelButton = get_node("ui/back")
 
 var FocusedAircraft: int = 0
 var NextScene = null
@@ -30,7 +34,20 @@ func _ready() -> void:
 	if MapButton:
 		MapButton.connect("PanelButtonPressed", self, "OnMapButtonPressed")
 	
+	if BackButton:
+		BackButton.connect("PanelButtonPressed", self, "OnBackButtonPressed")
+	
+	Events.connect("ContextChanged", self, "OnContextChanged")
 	Transition.connect("OnTransitionOutFinished", self, "OnTransitionOutFinished")
+
+#####################
+# GENERAL METHODS #
+#####################
+func UpdateControls(context) -> void:
+	var showBack: bool = context == Enums.GameContext.SHOP || context == Enums.GameContext.MAP
+	BackPanelButton.visible = showBack
+	FocusedButtons.visible = !showBack
+
 
 #####################
 # CONNECTED METHODS #
@@ -61,6 +78,12 @@ func OnShopButtonPressed() -> void:
 func OnMapButtonPressed() -> void:
 	Events.emit_signal("ContextChanged", Enums.GameContext.MAP)
 
+func OnBackButtonPressed() -> void:
+	Events.emit_signal("ContextChanged", Enums.GameContext.IDLE)
+
 func OnTransitionOutFinished() -> void:
 	if NextScene != null:
 		get_tree().change_scene(NextScene)
+
+func OnContextChanged(context) -> void:
+	UpdateControls(context)

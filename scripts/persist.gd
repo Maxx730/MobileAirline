@@ -19,7 +19,7 @@ var UseDaylight: bool = true
 
 # Map Data
 var MapSeed: int
-var MapSize: int = Enums.WorldSizes.SMALL
+var MapSize: int = Enums.WorldSizes.HUGE
 var MapOctaves: int
 var MapPeriod: float
 var MapPersistence: float

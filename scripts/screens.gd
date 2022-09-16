@@ -12,16 +12,16 @@ func _ready() -> void:
 func HideAllScreens() -> void:
 	for child in get_children():
 		child.visible = false
-		if child.get_node("ui/interface"):
-			child.get_node("ui/interface").visible = false
+		if child is Screen:
+			child.HideElements()
 
 func ShowScreen(screen: int = 0) -> void:
 	HideAllScreens()
 	if get_child_count() > screen:
-		if get_child(screen) != null:
-			get_child(screen).visible = true
-			if get_child(screen).get_node("ui/interface"):
-				get_child(screen).get_node("ui/interface").visible = true
+		var scree: Screen = get_child(screen)
+		if scree != null:
+			scree.visible = true
+			scree.ShowElements()
 
 func GetScreenBasedOnContext(context) -> int:
 	var id: int = 0

@@ -36,7 +36,7 @@ func PersistDataLoaded() -> void:
 		Events.emit_signal("AircraftChanged", 0)
 
 func OnContextChanged(context) -> void:
-	pass
+	GameplayContext = context
 
 #####################
 # GENERAL METHODS   #

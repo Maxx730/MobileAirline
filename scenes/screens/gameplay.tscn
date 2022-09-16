@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://scripts/gameplay.gd" type="Script" id=1]
 [ext_resource path="res://scripts/screens.gd" type="Script" id=2]
@@ -14,6 +14,8 @@
 [ext_resource path="res://scripts/tilemaps/prototype_details.gd" type="Script" id=12]
 [ext_resource path="res://textures/icons/map-icon.png" type="Texture" id=13]
 [ext_resource path="res://textures/icons/shop-icon.png" type="Texture" id=14]
+[ext_resource path="res://scripts/map.gd" type="Script" id=15]
+[ext_resource path="res://scripts/camera.gd" type="Script" id=16]
 
 [sub_resource type="StyleBoxEmpty" id=18]
 
@@ -133,7 +135,7 @@ border_color = Color( 1, 1, 1, 1 )
 
 [node name="gameplay" type="Node"]
 script = ExtResource( 1 )
-AircraftDisplayPath = NodePath("screens/details/aircraft")
+AircraftDisplayPath = NodePath("screens/details/aircraft/fleet")
 
 [node name="screens" type="Node" parent="."]
 script = ExtResource( 2 )
@@ -141,6 +143,7 @@ script = ExtResource( 2 )
 [node name="details" type="Node2D" parent="screens"]
 visible = false
 script = ExtResource( 8 )
+HiddenElements = [ NodePath("ui/interface"), NodePath("backgrounds/backgrounds"), NodePath("aircraft/fleet") ]
 
 [node name="ui" type="CanvasLayer" parent="screens/details"]
 
@@ -198,19 +201,24 @@ margin_bottom = -126.0
 
 [node name="backgrounds" type="Node" parent="screens/details"]
 
-[node name="prototype" type="Node2D" parent="screens/details/backgrounds"]
+[node name="backgrounds" type="Node2D" parent="screens/details/backgrounds"]
+
+[node name="prototype" type="Node2D" parent="screens/details/backgrounds/backgrounds"]
 script = ExtResource( 12 )
 
-[node name="map" type="TileMap" parent="screens/details/backgrounds/prototype"]
+[node name="map" type="TileMap" parent="screens/details/backgrounds/backgrounds/prototype"]
 tile_set = SubResource( 21 )
 cell_size = Vector2( 16, 16 )
 format = 1
 
 [node name="aircraft" type="Node" parent="screens/details"]
 
+[node name="fleet" type="Node2D" parent="screens/details/aircraft"]
+
 [node name="shop" type="Node2D" parent="screens"]
 visible = false
 script = ExtResource( 3 )
+HiddenElements = [ NodePath("ui/interface") ]
 
 [node name="ui" type="CanvasLayer" parent="screens/shop"]
 
@@ -237,7 +245,8 @@ text = "shop"
 
 [node name="map" type="Node2D" parent="screens"]
 visible = false
-script = ExtResource( 3 )
+script = ExtResource( 15 )
+HiddenElements = [ NodePath("ui/interface"), NodePath("world") ]
 
 [node name="ui" type="CanvasLayer" parent="screens/map"]
 
@@ -246,21 +255,32 @@ visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
-[node name="title" type="Label" parent="screens/map/ui/interface"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = 198.5
-margin_top = 293.0
-margin_right = 241.5
-margin_bottom = 307.0
-text = "map"
+[node name="world" type="Node2D" parent="screens/map"]
 
 [node name="controls" type="Node" parent="."]
 script = ExtResource( 7 )
 
 [node name="ui" type="CanvasLayer" parent="controls"]
+
+[node name="back" type="Panel" parent="controls/ui"]
+visible = false
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 24.0
+margin_top = -88.0
+margin_right = 88.0
+margin_bottom = -24.0
+script = ExtResource( 9 )
+
+[node name="icon" type="TextureRect" parent="controls/ui/back"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
 
 [node name="top" type="HBoxContainer" parent="controls/ui"]
 anchor_right = 1.0
@@ -426,3 +446,5 @@ expand = true
 
 [node name="camera" type="Camera2D" parent="shared"]
 current = true
+script = ExtResource( 16 )
+DragSpeed = 10.0
