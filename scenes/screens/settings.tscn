@@ -1,0 +1,321 @@
+[gd_scene load_steps=32 format=2]
+
+[ext_resource path="res://scripts/ui/panel_button.gd" type="Script" id=1]
+[ext_resource path="res://styles/panel.tres" type="StyleBox" id=2]
+[ext_resource path="res://shaders/blur.tres" type="Shader" id=5]
+[ext_resource path="res://scripts/settings.gd" type="Script" id=6]
+[ext_resource path="res://textures/icons/back.png" type="Texture" id=7]
+[ext_resource path="res://fonts/OpenSans-Bold.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://fonts/OpenSans-Regular.ttf" type="DynamicFontData" id=10]
+[ext_resource path="res://textures/icons/unchecked.png" type="Texture" id=11]
+[ext_resource path="res://textures/icons/checked.png" type="Texture" id=12]
+
+[sub_resource type="ShaderMaterial" id=10]
+shader = ExtResource( 5 )
+shader_param/blur_amount = 2.0
+shader_param/mix_amount = 0.2
+shader_param/color_over = null
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 12
+
+[sub_resource type="ShaderMaterial" id=8]
+shader = ExtResource( 5 )
+shader_param/blur_amount = 2.0
+shader_param/mix_amount = 0.2
+shader_param/color_over = null
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0, 0, 0, 1 )
+corner_radius_top_right = 12
+
+[sub_resource type="DynamicFont" id=2]
+size = 32
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=9]
+size = 14
+font_data = ExtResource( 10 )
+
+[sub_resource type="ShaderMaterial" id=11]
+shader = ExtResource( 5 )
+shader_param/blur_amount = 2.0
+shader_param/mix_amount = 0.2
+shader_param/color_over = null
+
+[sub_resource type="StyleBoxEmpty" id=12]
+
+[sub_resource type="StyleBoxEmpty" id=25]
+
+[sub_resource type="StyleBoxEmpty" id=13]
+
+[sub_resource type="DynamicFont" id=14]
+size = 24
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=15]
+size = 14
+font_data = ExtResource( 10 )
+
+[sub_resource type="ShaderMaterial" id=24]
+shader = ExtResource( 5 )
+shader_param/blur_amount = 2.0
+shader_param/mix_amount = 0.2
+shader_param/color_over = null
+
+[sub_resource type="ShaderMaterial" id=17]
+shader = ExtResource( 5 )
+shader_param/blur_amount = 2.0
+shader_param/mix_amount = 0.2
+shader_param/color_over = null
+
+[sub_resource type="ShaderMaterial" id=16]
+shader = ExtResource( 5 )
+shader_param/blur_amount = 2.0
+shader_param/mix_amount = 0.2
+shader_param/color_over = null
+
+[sub_resource type="StyleBoxEmpty" id=28]
+
+[sub_resource type="DynamicFont" id=18]
+size = 24
+font_data = ExtResource( 9 )
+
+[sub_resource type="StyleBoxFlat" id=19]
+bg_color = Color( 0, 0, 0, 0.784314 )
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id=20]
+bg_color = Color( 0, 0, 0, 1 )
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxEmpty" id=21]
+
+[sub_resource type="StyleBoxFlat" id=27]
+bg_color = Color( 1, 1, 1, 0.0470588 )
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id=29]
+bg_color = Color( 0, 0, 0, 0.411765 )
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[node name="settings" type="Control"]
+script = ExtResource( 6 )
+
+[node name="ui" type="CanvasLayer" parent="."]
+
+[node name="frame" type="VBoxContainer" parent="ui"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -215.0
+margin_top = -177.0
+margin_right = 215.0
+margin_bottom = 177.0
+
+[node name="title" type="Panel" parent="ui/frame"]
+margin_right = 430.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 80 )
+size_flags_horizontal = 3
+custom_styles/panel = ExtResource( 2 )
+
+[node name="hor" type="HBoxContainer" parent="ui/frame/title"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="back" type="Panel" parent="ui/frame/title/hor"]
+material = SubResource( 10 )
+margin_right = 85.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 36, 0 )
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.25
+custom_styles/panel = SubResource( 7 )
+
+[node name="back" type="TextureButton" parent="ui/frame/title/hor/back"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 7 )
+expand = true
+stretch_mode = 3
+
+[node name="top" type="Panel" parent="ui/frame/title/hor"]
+material = SubResource( 8 )
+margin_left = 89.0
+margin_right = 430.0
+margin_bottom = 80.0
+size_flags_horizontal = 3
+custom_styles/panel = SubResource( 6 )
+
+[node name="title" type="Label" parent="ui/frame/title/hor/top"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -377.0
+margin_top = 2.0
+margin_right = -17.0
+margin_bottom = 59.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 2 )
+text = "  SETTINGS"
+align = 2
+valign = 1
+
+[node name="subtitle" type="Label" parent="ui/frame/title/hor/top"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -377.0
+margin_top = 46.0
+margin_right = -17.0
+margin_bottom = 66.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 9 )
+text = "Adjust gameplay and manage data."
+align = 2
+valign = 1
+
+[node name="list" type="VBoxContainer" parent="ui/frame"]
+margin_top = 84.0
+margin_right = 430.0
+margin_bottom = 352.0
+rect_pivot_offset = Vector2( -680, 116 )
+
+[node name="daylight" type="Panel" parent="ui/frame/list"]
+material = SubResource( 11 )
+margin_right = 430.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 100 )
+
+[node name="content" type="HBoxContainer" parent="ui/frame/list/daylight"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="check" type="Panel" parent="ui/frame/list/daylight/content"]
+margin_right = 64.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 64, 0 )
+custom_styles/panel = SubResource( 12 )
+
+[node name="value" type="CheckBox" parent="ui/frame/list/daylight/content/check"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -12.0
+margin_top = -40.0
+margin_right = 12.0
+margin_bottom = 40.0
+custom_icons/checked = ExtResource( 12 )
+custom_icons/unchecked = ExtResource( 11 )
+custom_styles/focus = SubResource( 25 )
+pressed = true
+
+[node name="description" type="Panel" parent="ui/frame/list/daylight/content"]
+margin_left = 68.0
+margin_right = 430.0
+margin_bottom = 100.0
+size_flags_horizontal = 3
+custom_styles/panel = SubResource( 13 )
+
+[node name="title" type="Label" parent="ui/frame/list/daylight/content/description"]
+margin_left = -2.0
+margin_top = 10.0
+margin_right = 344.0
+margin_bottom = 44.0
+custom_fonts/font = SubResource( 14 )
+text = "Dynamic Time of Day"
+align = 2
+valign = 1
+
+[node name="subtitle" type="Label" parent="ui/frame/list/daylight/content/description"]
+margin_left = 41.0
+margin_top = 45.0
+margin_right = 342.0
+margin_bottom = 88.0
+custom_fonts/font = SubResource( 15 )
+text = "Colors change throughout the day based on device clock."
+align = 2
+valign = 1
+autowrap = true
+
+[node name="time_settings" type="Panel" parent="ui/frame/list"]
+visible = false
+material = SubResource( 24 )
+margin_top = 104.0
+margin_right = 430.0
+margin_bottom = 304.0
+rect_min_size = Vector2( 0, 200 )
+
+[node name="clear_data" type="Panel" parent="ui/frame/list"]
+material = SubResource( 17 )
+margin_top = 104.0
+margin_right = 430.0
+margin_bottom = 184.0
+rect_min_size = Vector2( 0, 80 )
+mouse_default_cursor_shape = 8
+script = ExtResource( 1 )
+Disabled = true
+
+[node name="description" type="Panel" parent="ui/frame/list/clear_data"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -39.0
+margin_right = 362.0
+margin_bottom = 41.0
+mouse_filter = 2
+size_flags_horizontal = 3
+custom_styles/panel = SubResource( 13 )
+
+[node name="title" type="Label" parent="ui/frame/list/clear_data/description"]
+margin_left = 24.0
+margin_top = 10.0
+margin_right = 344.0
+margin_bottom = 44.0
+custom_fonts/font = SubResource( 14 )
+text = "Clear Save Data"
+valign = 1
+
+[node name="subtitle" type="Label" parent="ui/frame/list/clear_data/description"]
+margin_left = 25.0
+margin_top = 42.0
+margin_right = 368.0
+margin_bottom = 62.0
+custom_fonts/font = SubResource( 15 )
+text = "Erase locally saved data, this cannot be undone."
+valign = 1
+autowrap = true
+
+[node name="actions" type="Panel" parent="ui/frame/list"]
+material = SubResource( 16 )
+margin_top = 188.0
+margin_right = 430.0
+margin_bottom = 268.0
+rect_min_size = Vector2( 0, 80 )
+custom_styles/panel = SubResource( 28 )
+
+[node name="buttons" type="HBoxContainer" parent="ui/frame/list/actions"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = 17.0
+
+[node name="apply" type="Button" parent="ui/frame/list/actions/buttons"]
+margin_right = 430.0
+margin_bottom = 97.0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 18 )
+custom_styles/hover = SubResource( 19 )
+custom_styles/pressed = SubResource( 20 )
+custom_styles/focus = SubResource( 21 )
+custom_styles/disabled = SubResource( 27 )
+custom_styles/normal = SubResource( 29 )
+disabled = true
+text = "SAVE"

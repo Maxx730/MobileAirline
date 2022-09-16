@@ -1,0 +1,276 @@
+[gd_scene load_steps=29 format=2]
+
+[ext_resource path="res://shaders/overworld.tres" type="Shader" id=1]
+[ext_resource path="res://scripts/generation/worldgen.gd" type="Script" id=2]
+[ext_resource path="res://shaders/blur.tres" type="Shader" id=3]
+[ext_resource path="res://fonts/OpenSans-Bold.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://fonts/OpenSans-Regular.ttf" type="DynamicFontData" id=5]
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 1 )
+shader_param/DeepestOceanColor = Color( 0.12549, 0.141176, 0.4, 1 )
+shader_param/DeepOceanColor = Color( 0.192157, 0.219608, 0.615686, 1 )
+shader_param/MediumOceanColor = Color( 0, 0.388235, 0.701961, 1 )
+shader_param/ShallowOceanColor = Color( 0.0196078, 0.839216, 1, 1 )
+shader_param/FrothOceanColor = Color( 0.662745, 0.952941, 1, 1 )
+shader_param/BeachFrothColor = Color( 1, 1, 1, 1 )
+shader_param/SandGroundColor = Color( 1, 1, 0.717647, 1 )
+shader_param/WetSandGroundColor = Color( 0.71, 0.71, 0.5112, 1 )
+shader_param/DirtGroundColor = Color( 0.345098, 0.290196, 0.184314, 1 )
+shader_param/LightGrassGroundColor = Color( 0.45016, 0.68, 0.1496, 1 )
+shader_param/GrassGroundColor = Color( 0.34424, 0.52, 0.1144, 1 )
+shader_param/ForestGroundColor = Color( 0.1655, 0.25, 0.055, 1 )
+shader_param/RockGroundColor = Color( 0.254902, 0.254902, 0.254902, 1 )
+shader_param/MountainGroundColor = Color( 1, 1, 1, 1 )
+
+[sub_resource type="OpenSimplexNoise" id=1]
+seed = 4
+period = 113.4
+persistence = 0.262
+lacunarity = 3.05
+
+[sub_resource type="NoiseTexture" id=2]
+width = 1024
+height = 1024
+noise = SubResource( 1 )
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = ExtResource( 3 )
+shader_param/blur_amount = 3.0
+shader_param/mix_amount = 0.3
+shader_param/color_over = null
+
+[sub_resource type="StyleBoxFlat" id=5]
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="DynamicFont" id=8]
+size = 24
+font_data = ExtResource( 4 )
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0, 0, 0, 0.403922 )
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0, 0, 0, 0.266667 )
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+
+[sub_resource type="StyleBoxEmpty" id=7]
+
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 0, 0, 0, 0.403922 )
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id=11]
+bg_color = Color( 0, 0, 0, 0.768627 )
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id=12]
+bg_color = Color( 0, 0, 0, 0.266667 )
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="ShaderMaterial" id=13]
+shader = ExtResource( 3 )
+shader_param/blur_amount = 2.0
+shader_param/mix_amount = 0.4
+shader_param/color_over = null
+
+[sub_resource type="StyleBoxFlat" id=14]
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id=15]
+bg_color = Color( 0, 0, 0, 0.521569 )
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+
+[sub_resource type="DynamicFont" id=16]
+extra_spacing_top = -2
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=17]
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=18]
+size = 14
+font_data = ExtResource( 4 )
+
+[sub_resource type="ShaderMaterial" id=22]
+shader = ExtResource( 3 )
+shader_param/blur_amount = 2.0
+shader_param/mix_amount = 0.5
+shader_param/color_over = null
+
+[sub_resource type="StyleBoxFlat" id=23]
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 21
+
+[sub_resource type="StyleBoxFlat" id=19]
+bg_color = Color( 0, 0, 0, 0.796078 )
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id=21]
+bg_color = Color( 0, 0, 0, 0.976471 )
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id=20]
+bg_color = Color( 0, 0, 0, 0.423529 )
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[node name="worldgen" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="camera" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 0.5, 0.5 )
+
+[node name="frame" type="Node" parent="."]
+
+[node name="map" type="Sprite" parent="frame"]
+material = SubResource( 3 )
+texture = SubResource( 2 )
+
+[node name="interface" type="CanvasLayer" parent="frame"]
+
+[node name="zoom" type="Panel" parent="frame/interface"]
+material = SubResource( 4 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -74.0
+margin_top = -153.0
+margin_right = -26.0
+margin_bottom = -25.0
+rect_min_size = Vector2( 48, 128 )
+custom_styles/panel = SubResource( 5 )
+
+[node name="actions" type="VBoxContainer" parent="frame/interface/zoom"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="in" type="Button" parent="frame/interface/zoom/actions"]
+margin_right = 48.0
+margin_bottom = 62.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 8 )
+custom_styles/hover = SubResource( 9 )
+custom_styles/pressed = SubResource( 6 )
+custom_styles/focus = SubResource( 7 )
+custom_styles/disabled = SubResource( 6 )
+custom_styles/normal = SubResource( 6 )
+text = "+"
+
+[node name="out" type="Button" parent="frame/interface/zoom/actions"]
+margin_top = 66.0
+margin_right = 48.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 8 )
+custom_styles/hover = SubResource( 10 )
+custom_styles/pressed = SubResource( 11 )
+custom_styles/focus = SubResource( 7 )
+custom_styles/disabled = SubResource( 6 )
+custom_styles/normal = SubResource( 12 )
+text = "-"
+
+[node name="debug" type="Panel" parent="frame/interface"]
+material = SubResource( 13 )
+margin_left = 33.0
+margin_top = 69.0
+margin_right = 293.0
+margin_bottom = 229.0
+custom_styles/panel = SubResource( 14 )
+
+[node name="title" type="Panel" parent="frame/interface/debug"]
+anchor_right = 1.0
+margin_bottom = 43.0
+custom_styles/panel = SubResource( 15 )
+
+[node name="label" type="Label" parent="frame/interface/debug/title"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+custom_fonts/font = SubResource( 16 )
+text = "Debug Information"
+valign = 1
+
+[node name="list" type="VBoxContainer" parent="frame/interface/debug"]
+margin_left = 19.0
+margin_top = 53.0
+margin_right = 248.0
+margin_bottom = 148.0
+
+[node name="seed" type="Label" parent="frame/interface/debug/list"]
+margin_right = 229.0
+margin_bottom = 23.0
+custom_fonts/font = SubResource( 17 )
+text = "SEED: 000000"
+
+[node name="zoom" type="Label" parent="frame/interface/debug/list"]
+margin_top = 27.0
+margin_right = 229.0
+margin_bottom = 50.0
+custom_fonts/font = SubResource( 17 )
+text = "ZOOM: 2X"
+
+[node name="randomize" type="Button" parent="frame/interface/debug"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -47.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 18 )
+custom_styles/hover = SubResource( 10 )
+custom_styles/pressed = SubResource( 11 )
+custom_styles/focus = SubResource( 7 )
+custom_styles/disabled = SubResource( 6 )
+custom_styles/normal = SubResource( 12 )
+text = "Randomize"
+
+[node name="exit" type="Panel" parent="frame/interface/debug"]
+material = SubResource( 22 )
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 13.0
+margin_bottom = 13.0
+rect_min_size = Vector2( 0, 64 )
+custom_styles/panel = SubResource( 23 )
+
+[node name="exit" type="Button" parent="frame/interface/debug/exit"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 18 )
+custom_styles/hover = SubResource( 19 )
+custom_styles/pressed = SubResource( 21 )
+custom_styles/focus = SubResource( 7 )
+custom_styles/disabled = SubResource( 6 )
+custom_styles/normal = SubResource( 20 )
+text = "Exit"

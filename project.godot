@@ -1,0 +1,290 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Node2D",
+"class": "Aircraft",
+"language": "GDScript",
+"path": "res://scripts/aircraft.gd"
+}, {
+"base": "TileMap",
+"class": "Clouds",
+"language": "GDScript",
+"path": "res://scripts/clouds.gd"
+}, {
+"base": "Panel",
+"class": "ColorChoice",
+"language": "GDScript",
+"path": "res://scripts/ui/color_picker_choice.gd"
+}, {
+"base": "Node",
+"class": "Controls",
+"language": "GDScript",
+"path": "res://scripts/controls.gd"
+}, {
+"base": "CanvasModulate",
+"class": "Daylight",
+"language": "GDScript",
+"path": "res://scripts/daylight.gd"
+}, {
+"base": "Screen",
+"class": "Details",
+"language": "GDScript",
+"path": "res://scripts/details.gd"
+}, {
+"base": "Node",
+"class": "Dialog",
+"language": "GDScript",
+"path": "res://scripts/dialog.gd"
+}, {
+"base": "Screen",
+"class": "Fleet",
+"language": "GDScript",
+"path": "res://scripts/fleet.gd"
+}, {
+"base": "Node",
+"class": "Gameplay",
+"language": "GDScript",
+"path": "res://scripts/gameplay.gd"
+}, {
+"base": "Control",
+"class": "Loading",
+"language": "GDScript",
+"path": "res://scripts/loading.gd"
+}, {
+"base": "Node2D",
+"class": "Location",
+"language": "GDScript",
+"path": "res://scripts/location.gd"
+}, {
+"base": "Node2D",
+"class": "LocationDetails",
+"language": "GDScript",
+"path": "res://scripts/screens/location_details.gd"
+}, {
+"base": "TileMap",
+"class": "Map",
+"language": "GDScript",
+"path": "res://scripts/map.gd"
+}, {
+"base": "Node",
+"class": "MapImageGenerator",
+"language": "GDScript",
+"path": "res://scripts/map_image_generator.gd"
+}, {
+"base": "Node",
+"class": "Menu",
+"language": "GDScript",
+"path": "res://scripts/menu.gd"
+}, {
+"base": "Node",
+"class": "Nav",
+"language": "GDScript",
+"path": "res://scripts/navigation.gd"
+}, {
+"base": "Screen",
+"class": "Overworld",
+"language": "GDScript",
+"path": "res://scripts/overworld.gd"
+}, {
+"base": "Panel",
+"class": "PanelButton",
+"language": "GDScript",
+"path": "res://scripts/ui/panel_button.gd"
+}, {
+"base": "Node2D",
+"class": "Passenger",
+"language": "GDScript",
+"path": "res://scripts/passenger.gd"
+}, {
+"base": "Node2D",
+"class": "PrototypeDetails",
+"language": "GDScript",
+"path": "res://scripts/tilemaps/prototype_details.gd"
+}, {
+"base": "Node",
+"class": "Record",
+"language": "GDScript",
+"path": "res://scripts/record.gd"
+}, {
+"base": "Screen",
+"class": "Resume",
+"language": "GDScript",
+"path": "res://scripts/resume.gd"
+}, {
+"base": "Node2D",
+"class": "RunwayLight",
+"language": "GDScript",
+"path": "res://scripts/runway_light.gd"
+}, {
+"base": "Node2D",
+"class": "Screen",
+"language": "GDScript",
+"path": "res://scripts/screen.gd"
+}, {
+"base": "Node",
+"class": "Screens",
+"language": "GDScript",
+"path": "res://scripts/screens.gd"
+}, {
+"base": "AnimatedSprite",
+"class": "SeaGull",
+"language": "GDScript",
+"path": "res://scripts/seagull.gd"
+}, {
+"base": "Node2D",
+"class": "Seagulls",
+"language": "GDScript",
+"path": "res://scripts/seagulls.gd"
+}, {
+"base": "Node",
+"class": "SettingsUI",
+"language": "GDScript",
+"path": "res://scripts/settings.gd"
+}, {
+"base": "Screen",
+"class": "Shop",
+"language": "GDScript",
+"path": "res://scripts/shop.gd"
+}, {
+"base": "Node",
+"class": "ShopItem",
+"language": "GDScript",
+"path": "res://scripts/shop_item.gd"
+}, {
+"base": "Panel",
+"class": "SimpleColorPicker",
+"language": "GDScript",
+"path": "res://scripts/ui/simple_color_picker.gd"
+}, {
+"base": "PopupDialog",
+"class": "SimpleDialog",
+"language": "GDScript",
+"path": "res://scripts/simple_dialog.gd"
+}, {
+"base": "Panel",
+"class": "SimpleLogoPicker",
+"language": "GDScript",
+"path": "res://scripts/ui/simple_logo_picker.gd"
+}, {
+"base": "Control",
+"class": "SimpleSwitcher",
+"language": "GDScript",
+"path": "res://scripts/ui/simple_switcher.gd"
+}, {
+"base": "Camera2D",
+"class": "TargetCamera",
+"language": "GDScript",
+"path": "res://scripts/target_camera.gd"
+}, {
+"base": "Node",
+"class": "ThunderStorm",
+"language": "GDScript",
+"path": "res://scripts/thunderstorm.gd"
+}, {
+"base": "Control",
+"class": "Wave",
+"language": "GDScript",
+"path": "res://scripts/wave.gd"
+}, {
+"base": "Control",
+"class": "WaveGenerator",
+"language": "GDScript",
+"path": "res://scripts/generation/wavegen.gd"
+}, {
+"base": "Node",
+"class": "Weather",
+"language": "GDScript",
+"path": "res://scripts/weather.gd"
+}, {
+"base": "Node2D",
+"class": "WorldGen",
+"language": "GDScript",
+"path": "res://scripts/generation/worldgen.gd"
+} ]
+_global_script_class_icons={
+"Aircraft": "",
+"Clouds": "",
+"ColorChoice": "",
+"Controls": "",
+"Daylight": "",
+"Details": "",
+"Dialog": "",
+"Fleet": "",
+"Gameplay": "",
+"Loading": "",
+"Location": "",
+"LocationDetails": "",
+"Map": "",
+"MapImageGenerator": "",
+"Menu": "",
+"Nav": "",
+"Overworld": "",
+"PanelButton": "",
+"Passenger": "",
+"PrototypeDetails": "",
+"Record": "",
+"Resume": "",
+"RunwayLight": "",
+"Screen": "",
+"Screens": "",
+"SeaGull": "",
+"Seagulls": "",
+"SettingsUI": "",
+"Shop": "",
+"ShopItem": "",
+"SimpleColorPicker": "",
+"SimpleDialog": "",
+"SimpleLogoPicker": "",
+"SimpleSwitcher": "",
+"TargetCamera": "",
+"ThunderStorm": "",
+"Wave": "",
+"WaveGenerator": "",
+"Weather": "",
+"WorldGen": ""
+}
+
+[application]
+
+config/name="MobileAirline"
+run/main_scene="res://scenes/screens/menu.tscn"
+config/icon="res://icon.png"
+
+[autoload]
+
+Enums="*res://scripts/global/enums.gd"
+Events="*res://scripts/global/events.gd"
+Data="*res://scripts/data.gd"
+Settings="*res://scripts/global/settings.gd"
+Persist="*res://scripts/persist.gd"
+Transition="*res://scripts/global/transition.gd"
+GlobalDialog="*res://scripts/global/dialog.gd"
+
+[display]
+
+window/size/width=480
+window/size/height=640
+window/size/test_height=800
+window/handheld/orientation="portrait"
+window/stretch/mode="2d"
+window/stretch/aspect="keep_width"
+
+[gui]
+
+common/drop_mouse_on_gui_input_disabled=true
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"

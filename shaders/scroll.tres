@@ -1,0 +1,19 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type canvas_item;
+
+
+uniform float speed;
+uniform int pixelate = 160;
+
+vec2 pixelize(vec2 uv) {
+	return round(uv * float(pixelate)) / float(pixelate);
+}
+
+void fragment () {
+	vec2 grid_uv = pixelize(UV);
+	grid_uv.y += TIME * speed;
+	vec4 text = texture(TEXTURE, grid_uv);
+	COLOR = text;
+}"

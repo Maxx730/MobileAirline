@@ -1,0 +1,428 @@
+[gd_scene load_steps=38 format=2]
+
+[ext_resource path="res://scripts/gameplay.gd" type="Script" id=1]
+[ext_resource path="res://scripts/screens.gd" type="Script" id=2]
+[ext_resource path="res://scripts/screen.gd" type="Script" id=3]
+[ext_resource path="res://fonts/ThaleahFat.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://fonts/OpenSans-Regular.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://fonts/OpenSans-Bold.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://scripts/controls.gd" type="Script" id=7]
+[ext_resource path="res://scripts/details.gd" type="Script" id=8]
+[ext_resource path="res://scripts/ui/panel_button.gd" type="Script" id=9]
+[ext_resource path="res://textures/icons/cog.png" type="Texture" id=10]
+[ext_resource path="res://textures/repeat-prototype-dark.png" type="Texture" id=11]
+[ext_resource path="res://scripts/tilemaps/prototype_details.gd" type="Script" id=12]
+[ext_resource path="res://textures/icons/map-icon.png" type="Texture" id=13]
+[ext_resource path="res://textures/icons/shop-icon.png" type="Texture" id=14]
+
+[sub_resource type="StyleBoxEmpty" id=18]
+
+[sub_resource type="DynamicFont" id=16]
+size = 32
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=17]
+font_data = ExtResource( 5 )
+
+[sub_resource type="TileSet" id=21]
+0/name = "repeat-prototype-dark.png 0"
+0/texture = ExtResource( 11 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 16, 16 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+
+[sub_resource type="StyleBoxEmpty" id=19]
+
+[sub_resource type="StyleBoxEmpty" id=20]
+
+[sub_resource type="StyleBoxEmpty" id=23]
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+font_data = ExtResource( 4 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.160784, 0.160784, 0.160784, 1 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 1
+border_width_bottom = 4
+border_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0, 0, 0, 1 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 1
+border_width_bottom = 4
+border_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxEmpty" id=6]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.0196078, 0.0196078, 0.0196078, 1 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 1
+border_width_bottom = 4
+border_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=12]
+bg_color = Color( 0.0196078, 0.0196078, 0.0196078, 1 )
+border_width_top = 4
+border_width_bottom = 4
+border_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=13]
+bg_color = Color( 0.09, 0.09, 0, 1 )
+border_width_top = 4
+border_width_bottom = 4
+border_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxEmpty" id=14]
+
+[sub_resource type="StyleBoxFlat" id=15]
+bg_color = Color( 0.0196078, 0.0196078, 0.0196078, 1 )
+border_width_top = 4
+border_width_bottom = 4
+border_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="DynamicFont" id=10]
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=11]
+size = 12
+font_data = ExtResource( 5 )
+
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0.160784, 0.160784, 0.160784, 1 )
+border_width_left = 1
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0, 0, 0, 1 )
+border_width_left = 1
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.0196078, 0.0196078, 0.0196078, 1 )
+border_width_left = 1
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxEmpty" id=22]
+
+[node name="gameplay" type="Node"]
+script = ExtResource( 1 )
+AircraftDisplayPath = NodePath("screens/details/aircraft")
+
+[node name="screens" type="Node" parent="."]
+script = ExtResource( 2 )
+
+[node name="details" type="Node2D" parent="screens"]
+visible = false
+script = ExtResource( 8 )
+
+[node name="ui" type="CanvasLayer" parent="screens/details"]
+
+[node name="interface" type="Control" parent="screens/details/ui"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="title" type="Panel" parent="screens/details/ui/interface"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -180.0
+margin_top = 64.0
+margin_right = 180.0
+margin_bottom = 192.0
+custom_styles/panel = SubResource( 18 )
+
+[node name="list" type="VBoxContainer" parent="screens/details/ui/interface/title"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -48.0
+custom_constants/separation = -4
+
+[node name="name" type="Label" parent="screens/details/ui/interface/title/list"]
+margin_right = 360.0
+margin_bottom = 45.0
+custom_fonts/font = SubResource( 16 )
+text = "Aircraft Title"
+uppercase = true
+
+[node name="location" type="Label" parent="screens/details/ui/interface/title/list"]
+margin_top = 41.0
+margin_right = 360.0
+margin_bottom = 64.0
+custom_fonts/font = SubResource( 17 )
+text = "Landed at [Location]"
+uppercase = true
+
+[node name="callsign" type="Label" parent="screens/details/ui/interface/title/list"]
+margin_top = 60.0
+margin_right = 360.0
+margin_bottom = 83.0
+custom_fonts/font = SubResource( 17 )
+text = "CALLSIGN"
+uppercase = true
+
+[node name="info" type="Panel" parent="screens/details/ui/interface"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -180.0
+margin_top = -256.0
+margin_right = 180.0
+margin_bottom = -126.0
+
+[node name="backgrounds" type="Node" parent="screens/details"]
+
+[node name="prototype" type="Node2D" parent="screens/details/backgrounds"]
+script = ExtResource( 12 )
+
+[node name="map" type="TileMap" parent="screens/details/backgrounds/prototype"]
+tile_set = SubResource( 21 )
+cell_size = Vector2( 16, 16 )
+format = 1
+
+[node name="aircraft" type="Node" parent="screens/details"]
+
+[node name="shop" type="Node2D" parent="screens"]
+visible = false
+script = ExtResource( 3 )
+
+[node name="ui" type="CanvasLayer" parent="screens/shop"]
+
+[node name="interface" type="Control" parent="screens/shop/ui"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="test" type="Button" parent="screens/shop/ui/interface"]
+margin_right = 40.0
+margin_bottom = 20.0
+text = "TEST"
+
+[node name="title" type="Label" parent="screens/shop/ui/interface"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 198.5
+margin_top = 293.0
+margin_right = 241.5
+margin_bottom = 307.0
+text = "shop"
+
+[node name="map" type="Node2D" parent="screens"]
+visible = false
+script = ExtResource( 3 )
+
+[node name="ui" type="CanvasLayer" parent="screens/map"]
+
+[node name="interface" type="Control" parent="screens/map/ui"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="title" type="Label" parent="screens/map/ui/interface"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 198.5
+margin_top = 293.0
+margin_right = 241.5
+margin_bottom = 307.0
+text = "map"
+
+[node name="controls" type="Node" parent="."]
+script = ExtResource( 7 )
+
+[node name="ui" type="CanvasLayer" parent="controls"]
+
+[node name="top" type="HBoxContainer" parent="controls/ui"]
+anchor_right = 1.0
+margin_left = 48.0
+margin_top = 64.0
+margin_right = -32.0
+margin_bottom = 128.0
+
+[node name="spacer" type="Panel" parent="controls/ui/top"]
+margin_right = 316.0
+margin_bottom = 64.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0
+custom_styles/panel = SubResource( 19 )
+
+[node name="settings" type="Panel" parent="controls/ui/top"]
+margin_left = 320.0
+margin_right = 400.0
+margin_bottom = 64.0
+size_flags_horizontal = 3
+custom_styles/panel = SubResource( 20 )
+script = ExtResource( 9 )
+
+[node name="icon" type="TextureRect" parent="controls/ui/top/settings"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -24.0
+margin_top = -24.0
+margin_right = 24.0
+margin_bottom = 24.0
+texture = ExtResource( 10 )
+expand = true
+
+[node name="bottom" type="HBoxContainer" parent="controls/ui"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 60.0
+margin_top = -102.0
+margin_right = -60.0
+margin_bottom = -38.0
+custom_constants/separation = 6
+
+[node name="shop" type="Panel" parent="controls/ui/bottom"]
+margin_right = 58.0
+margin_bottom = 64.0
+size_flags_horizontal = 3
+custom_styles/panel = SubResource( 23 )
+script = ExtResource( 9 )
+
+[node name="icon" type="TextureRect" parent="controls/ui/bottom/shop"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
+texture = ExtResource( 14 )
+expand = true
+
+[node name="switcher" type="Panel" parent="controls/ui/bottom"]
+margin_left = 64.0
+margin_right = 296.0
+margin_bottom = 64.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0
+custom_styles/panel = SubResource( 3 )
+
+[node name="buttons" type="HBoxContainer" parent="controls/ui/bottom/switcher"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 0
+
+[node name="prev" type="Button" parent="controls/ui/bottom/switcher/buttons"]
+margin_right = 58.0
+margin_bottom = 64.0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 1 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/normal = SubResource( 2 )
+text = "<"
+
+[node name="info" type="Button" parent="controls/ui/bottom/switcher/buttons"]
+margin_left = 58.0
+margin_right = 174.0
+margin_bottom = 64.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+custom_styles/hover = SubResource( 12 )
+custom_styles/pressed = SubResource( 13 )
+custom_styles/focus = SubResource( 14 )
+custom_styles/normal = SubResource( 15 )
+
+[node name="list" type="VBoxContainer" parent="controls/ui/bottom/switcher/buttons/info"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -82.5
+margin_top = -20.5
+margin_right = 82.5
+margin_bottom = 20.5
+custom_constants/separation = 0
+
+[node name="name" type="Label" parent="controls/ui/bottom/switcher/buttons/info/list"]
+margin_right = 165.0
+margin_bottom = 23.0
+custom_fonts/font = SubResource( 10 )
+text = "Aircraft Name"
+align = 1
+
+[node name="location" type="Label" parent="controls/ui/bottom/switcher/buttons/info/list"]
+margin_top = 23.0
+margin_right = 165.0
+margin_bottom = 40.0
+custom_fonts/font = SubResource( 11 )
+text = "Location Name"
+align = 1
+uppercase = true
+
+[node name="next" type="Button" parent="controls/ui/bottom/switcher/buttons"]
+margin_left = 174.0
+margin_right = 232.0
+margin_bottom = 64.0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 1 )
+custom_styles/hover = SubResource( 8 )
+custom_styles/pressed = SubResource( 9 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/normal = SubResource( 7 )
+text = ">"
+
+[node name="map" type="Panel" parent="controls/ui/bottom"]
+margin_left = 302.0
+margin_right = 360.0
+margin_bottom = 64.0
+size_flags_horizontal = 3
+custom_styles/panel = SubResource( 22 )
+script = ExtResource( 9 )
+
+[node name="icon" type="TextureRect" parent="controls/ui/bottom/map"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
+texture = ExtResource( 13 )
+expand = true
+
+[node name="shared" type="Node" parent="."]
+
+[node name="camera" type="Camera2D" parent="shared"]
+current = true

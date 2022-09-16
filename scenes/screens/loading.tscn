@@ -1,0 +1,232 @@
+[gd_scene load_steps=25 format=2]
+
+[ext_resource path="res://scripts/loading.gd" type="Script" id=1]
+[ext_resource path="res://shaders/blur.tres" type="Shader" id=2]
+[ext_resource path="res://fonts/OpenSans-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://textures/pin-sprite.png" type="Texture" id=4]
+[ext_resource path="res://fonts/OpenSans-Bold.ttf" type="DynamicFontData" id=5]
+
+[sub_resource type="DynamicFont" id=9]
+font_data = ExtResource( 3 )
+
+[sub_resource type="ShaderMaterial" id=5]
+shader = ExtResource( 2 )
+shader_param/blur_amount = 2.0
+shader_param/mix_amount = 0.75
+shader_param/color_over = null
+
+[sub_resource type="StyleBoxFlat" id=6]
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 1, 1, 1, 1 )
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.247059, 0.247059, 0.247059, 0.54902 )
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="DynamicFont" id=7]
+font_data = ExtResource( 5 )
+
+[sub_resource type="ShaderMaterial" id=19]
+shader = ExtResource( 2 )
+shader_param/blur_amount = 2.0
+shader_param/mix_amount = 0.75
+shader_param/color_over = null
+
+[sub_resource type="StyleBoxFlat" id=20]
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="DynamicFont" id=17]
+size = 32
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=18]
+font_data = ExtResource( 3 )
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 2 )
+shader_param/blur_amount = 2.0
+shader_param/mix_amount = 0.5
+shader_param/color_over = null
+
+[sub_resource type="StyleBoxFlat" id=4]
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxEmpty" id=8]
+
+[sub_resource type="DynamicFont" id=11]
+font_data = ExtResource( 3 )
+
+[sub_resource type="StyleBoxFlat" id=12]
+bg_color = Color( 0, 0, 0, 0.839216 )
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id=13]
+bg_color = Color( 0, 0, 0, 0.929412 )
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxEmpty" id=14]
+
+[sub_resource type="StyleBoxEmpty" id=15]
+
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 0, 0, 0, 0.654902 )
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[node name="frame" type="Node"]
+
+[node name="ui" type="CanvasLayer" parent="."]
+
+[node name="loading" type="Control" parent="ui"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+LocationSprite = ExtResource( 4 )
+ListItemFont = SubResource( 9 )
+
+[node name="top" type="Panel" parent="ui/loading"]
+material = SubResource( 5 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -192.0
+margin_top = -38.0
+margin_right = 192.0
+margin_bottom = 38.0
+custom_styles/panel = SubResource( 6 )
+
+[node name="amount" type="ProgressBar" parent="ui/loading/top"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -176.0
+margin_top = 14.0
+margin_right = 176.0
+margin_bottom = 24.0
+custom_styles/fg = SubResource( 1 )
+custom_styles/bg = SubResource( 2 )
+step = 1.0
+percent_visible = false
+
+[node name="status" type="Label" parent="ui/loading/top"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -176.0
+margin_top = -27.0
+margin_right = 176.0
+margin_bottom = -2.0
+custom_fonts/font = SubResource( 7 )
+text = "0%"
+align = 1
+valign = 1
+
+[node name="message" type="Panel" parent="ui/loading/top"]
+material = SubResource( 19 )
+anchor_right = 1.0
+margin_top = -135.0
+margin_bottom = -23.0
+custom_styles/panel = SubResource( 20 )
+
+[node name="title" type="Label" parent="ui/loading/top/message"]
+margin_left = 16.0
+margin_top = 8.0
+margin_right = 400.0
+margin_bottom = 72.0
+custom_fonts/font = SubResource( 17 )
+text = "Generating..."
+uppercase = true
+
+[node name="content" type="Label" parent="ui/loading/top/message"]
+margin_left = 20.0
+margin_top = 51.0
+margin_right = 360.0
+margin_bottom = 100.0
+custom_constants/line_spacing = -2
+custom_fonts/font = SubResource( 18 )
+text = "Please be patient as a new world is generated for your airline."
+autowrap = true
+
+[node name="generation_log" type="Panel" parent="ui/loading"]
+visible = false
+material = SubResource( 3 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -190.0
+margin_top = -121.0
+margin_right = 190.0
+margin_bottom = 121.0
+custom_styles/panel = SubResource( 4 )
+
+[node name="scroll" type="ScrollContainer" parent="ui/loading/generation_log"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 22.0
+margin_top = 16.0
+margin_right = -22.0
+margin_bottom = -18.0
+follow_focus = true
+scroll_horizontal_enabled = false
+
+[node name="list" type="VBoxContainer" parent="ui/loading/generation_log/scroll"]
+margin_right = 336.0
+margin_bottom = 208.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="bottom" type="Panel" parent="ui/loading"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -192.0
+margin_top = 55.0
+margin_right = 192.0
+margin_bottom = 143.0
+custom_styles/panel = SubResource( 8 )
+
+[node name="continue" type="Button" parent="ui/loading/bottom"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 5.0
+margin_bottom = 5.0
+mouse_default_cursor_shape = 2
+custom_fonts/font = SubResource( 11 )
+custom_styles/hover = SubResource( 12 )
+custom_styles/pressed = SubResource( 13 )
+custom_styles/focus = SubResource( 14 )
+custom_styles/disabled = SubResource( 15 )
+custom_styles/normal = SubResource( 10 )
+text = "Continue"

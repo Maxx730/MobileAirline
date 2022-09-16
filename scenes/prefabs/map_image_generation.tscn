@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scripts/map_image_generator.gd" type="Script" id=1]
+
+[sub_resource type="OpenSimplexNoise" id=1]
+octaves = 9
+period = 138.4
+persistence = 0.165
+lacunarity = 4.0
+
+[node name="map_image_generator" type="Node2D"]
+script = ExtResource( 1 )
+NoiseSource = SubResource( 1 )
+BottomOceanColor = Color( 0, 0.1395, 0.31, 1 )
+DeepOceanColor = Color( 0, 0.177667, 0.41, 1 )
+MediumOceanColor = Color( 0, 0.254902, 0.588235, 1 )
+ShallowOceanColor = Color( 0, 0.356863, 0.819608, 1 )
+ShoreOceanColor = Color( 0.952941, 0.972549, 1, 1 )
+WetSandColor = Color( 0.78, 0.76128, 0.6396, 1 )
+BeachColor = Color( 1, 0.972549, 0.823529, 1 )
+DirtColor = Color( 0.270588, 0.184314, 0.0941176, 1 )
+GrassEdgeColor = Color( 0.47451, 0.643137, 0.196078, 1 )
+GrasslandColor = Color( 0.375333, 0.5, 0.16, 1 )
+ForestColor = Color( 0.180392, 0.239216, 0.0784314, 1 )
+RockColor = Color( 0.270588, 0.270588, 0.270588, 1 )
+HighRockColor = Color( 0.42, 0.42, 0.42, 1 )
+PeakColor = Color( 0.901961, 0.901961, 0.901961, 1 )
