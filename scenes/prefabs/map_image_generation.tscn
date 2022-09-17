@@ -3,10 +3,6 @@
 [ext_resource path="res://scripts/map_image_generator.gd" type="Script" id=1]
 
 [sub_resource type="OpenSimplexNoise" id=1]
-octaves = 9
-period = 138.4
-persistence = 0.165
-lacunarity = 4.0
 
 [node name="map_image_generator" type="Node2D"]
 script = ExtResource( 1 )

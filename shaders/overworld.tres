@@ -19,6 +19,8 @@ uniform vec4 ForestGroundColor: hint_color;
 uniform vec4 RockGroundColor: hint_color;
 uniform vec4 MountainGroundColor: hint_color;
 
+uniform float WaterLevel: hint_range(0.0, 1.0) = 0.5;
+
 float circle(vec2 position, float radius, float feather)
 {
 	return smoothstep(radius, radius + feather, length(position - vec2(0.5)));
@@ -29,28 +31,28 @@ void fragment() {
 	float offset = sin(TIME) * 0.005;
 	// Logic to set different colors for different heights
 	// Ocean starts at 0.5
-	if (color.r < 0.6 - offset) {
-		if (color.r > 0.58) {
+	if (color.r < WaterLevel - offset) {
+		if (color.r > WaterLevel - 0.02) {
 			color = BeachFrothColor;
-		} else if (color.r > 0.55) {
+		} else if (color.r > WaterLevel - 0.05) {
 			color = FrothOceanColor;
-		} else if (color.r > 0.5) {
+		} else if (color.r > WaterLevel - 0.1) {
 			color = ShallowOceanColor;
-		} else if (color.r > 0.4) {
+		} else if (color.r > WaterLevel - 0.2) {
 			color = MediumOceanColor;
-		} else if (color.r > 0.3) {
+		} else if (color.r > WaterLevel - 0.3) {
 			color = DeepOceanColor;
 		} else{
 			color = DeepestOceanColor;	
 		}
 	} else {
-		if (color.r < 0.62) {
+		if (color.r < WaterLevel + 0.02) {
 			color = WetSandGroundColor;
-		} else if (color.r < 0.63) {
+		} else if (color.r < WaterLevel + 0.03) {
 			color = SandGroundColor;
-		} else if (color.r < 0.64) {
+		} else if (color.r < WaterLevel + 0.04) {
 			color = DirtGroundColor;
-		} else if (color.r < 0.68) {
+		} else if (color.r < WaterLevel + 0.08) {
 			color = LightGrassGroundColor;
 		} else if (color.r < 0.72) {
 			color = GrassGroundColor;

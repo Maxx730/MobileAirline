@@ -19,11 +19,11 @@ var UseDaylight: bool = true
 
 # Map Data
 var MapSeed: int
-var MapSize: int = Enums.WorldSizes.HUGE
+var MapSize: int = Enums.WorldSizes.MEDIUM
 var MapOctaves: int
 var MapPeriod: float
 var MapPersistence: float
-var MapLacunarity: int
+var MapLacunarity: float
 
 # Statistical Data
 var CompletedFlights: int = 0

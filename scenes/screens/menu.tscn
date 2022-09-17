@@ -180,7 +180,6 @@ texture = ExtResource( 6 )
 [node name="wave" type="AnimatedSprite" parent="background/shore"]
 position = Vector2( 240, 9 )
 frames = SubResource( 1 )
-frame = 3
 playing = true
 
 [node name="shadows" type="TextureRect" parent="background"]
@@ -394,7 +393,6 @@ align = 1
 valign = 1
 
 [node name="debug" type="ScrollContainer" parent="ui/main_menu/list"]
-visible = false
 margin_top = 128.0
 margin_right = 392.0
 margin_bottom = 328.0
@@ -403,12 +401,12 @@ scroll_horizontal_enabled = false
 
 [node name="options" type="VBoxContainer" parent="ui/main_menu/list/debug"]
 margin_right = 392.0
-margin_bottom = 244.0
+margin_bottom = 120.0
 size_flags_horizontal = 3
 
 [node name="worldgen" type="Panel" parent="ui/main_menu/list/debug/options"]
 material = SubResource( 24 )
-margin_right = 380.0
+margin_right = 392.0
 margin_bottom = 120.0
 rect_min_size = Vector2( 0, 120 )
 mouse_default_cursor_shape = 2
@@ -435,7 +433,7 @@ autowrap = true
 visible = false
 material = SubResource( 24 )
 margin_top = 124.0
-margin_right = 392.0
+margin_right = 380.0
 margin_bottom = 244.0
 rect_min_size = Vector2( 0, 120 )
 mouse_default_cursor_shape = 2
@@ -459,6 +457,7 @@ text = "Game screen for checking out a specific location's details."
 autowrap = true
 
 [node name="details" type="Panel" parent="ui/main_menu/list/debug/options"]
+visible = false
 material = SubResource( 24 )
 margin_top = 124.0
 margin_right = 380.0

@@ -1,9 +1,10 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://styles/panel.tres" type="StyleBox" id=1]
 [ext_resource path="res://fonts/OpenSans-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://scripts/begin.gd" type="Script" id=3]
 [ext_resource path="res://scenes/prefabs/ui/simple_dialog.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scripts/generation/settings.gd" type="Script" id=5]
 [ext_resource path="res://fonts/OpenSans-Bold.ttf" type="DynamicFontData" id=8]
 [ext_resource path="res://shaders/blur.tres" type="Shader" id=9]
 [ext_resource path="res://scripts/ui/simple_color_picker.gd" type="Script" id=10]
@@ -32,6 +33,22 @@ font_data = ExtResource( 8 )
 [sub_resource type="DynamicFont" id=16]
 size = 14
 font_data = ExtResource( 8 )
+
+[sub_resource type="StyleBoxFlat" id=55]
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+bg_color = Color( 0.13, 0.13, 0.13, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.0666667, 0.0666667, 0.0666667, 1 )
+
+[sub_resource type="StyleBoxFlat" id=56]
+bg_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=57]
+bg_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="ShaderMaterial" id=17]
 shader = ExtResource( 9 )
@@ -183,20 +200,83 @@ text = "Please fill out the following info..."
 valign = 1
 
 [node name="generation_settings" type="Panel" parent="ui/main_menu/list"]
+visible = false
 margin_top = 84.0
 margin_right = 437.0
-margin_bottom = 184.0
-rect_min_size = Vector2( 0, 100 )
+margin_bottom = 244.0
+rect_min_size = Vector2( 0, 160 )
+script = ExtResource( 5 )
 
 [node name="list" type="VBoxContainer" parent="ui/main_menu/list/generation_settings"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 15.0
+margin_top = 14.0
+margin_right = -17.0
+margin_bottom = -13.0
+
+[node name="lacunarity" type="VBoxContainer" parent="ui/main_menu/list/generation_settings/list"]
+margin_right = 405.0
+margin_bottom = 34.0
+
+[node name="label" type="Label" parent="ui/main_menu/list/generation_settings/list/lacunarity"]
+margin_right = 405.0
+margin_bottom = 14.0
+text = "Lacunarity"
+
+[node name="value" type="HSlider" parent="ui/main_menu/list/generation_settings/list/lacunarity"]
+margin_top = 18.0
+margin_right = 405.0
+margin_bottom = 34.0
+custom_styles/slider = SubResource( 55 )
+custom_styles/grabber_area_highlight = SubResource( 56 )
+custom_styles/grabber_area = SubResource( 57 )
+min_value = 1.0
+max_value = 3.0
+step = 0.01
+value = 2.0
+
+[node name="persistence" type="VBoxContainer" parent="ui/main_menu/list/generation_settings/list"]
+margin_top = 38.0
+margin_right = 405.0
+margin_bottom = 72.0
+
+[node name="label" type="Label" parent="ui/main_menu/list/generation_settings/list/persistence"]
+margin_right = 405.0
+margin_bottom = 14.0
+text = "Persistence"
+
+[node name="value" type="HSlider" parent="ui/main_menu/list/generation_settings/list/persistence"]
+margin_top = 18.0
+margin_right = 405.0
+margin_bottom = 34.0
+min_value = 0.05
+max_value = 1.0
+step = 0.01
+value = 0.05
+
+[node name="octaves" type="VBoxContainer" parent="ui/main_menu/list/generation_settings/list"]
+margin_top = 76.0
+margin_right = 405.0
+margin_bottom = 110.0
+
+[node name="label" type="Label" parent="ui/main_menu/list/generation_settings/list/octaves"]
+margin_right = 405.0
+margin_bottom = 14.0
+text = "Octaves"
+
+[node name="value" type="HSlider" parent="ui/main_menu/list/generation_settings/list/octaves"]
+margin_top = 18.0
+margin_right = 405.0
+margin_bottom = 34.0
+max_value = 8.0
+value = 4.0
 
 [node name="details" type="Panel" parent="ui/main_menu/list"]
 material = SubResource( 17 )
-margin_top = 188.0
+margin_top = 84.0
 margin_right = 437.0
-margin_bottom = 412.0
+margin_bottom = 308.0
 rect_min_size = Vector2( 0, 224 )
 custom_styles/panel = SubResource( 2 )
 
@@ -384,9 +464,9 @@ icon = ExtResource( 15 )
 icon_align = 1
 
 [node name="options" type="HBoxContainer" parent="ui/main_menu/list"]
-margin_top = 416.0
+margin_top = 312.0
 margin_right = 437.0
-margin_bottom = 480.0
+margin_bottom = 376.0
 rect_min_size = Vector2( 0, 64 )
 
 [node name="cancel" type="Button" parent="ui/main_menu/list/options"]

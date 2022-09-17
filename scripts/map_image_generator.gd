@@ -35,8 +35,12 @@ signal MapGenerationUpdate(level)
 func GenerateWorldMap(bar: ProgressBar = null, label: Label = null) -> void:
 	GenerationThread = Thread.new()
 	randomize()
-	SaveNoiseValues()
 	NoiseSource.seed = Persist.MapSeed
+	NoiseSource.lacunarity = Persist.MapLacunarity
+	NoiseSource.persistence = Persist.MapPersistence
+	NoiseSource.octaves = Persist.MapOctaves
+	SaveNoiseValues()
+	print(NoiseSource.octaves)
 	var pixelSize = (Persist.MapSize + 1) * MAP_PIXEL_SIZE
 	GenerationThread.start(self, "GenerateMapImage", {
 		"noise": NoiseSource,
@@ -55,7 +59,7 @@ func GenerateMapImage(data: Dictionary) -> int:
 	
 	for x in range(data.size.x):
 		for y in range(data.size.y):
-			var val: float = data.noise.get_noise_2d(x, y)
+			var val: float = data.noise.get_noise_2d(x, y) * 1.5
 			var color: Color = Color.white
 			
 			if val < 0.0:
