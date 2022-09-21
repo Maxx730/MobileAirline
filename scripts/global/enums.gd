@@ -15,6 +15,7 @@ enum WeatherStates {
 }
 
 enum WorldSizes {
+	TINY,
 	SMALL,
 	MEDIUM,
 	LARGE,

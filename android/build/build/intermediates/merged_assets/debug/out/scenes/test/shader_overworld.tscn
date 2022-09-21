@@ -1,0 +1,460 @@
+[gd_scene load_steps=37 format=2]
+
+[ext_resource path="res://shaders/overworld.tres" type="Shader" id=1]
+[ext_resource path="res://scripts/generation/worldgen.gd" type="Script" id=2]
+[ext_resource path="res://shaders/blur.tres" type="Shader" id=3]
+[ext_resource path="res://fonts/OpenSans-Bold.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://fonts/OpenSans-Regular.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://textures/icons/slider-handle.png" type="Texture" id=6]
+[ext_resource path="res://textures/icons/slider-handle-focused.png" type="Texture" id=7]
+[ext_resource path="res://scripts/ui/panel_button.gd" type="Script" id=8]
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 1 )
+shader_param/DeepestOceanColor = Color( 0.12549, 0.141176, 0.4, 1 )
+shader_param/DeepOceanColor = Color( 0.192157, 0.219608, 0.615686, 1 )
+shader_param/MediumOceanColor = Color( 0, 0.388235, 0.701961, 1 )
+shader_param/ShallowOceanColor = Color( 0.0196078, 0.839216, 1, 1 )
+shader_param/FrothOceanColor = Color( 0.662745, 0.952941, 1, 1 )
+shader_param/BeachFrothColor = Color( 1, 1, 1, 1 )
+shader_param/SandGroundColor = Color( 1, 1, 0.717647, 1 )
+shader_param/WetSandGroundColor = Color( 0.71, 0.71, 0.5112, 1 )
+shader_param/DirtGroundColor = Color( 0.345098, 0.290196, 0.184314, 1 )
+shader_param/LightGrassGroundColor = Color( 0.45016, 0.68, 0.1496, 1 )
+shader_param/GrassGroundColor = Color( 0.34424, 0.52, 0.1144, 1 )
+shader_param/ForestGroundColor = Color( 0.1655, 0.25, 0.055, 1 )
+shader_param/RockGroundColor = Color( 0.254902, 0.254902, 0.254902, 1 )
+shader_param/MountainGroundColor = Color( 1, 1, 1, 1 )
+shader_param/WaterLevel = 0.5
+
+[sub_resource type="OpenSimplexNoise" id=1]
+seed = 5
+period = 124.6
+persistence = 0.361
+lacunarity = 2.98
+
+[sub_resource type="NoiseTexture" id=2]
+width = 1024
+height = 1024
+noise = SubResource( 1 )
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = ExtResource( 3 )
+shader_param/blur_amount = 3.0
+shader_param/mix_amount = 0.3
+shader_param/color_over = null
+
+[sub_resource type="StyleBoxFlat" id=5]
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="DynamicFont" id=8]
+size = 24
+font_data = ExtResource( 4 )
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0, 0, 0, 0.403922 )
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0, 0, 0, 0.266667 )
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+
+[sub_resource type="StyleBoxEmpty" id=7]
+
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 0, 0, 0, 0.403922 )
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id=11]
+bg_color = Color( 0, 0, 0, 0.768627 )
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id=12]
+bg_color = Color( 0, 0, 0, 0.266667 )
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="ShaderMaterial" id=13]
+shader = ExtResource( 3 )
+shader_param/blur_amount = 2.0
+shader_param/mix_amount = 0.5
+shader_param/color_over = null
+
+[sub_resource type="StyleBoxFlat" id=14]
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="DynamicFont" id=17]
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=18]
+size = 14
+font_data = ExtResource( 4 )
+
+[sub_resource type="ShaderMaterial" id=22]
+shader = ExtResource( 3 )
+shader_param/blur_amount = 2.0
+shader_param/mix_amount = 0.5
+shader_param/color_over = null
+
+[sub_resource type="StyleBoxFlat" id=23]
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 21
+
+[sub_resource type="StyleBoxFlat" id=19]
+bg_color = Color( 0, 0, 0, 0.796078 )
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id=21]
+bg_color = Color( 0, 0, 0, 0.976471 )
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id=20]
+bg_color = Color( 0, 0, 0, 0.423529 )
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="DynamicFont" id=27]
+size = 12
+font_data = ExtResource( 5 )
+
+[sub_resource type="StyleBoxFlat" id=24]
+content_margin_top = 3.0
+content_margin_bottom = 3.0
+bg_color = Color( 0.666667, 0.666667, 0.666667, 0.298039 )
+border_color = Color( 0.0666667, 0.0666667, 0.0666667, 1 )
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id=25]
+bg_color = Color( 1, 1, 1, 1 )
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id=26]
+bg_color = Color( 1, 1, 1, 1 )
+corner_radius_top_left = 4
+corner_radius_bottom_left = 4
+anti_aliasing = false
+
+[sub_resource type="ShaderMaterial" id=28]
+shader = ExtResource( 3 )
+shader_param/blur_amount = 4.0
+shader_param/mix_amount = 0.5
+shader_param/color_over = null
+
+[sub_resource type="StyleBoxFlat" id=29]
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="DynamicFont" id=30]
+font_data = ExtResource( 5 )
+
+[node name="worldgen" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="camera" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 0.5, 0.5 )
+
+[node name="frame" type="Node" parent="."]
+
+[node name="map" type="Sprite" parent="frame"]
+material = SubResource( 3 )
+texture = SubResource( 2 )
+
+[node name="interface" type="CanvasLayer" parent="frame"]
+
+[node name="zoom" type="Panel" parent="frame/interface"]
+material = SubResource( 4 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -74.0
+margin_top = -153.0
+margin_right = -26.0
+margin_bottom = -25.0
+rect_min_size = Vector2( 48, 128 )
+custom_styles/panel = SubResource( 5 )
+
+[node name="actions" type="VBoxContainer" parent="frame/interface/zoom"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="in" type="Button" parent="frame/interface/zoom/actions"]
+margin_right = 48.0
+margin_bottom = 62.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 8 )
+custom_styles/hover = SubResource( 9 )
+custom_styles/pressed = SubResource( 6 )
+custom_styles/focus = SubResource( 7 )
+custom_styles/disabled = SubResource( 6 )
+custom_styles/normal = SubResource( 6 )
+text = "+"
+
+[node name="out" type="Button" parent="frame/interface/zoom/actions"]
+margin_top = 66.0
+margin_right = 48.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 8 )
+custom_styles/hover = SubResource( 10 )
+custom_styles/pressed = SubResource( 11 )
+custom_styles/focus = SubResource( 7 )
+custom_styles/disabled = SubResource( 6 )
+custom_styles/normal = SubResource( 12 )
+text = "-"
+
+[node name="debug" type="Panel" parent="frame/interface"]
+material = SubResource( 13 )
+margin_left = 33.0
+margin_top = 69.0
+margin_right = 210.0
+margin_bottom = 154.0
+custom_styles/panel = SubResource( 14 )
+
+[node name="list" type="VBoxContainer" parent="frame/interface/debug"]
+margin_right = 177.0
+margin_bottom = 38.0
+
+[node name="seed" type="Label" parent="frame/interface/debug/list"]
+margin_top = 7.0
+margin_right = 177.0
+margin_bottom = 30.0
+size_flags_vertical = 6
+custom_fonts/font = SubResource( 17 )
+text = "SEED: 000000"
+align = 1
+
+[node name="randomize" type="Button" parent="frame/interface/debug"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -47.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 18 )
+custom_styles/hover = SubResource( 10 )
+custom_styles/pressed = SubResource( 11 )
+custom_styles/focus = SubResource( 7 )
+custom_styles/disabled = SubResource( 6 )
+custom_styles/normal = SubResource( 12 )
+text = "Randomize"
+
+[node name="exit" type="Panel" parent="frame/interface/debug"]
+material = SubResource( 22 )
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 13.0
+margin_bottom = 13.0
+rect_min_size = Vector2( 0, 64 )
+custom_styles/panel = SubResource( 23 )
+
+[node name="exit" type="Button" parent="frame/interface/debug/exit"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 18 )
+custom_styles/hover = SubResource( 19 )
+custom_styles/pressed = SubResource( 21 )
+custom_styles/focus = SubResource( 7 )
+custom_styles/disabled = SubResource( 6 )
+custom_styles/normal = SubResource( 20 )
+text = "Exit"
+
+[node name="sliders" type="Panel" parent="frame/interface"]
+material = SubResource( 13 )
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -247.0
+margin_top = 69.0
+margin_right = -26.0
+margin_bottom = 299.0
+custom_styles/panel = SubResource( 14 )
+
+[node name="options" type="VBoxContainer" parent="frame/interface/sliders"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 18.0
+margin_top = 21.0
+margin_right = -21.0
+margin_bottom = -26.0
+
+[node name="size" type="VBoxContainer" parent="frame/interface/sliders/options"]
+margin_right = 182.0
+margin_bottom = 41.0
+
+[node name="label" type="Label" parent="frame/interface/sliders/options/size"]
+margin_right = 182.0
+margin_bottom = 17.0
+custom_fonts/font = SubResource( 27 )
+text = "MAP SIZE"
+align = 1
+valign = 1
+
+[node name="value" type="OptionButton" parent="frame/interface/sliders/options/size"]
+margin_top = 21.0
+margin_right = 182.0
+margin_bottom = 41.0
+text = "Tiny"
+items = [ "Tiny", null, false, 0, null, "Small", null, false, 1, null, "Medium", null, false, 2, null, "Large", null, false, 3, null, "Huge", null, false, 4, null ]
+selected = 0
+
+[node name="scale" type="VBoxContainer" parent="frame/interface/sliders/options"]
+margin_top = 45.0
+margin_right = 182.0
+margin_bottom = 78.0
+
+[node name="label" type="Label" parent="frame/interface/sliders/options/scale"]
+margin_right = 182.0
+margin_bottom = 17.0
+custom_fonts/font = SubResource( 27 )
+text = "SCALE"
+align = 1
+valign = 1
+
+[node name="value" type="HSlider" parent="frame/interface/sliders/options/scale"]
+margin_top = 21.0
+margin_right = 182.0
+margin_bottom = 33.0
+custom_icons/grabber_highlight = ExtResource( 7 )
+custom_icons/grabber = ExtResource( 6 )
+custom_styles/slider = SubResource( 24 )
+custom_styles/grabber_area_highlight = SubResource( 25 )
+custom_styles/grabber_area = SubResource( 26 )
+max_value = 256.0
+step = 5.0
+value = 130.0
+
+[node name="detail" type="VBoxContainer" parent="frame/interface/sliders/options"]
+margin_top = 82.0
+margin_right = 182.0
+margin_bottom = 115.0
+
+[node name="label" type="Label" parent="frame/interface/sliders/options/detail"]
+margin_right = 182.0
+margin_bottom = 17.0
+custom_fonts/font = SubResource( 27 )
+text = "Details"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="value" type="HSlider" parent="frame/interface/sliders/options/detail"]
+margin_top = 21.0
+margin_right = 182.0
+margin_bottom = 33.0
+custom_icons/grabber_highlight = ExtResource( 7 )
+custom_icons/grabber = ExtResource( 6 )
+custom_styles/slider = SubResource( 24 )
+custom_styles/grabber_area_highlight = SubResource( 25 )
+custom_styles/grabber_area = SubResource( 26 )
+max_value = 1.0
+step = 0.01
+value = 0.5
+
+[node name="water" type="VBoxContainer" parent="frame/interface/sliders/options"]
+margin_top = 119.0
+margin_right = 182.0
+margin_bottom = 152.0
+
+[node name="label" type="Label" parent="frame/interface/sliders/options/water"]
+margin_right = 182.0
+margin_bottom = 17.0
+custom_fonts/font = SubResource( 27 )
+text = "Water LevEL"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="value" type="HSlider" parent="frame/interface/sliders/options/water"]
+margin_top = 21.0
+margin_right = 182.0
+margin_bottom = 33.0
+custom_icons/grabber_highlight = ExtResource( 7 )
+custom_icons/grabber = ExtResource( 6 )
+custom_styles/slider = SubResource( 24 )
+custom_styles/grabber_area_highlight = SubResource( 25 )
+custom_styles/grabber_area = SubResource( 26 )
+max_value = 1.0
+step = 0.01
+value = 0.5
+
+[node name="granularity" type="VBoxContainer" parent="frame/interface/sliders/options"]
+margin_top = 156.0
+margin_right = 182.0
+margin_bottom = 189.0
+
+[node name="label" type="Label" parent="frame/interface/sliders/options/granularity"]
+margin_right = 182.0
+margin_bottom = 17.0
+custom_fonts/font = SubResource( 27 )
+text = "Granularity"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="value" type="HSlider" parent="frame/interface/sliders/options/granularity"]
+margin_top = 21.0
+margin_right = 182.0
+margin_bottom = 33.0
+custom_icons/grabber_highlight = ExtResource( 7 )
+custom_icons/grabber = ExtResource( 6 )
+custom_styles/slider = SubResource( 24 )
+custom_styles/grabber_area_highlight = SubResource( 25 )
+custom_styles/grabber_area = SubResource( 26 )
+max_value = 8.0
+value = 4.0
+
+[node name="use" type="Panel" parent="frame/interface"]
+material = SubResource( 28 )
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -247.0
+margin_top = 308.0
+margin_right = -26.0
+margin_bottom = 362.0
+custom_styles/panel = SubResource( 29 )
+script = ExtResource( 8 )
+
+[node name="label" type="Label" parent="frame/interface/use"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 30 )
+text = "Use Map Settings"
+align = 1
+valign = 1
+clip_text = true

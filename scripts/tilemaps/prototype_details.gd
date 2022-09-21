@@ -1,4 +1,4 @@
-extends Node2D
+extends Backdrop
 
 class_name PrototypeDetails
 

@@ -28,6 +28,8 @@ func GetScreenBasedOnContext(context) -> int:
 	match context:
 		Enums.GameContext.MAP:
 			id = 2
+		Enums.GameContext.CHOOSE_DESTINATION:
+			id = 2
 		Enums.GameContext.SHOP:
 			id = 1
 			

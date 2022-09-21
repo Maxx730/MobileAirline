@@ -1,0 +1,69 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type canvas_item;
+
+uniform vec4 DeepestOceanColor: hint_color;
+uniform vec4 DeepOceanColor: hint_color;
+uniform vec4 MediumOceanColor: hint_color;
+uniform vec4 ShallowOceanColor: hint_color;
+uniform vec4 FrothOceanColor: hint_color;
+uniform vec4 BeachFrothColor: hint_color;
+
+uniform vec4 SandGroundColor: hint_color;
+uniform vec4 WetSandGroundColor: hint_color;
+uniform vec4 DirtGroundColor: hint_color;
+uniform vec4 LightGrassGroundColor: hint_color;
+uniform vec4 GrassGroundColor: hint_color;
+uniform vec4 ForestGroundColor: hint_color;
+uniform vec4 RockGroundColor: hint_color;
+uniform vec4 MountainGroundColor: hint_color;
+
+uniform float WaterLevel: hint_range(0.0, 1.0) = 0.5;
+
+float circle(vec2 position, float radius, float feather)
+{
+	return smoothstep(radius, radius + feather, length(position - vec2(0.5)));
+}
+
+void fragment() {
+	vec4 color = texture(TEXTURE, UV);
+	float offset = sin(TIME) * 0.005;
+	// Logic to set different colors for different heights
+	// Ocean starts at 0.5
+	if (color.r < WaterLevel - offset) {
+		if (color.r > WaterLevel - 0.02) {
+			color = BeachFrothColor;
+		} else if (color.r > WaterLevel - 0.05) {
+			color = FrothOceanColor;
+		} else if (color.r > WaterLevel - 0.1) {
+			color = ShallowOceanColor;
+		} else if (color.r > WaterLevel - 0.2) {
+			color = MediumOceanColor;
+		} else if (color.r > WaterLevel - 0.3) {
+			color = DeepOceanColor;
+		} else{
+			color = DeepestOceanColor;	
+		}
+	} else {
+		if (color.r < WaterLevel + 0.02) {
+			color = WetSandGroundColor;
+		} else if (color.r < WaterLevel + 0.03) {
+			color = SandGroundColor;
+		} else if (color.r < WaterLevel + 0.04) {
+			color = DirtGroundColor;
+		} else if (color.r < WaterLevel + 0.08) {
+			color = LightGrassGroundColor;
+		} else if (color.r < 0.72) {
+			color = GrassGroundColor;
+		} else if (color.r < 0.75) {
+			color = ForestGroundColor;
+		} else if (color.r < 0.78) {
+			color = RockGroundColor;
+		} else {
+			color = MountainGroundColor;
+		}
+	}
+	
+	COLOR = color;
+}"

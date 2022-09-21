@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scripts/ui/color_picker_choice.gd" type="Script" id=1]
+
+[node name="color_choice" type="Panel"]
+rect_min_size = Vector2( 32, 32 )
+script = ExtResource( 1 )

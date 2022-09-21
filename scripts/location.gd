@@ -3,9 +3,11 @@ extends Node2D
 class_name Location
 
 const POTENTIAL_NAMES = [
-	"Test 1",
-	"Test 2",
-	"Test 3"
+	"Portsmouth",
+	"Kengleton",
+	"Piccardston",
+	"Clokensville",
+	"Naughstonia"
 ]
 
 var ID: int = 0
@@ -13,6 +15,8 @@ var Name: String = "Generic Location"
 var Unlocked: bool = false
 var CurrentWeather: int = Enums.WeatherStates.CLEAR
 var LocationType: int = Enums.LocationTypes.NORMAL
+
+# LIFECYLE METHODS
 
 # PERSIST METHODS
 func Serialize() -> Dictionary:
@@ -54,12 +58,11 @@ func IsNameUnique(name: String) -> bool:
 	return unique
 
 # SPAWN METHODS
-func Spawn(locationSprite: Texture) -> Sprite:
-	var sprite = Sprite.new()
-	var material = ShaderMaterial.new()
+func Spawn(locationSprite: Texture, locationUi: Control = null) -> Control:
+	var locName: Label = locationUi.get_node("name")
+		
+	if locName:
+		locName.text = Name
+	return locationUi
 
-	sprite.texture = locationSprite
-	sprite.position = position
-	sprite.z_index = 2
-	sprite.name = "location-" + str(ID)
-	return sprite
+# CONNECTED METHODS

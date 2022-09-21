@@ -18,12 +18,13 @@ var AvailableAircraft: Array = []
 var UseDaylight: bool = true
 
 # Map Data
-var MapSeed: int
-var MapSize: int = Enums.WorldSizes.MEDIUM
-var MapOctaves: int
-var MapPeriod: float
-var MapPersistence: float
-var MapLacunarity: float
+var MapSeed: int = 0
+var MapSize: int = Enums.WorldSizes.TINY
+var MapOctaves: int = 4
+var MapPeriod: float = 125.0
+var MapPersistence: float = 0.35
+var MapLacunarity: float = 2.0
+var MapWaterLevel: float = 0.5
 
 # Statistical Data
 var CompletedFlights: int = 0
@@ -65,7 +66,9 @@ func Save() -> Dictionary:
 			"octaves": MapOctaves,
 			"period": MapPeriod,
 			"persistence": MapPersistence,
-			"lacunarity": MapLacunarity
+			"lacunarity": MapLacunarity,
+			"size": MapSize,
+			"water": MapWaterLevel
 		},
 		"stats": {
 			"completed": CompletedFlights
@@ -143,6 +146,8 @@ func ParseMapSettings(map: Dictionary) -> void:
 	MapOctaves = map.octaves
 	MapPeriod = map.period
 	MapPersistence = map.persistence
+	MapSize = map.size
+	MapWaterLevel = map.water
 
 func GetWorldMapTexture() -> ImageTexture:
 	var image = Image.new()
@@ -218,7 +223,7 @@ func ParseFleet(data) -> Array:
 			newCraft.LocationID = craft.location.id
 			newCraft.State = craft.state
 			newCraft.DesignColor = craft.design.color
-			newCraft.DesignTexture = load(craft.design.texture)
+			newCraft.ResourcePath = craft.resource.path
 			newCraft.MaxFuel = craft.fuel.max
 			newCraft.CurrentFuel = craft.fuel.current
 			newCraft.FuelPerTick

@@ -8,8 +8,11 @@ class_name Aircraft
 var Name = "Generic Airbus"
 var State: int = Enums.AircraftStates.LANDED
 var LocationID: int = 0
+var ResourcePath: String
 
-# FUEL
+#########
+# FUEL  #
+#########
 var MaxFuel: int = 100
 var CurrentFuel: int = 100
 var FuelPerTick: int = 1
@@ -17,7 +20,6 @@ var FuelPerTick: int = 1
 ##############
 # LOGO/COLOR #
 ##############
-var DesignTexture: Texture = preload("res://textures/aircraft/airbus_passenger.png")
 var DesignColor: Color = Color.white
 
 # PersistMethods
@@ -25,8 +27,10 @@ func Serialize() -> Dictionary:
 	return {
 		"name": Name,
 		"state": State,
+		"resource": {
+			"path": ResourcePath
+		},
 		"design": {
-			"texture": DesignTexture.resource_path if DesignTexture else null,
 			"color": DesignColor
 		},
 		"location": {

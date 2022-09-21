@@ -11,6 +11,7 @@ onready var SettingsButton: PanelButton = get_node("ui/top/settings")
 onready var ShopButton: PanelButton = get_node("ui/bottom/shop")
 onready var MapButton: PanelButton = get_node("ui/bottom/map")
 onready var BackButton: PanelButton = get_node("ui/back")
+onready var DepartButton: Button = get_node("ui/bottom/switcher/buttons/depart")
 
 var FocusedAircraft: int = 0
 var NextScene = null
@@ -37,17 +38,25 @@ func _ready() -> void:
 	if BackButton:
 		BackButton.connect("PanelButtonPressed", self, "OnBackButtonPressed")
 	
+	if DepartButton:
+		DepartButton.connect("pressed", self, "OnDepartPressed")
+	
 	Events.connect("ContextChanged", self, "OnContextChanged")
+	Events.connect("AircraftChanged", self, "UpdateAircraftControls")
 	Transition.connect("OnTransitionOutFinished", self, "OnTransitionOutFinished")
 
-#####################
+###################
 # GENERAL METHODS #
-#####################
+###################
 func UpdateControls(context) -> void:
-	var showBack: bool = context == Enums.GameContext.SHOP || context == Enums.GameContext.MAP
+	var showBack: bool = context == Enums.GameContext.SHOP or context == Enums.GameContext.MAP or context == Enums.GameContext.CHOOSE_DESTINATION
 	BackPanelButton.visible = showBack
 	FocusedButtons.visible = !showBack
 
+func UpdateAircraftControls(id) -> void:
+	var state: int = Persist.FleetData[id].State
+	if DepartButton:
+		DepartButton.disabled = state == Enums.AircraftStates.TRANSIT
 
 #####################
 # CONNECTED METHODS #
@@ -87,3 +96,9 @@ func OnTransitionOutFinished() -> void:
 
 func OnContextChanged(context) -> void:
 	UpdateControls(context)
+	UpdateAircraftControls(0)
+
+func OnDepartPressed() -> void:
+	var aircraft: Aircraft = Persist.FleetData[FocusedAircraft]
+	if aircraft:
+		Events.emit_signal("ContextChanged", Enums.GameContext.CHOOSE_DESTINATION)

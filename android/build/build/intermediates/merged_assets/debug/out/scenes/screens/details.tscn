@@ -1,0 +1,239 @@
+[gd_scene load_steps=22 format=2]
+
+[ext_resource path="res://scripts/details.gd" type="Script" id=1]
+[ext_resource path="res://scripts/ui/panel_button.gd" type="Script" id=2]
+[ext_resource path="res://textures/dialog_x.png" type="Texture" id=3]
+[ext_resource path="res://shaders/blur.tres" type="Shader" id=4]
+[ext_resource path="res://fonts/OpenSans-Bold.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://fonts/OpenSans-Regular.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://scenes/prefabs/weather.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/prefabs/ui/switcher.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scripts/background.gd" type="Script" id=13]
+[ext_resource path="res://scripts/daylight.gd" type="Script" id=15]
+
+[sub_resource type="StyleBoxEmpty" id=6]
+
+[sub_resource type="StyleBoxEmpty" id=7]
+
+[sub_resource type="DynamicFont" id=4]
+size = 32
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=5]
+font_data = ExtResource( 5 )
+
+[sub_resource type="ShaderMaterial" id=11]
+shader = ExtResource( 4 )
+shader_param/blur_amount = 2.0
+shader_param/mix_amount = 0.5
+shader_param/color_over = null
+
+[sub_resource type="StyleBoxFlat" id=12]
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 4 )
+shader_param/blur_amount = 2.0
+shader_param/mix_amount = 0.019
+shader_param/color_over = Color( 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+
+[sub_resource type="DynamicFont" id=8]
+font_data = ExtResource( 6 )
+
+[sub_resource type="StyleBoxFlat" id=9]
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_top = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="Environment" id=10]
+background_mode = 4
+glow_enabled = true
+
+[node name="details" type="Node2D"]
+script = ExtResource( 1 )
+ShowDebug = false
+
+[node name="ui" type="CanvasLayer" parent="."]
+
+[node name="overlay" type="Panel" parent="ui"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+custom_styles/panel = SubResource( 6 )
+
+[node name="info" type="Panel" parent="ui/overlay"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -240.0
+margin_top = -198.5
+margin_right = 240.0
+margin_bottom = 198.5
+rect_min_size = Vector2( 0, 200 )
+custom_styles/panel = SubResource( 7 )
+
+[node name="top" type="HBoxContainer" parent="ui/overlay/info"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -208.0
+margin_right = 208.0
+margin_bottom = 45.0
+
+[node name="aircraft_name" type="Label" parent="ui/overlay/info/top"]
+margin_right = 258.0
+margin_bottom = 45.0
+custom_fonts/font = SubResource( 4 )
+text = "Aircraft Name"
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="middle" type="HBoxContainer" parent="ui/overlay/info"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -208.0
+margin_top = 35.0
+margin_right = 208.0
+margin_bottom = 64.0
+
+[node name="location_name" type="Label" parent="ui/overlay/info/middle"]
+margin_top = 3.0
+margin_right = 162.0
+margin_bottom = 26.0
+custom_fonts/font = SubResource( 5 )
+text = "Current Location"
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="bottom" type="HBoxContainer" parent="ui/overlay/info"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -208.0
+margin_top = -32.0
+margin_right = 208.0
+rect_min_size = Vector2( 0, 32 )
+
+[node name="items" type="VBoxContainer" parent="ui/overlay/info/bottom"]
+margin_right = 416.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="switcher" parent="ui/overlay/info" instance=ExtResource( 8 )]
+margin_top = 36.0
+margin_bottom = 102.0
+
+[node name="debug" type="Panel" parent="ui"]
+visible = false
+material = SubResource( 11 )
+anchor_right = 1.0
+margin_bottom = 64.0
+custom_styles/panel = SubResource( 12 )
+
+[node name="state" type="OptionButton" parent="ui/debug"]
+margin_left = 13.0
+margin_top = 10.0
+margin_right = 95.0
+margin_bottom = 30.0
+text = "LANDED"
+items = [ "LANDED", null, false, 0, null, "TRANSIT", null, false, 1, null ]
+selected = 0
+
+[node name="weather" type="OptionButton" parent="ui/debug"]
+margin_left = 13.0
+margin_top = 34.0
+margin_right = 95.0
+margin_bottom = 54.0
+text = "CLEAR"
+items = [ "CLEAR", null, false, 0, null, "OVERCAST", null, false, 1, null, "CLOUDY", null, false, 2, null, "RAIN", null, false, 4, null, "THUNDERSTORM", null, false, 5, null, "SNOW", null, false, 5, null ]
+selected = 0
+
+[node name="exit" type="Panel" parent="ui/debug"]
+material = SubResource( 2 )
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -64.0
+rect_min_size = Vector2( 50, 50 )
+custom_styles/panel = SubResource( 3 )
+script = ExtResource( 2 )
+
+[node name="sprite" type="TextureRect" parent="ui/debug/exit"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -24.0
+margin_top = -24.0
+margin_right = 26.0
+margin_bottom = 26.0
+rect_min_size = Vector2( 50, 50 )
+mouse_default_cursor_shape = 2
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 1
+
+[node name="wind" type="Control" parent="ui/debug"]
+visible = false
+margin_left = 16.0
+margin_top = 56.0
+margin_right = 184.0
+margin_bottom = 96.0
+
+[node name="contain" type="VBoxContainer" parent="ui/debug/wind"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+
+[node name="label" type="Label" parent="ui/debug/wind/contain"]
+margin_right = 168.0
+margin_bottom = 23.0
+custom_fonts/font = SubResource( 8 )
+text = "Wind"
+
+[node name="value" type="HSlider" parent="ui/debug/wind/contain"]
+margin_top = 27.0
+margin_right = 168.0
+margin_bottom = 43.0
+custom_styles/slider = SubResource( 9 )
+
+[node name="states" type="Node" parent="."]
+script = ExtResource( 13 )
+
+[node name="landed" type="Node2D" parent="states"]
+
+[node name="locations" type="Node2D" parent="states/landed"]
+
+[node name="transit" type="Node2D" parent="states"]
+visible = false
+
+[node name="Node2D" type="Node2D" parent="states"]
+
+[node name="aircraft" type="Node" parent="."]
+
+[node name="weather" parent="." instance=ExtResource( 7 )]
+
+[node name="daylight" type="CanvasModulate" parent="."]
+color = Color( 0, 0, 0, 1 )
+script = ExtResource( 15 )
+CurrentHour = 4
+MorningColor = Color( 1, 0.980392, 0.768627, 1 )
+DayColor = Color( 0.882353, 0.882353, 0.882353, 1 )
+EveningColor = Color( 1, 0.803922, 0.960784, 1 )
+NightColor = Color( 0.290196, 0.407843, 0.631373, 1 )
+
+[node name="camera" type="Camera2D" parent="."]
+current = true
+
+[node name="env" type="WorldEnvironment" parent="."]
+environment = SubResource( 10 )

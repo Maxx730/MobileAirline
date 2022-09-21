@@ -11,14 +11,14 @@
 
 [sub_resource type="ShaderMaterial" id=3]
 shader = ExtResource( 1 )
-shader_param/DeepestOceanColor = Color( 0.12549, 0.141176, 0.4, 1 )
-shader_param/DeepOceanColor = Color( 0.192157, 0.219608, 0.615686, 1 )
-shader_param/MediumOceanColor = Color( 0, 0.388235, 0.701961, 1 )
+shader_param/DeepestOceanColor = Color( 0.0117647, 0.537255, 0.639216, 1 )
+shader_param/DeepOceanColor = Color( 0.0156863, 0.643137, 0.768627, 1 )
+shader_param/MediumOceanColor = Color( 0.0156863, 0.717647, 0.858824, 1 )
 shader_param/ShallowOceanColor = Color( 0.0196078, 0.839216, 1, 1 )
 shader_param/FrothOceanColor = Color( 0.662745, 0.952941, 1, 1 )
 shader_param/BeachFrothColor = Color( 1, 1, 1, 1 )
-shader_param/SandGroundColor = Color( 1, 1, 0.717647, 1 )
-shader_param/WetSandGroundColor = Color( 0.71, 0.71, 0.5112, 1 )
+shader_param/SandGroundColor = Color( 0.94902, 0.862745, 0.788235, 1 )
+shader_param/WetSandGroundColor = Color( 0.68, 0.618347, 0.5644, 1 )
 shader_param/DirtGroundColor = Color( 0.345098, 0.290196, 0.184314, 1 )
 shader_param/LightGrassGroundColor = Color( 0.45016, 0.68, 0.1496, 1 )
 shader_param/GrassGroundColor = Color( 0.34424, 0.52, 0.1144, 1 )
@@ -28,10 +28,10 @@ shader_param/MountainGroundColor = Color( 1, 1, 1, 1 )
 shader_param/WaterLevel = 0.5
 
 [sub_resource type="OpenSimplexNoise" id=1]
-seed = 5
-period = 124.6
-persistence = 0.361
-lacunarity = 2.98
+octaves = 5
+period = 227.0
+persistence = 0.297
+lacunarity = 2.84
 
 [sub_resource type="NoiseTexture" id=2]
 width = 1024
@@ -325,7 +325,7 @@ text = "MAP SIZE"
 align = 1
 valign = 1
 
-[node name="OptionButton" type="OptionButton" parent="frame/interface/sliders/options/size"]
+[node name="value" type="OptionButton" parent="frame/interface/sliders/options/size"]
 margin_top = 21.0
 margin_right = 182.0
 margin_bottom = 41.0

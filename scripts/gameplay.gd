@@ -49,8 +49,8 @@ func SpawnFleetData(aircraftData: Array) -> void:
 	if AircraftDisplayPath and get_node(AircraftDisplayPath):
 		for aircraft in aircraftData:
 			if aircraft is Aircraft:
-				var sprite = Sprite.new()
-				sprite.texture = aircraft.DesignTexture
-				sprite.name = "aircraft_" + str(Persist.FleetData.find(aircraft))
-				sprite.scale = Vector2(2, 2)
-				get_node(AircraftDisplayPath).add_child(sprite)
+				print(aircraft.ResourcePath)
+				var craft: Aircraft = load(aircraft.ResourcePath).instance()
+				get_node(AircraftDisplayPath).add_child(craft)
+
+	Events.emit_signal("AircraftSpawned")

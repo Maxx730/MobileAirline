@@ -1,0 +1,735 @@
+[gd_scene load_steps=53 format=2]
+
+[ext_resource path="res://scripts/overworld.gd" type="Script" id=1]
+[ext_resource path="res://scripts/main.gd" type="Script" id=2]
+[ext_resource path="res://scripts/map.gd" type="Script" id=3]
+[ext_resource path="res://textures/tilesets/prototype.png" type="Texture" id=4]
+[ext_resource path="res://scripts/fleet.gd" type="Script" id=5]
+[ext_resource path="res://scenes/screens/shop.tscn" type="PackedScene" id=6]
+[ext_resource path="res://textures/transit.png" type="Texture" id=7]
+[ext_resource path="res://scripts/navigation.gd" type="Script" id=8]
+[ext_resource path="res://scenes/prefabs/aircraft/generic.tscn" type="PackedScene" id=10]
+[ext_resource path="res://textures/transit_lower.png" type="Texture" id=11]
+[ext_resource path="res://scripts/target_camera.gd" type="Script" id=12]
+[ext_resource path="res://fonts/ThaleahFat.ttf" type="DynamicFontData" id=13]
+[ext_resource path="res://textures/tilesets/clouds.png" type="Texture" id=14]
+[ext_resource path="res://scripts/clouds.gd" type="Script" id=15]
+[ext_resource path="res://scenes/prefabs/ui/switcher.tscn" type="PackedScene" id=16]
+[ext_resource path="res://scripts/resume.gd" type="Script" id=17]
+[ext_resource path="res://scripts/daylight.gd" type="Script" id=18]
+[ext_resource path="res://textures/passenger.png" type="Texture" id=19]
+[ext_resource path="res://scripts/passenger.gd" type="Script" id=20]
+[ext_resource path="res://shaders/scroll.tres" type="Shader" id=24]
+[ext_resource path="res://textures/blue-nav.png" type="Texture" id=27]
+[ext_resource path="res://textures/ui/dialog-box.png" type="Texture" id=33]
+
+[sub_resource type="ShaderMaterial" id=73]
+shader = ExtResource( 24 )
+shader_param/speed = -0.02
+shader_param/pixelate = 160
+
+[sub_resource type="ShaderMaterial" id=74]
+shader = ExtResource( 24 )
+shader_param/speed = -0.01
+shader_param/pixelate = 160
+
+[sub_resource type="Animation" id=36]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("aircraft/aircraft:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -92 ) ]
+}
+
+[sub_resource type="Animation" id=37]
+resource_name = "sway"
+length = 6.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("aircraft/aircraft:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5, 3, 4.5, 6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -92 ), Vector2( 10, -92 ), Vector2( 0, -92 ), Vector2( -10, -92 ), Vector2( 0, -92 ) ]
+}
+
+[sub_resource type="StyleBoxFlat" id=21]
+bg_color = Color( 1, 1, 1, 0.0941176 )
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_detail = 20
+
+[sub_resource type="StyleBoxEmpty" id=14]
+
+[sub_resource type="DynamicFont" id=28]
+size = 32
+outline_size = 3
+outline_color = Color( 0, 0, 0, 0.223529 )
+font_data = ExtResource( 13 )
+
+[sub_resource type="StyleBoxFlat" id=18]
+bg_color = Color( 1, 1, 1, 0.145098 )
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id=19]
+bg_color = Color( 1, 1, 1, 0.235294 )
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[sub_resource type="StyleBoxFlat" id=20]
+bg_color = Color( 1, 1, 1, 0.0941176 )
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id=11]
+bg_color = Color( 1, 1, 1, 0.145098 )
+
+[sub_resource type="StyleBoxFlat" id=12]
+bg_color = Color( 1, 1, 1, 0.235294 )
+
+[sub_resource type="StyleBoxFlat" id=13]
+bg_color = Color( 1, 1, 1, 0.0941176 )
+
+[sub_resource type="StyleBoxFlat" id=17]
+bg_color = Color( 1, 1, 1, 0.145098 )
+corner_radius_bottom_right = 6
+
+[sub_resource type="StyleBoxFlat" id=16]
+bg_color = Color( 1, 1, 1, 0.235294 )
+corner_radius_bottom_right = 6
+
+[sub_resource type="StyleBoxFlat" id=15]
+bg_color = Color( 1, 1, 1, 0.0941176 )
+corner_radius_bottom_right = 6
+
+[sub_resource type="TileSet" id=1]
+0/name = "prototype.png 0"
+0/texture = ExtResource( 4 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 8, 8 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+1/name = "prototype.png 1"
+1/texture = ExtResource( 4 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 8, 0, 8, 8 )
+1/tile_mode = 0
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape_one_way = false
+1/shape_one_way_margin = 0.0
+1/shapes = [  ]
+1/z_index = 0
+2/name = "prototype.png 2"
+2/texture = ExtResource( 4 )
+2/tex_offset = Vector2( 0, 0 )
+2/modulate = Color( 1, 1, 1, 1 )
+2/region = Rect2( 16, 0, 8, 8 )
+2/tile_mode = 0
+2/occluder_offset = Vector2( 0, 0 )
+2/navigation_offset = Vector2( 0, 0 )
+2/shape_offset = Vector2( 0, 0 )
+2/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+2/shape_one_way = false
+2/shape_one_way_margin = 0.0
+2/shapes = [  ]
+2/z_index = 0
+3/name = "prototype.png 3"
+3/texture = ExtResource( 4 )
+3/tex_offset = Vector2( 0, 0 )
+3/modulate = Color( 1, 1, 1, 1 )
+3/region = Rect2( 0, 8, 8, 8 )
+3/tile_mode = 0
+3/occluder_offset = Vector2( 0, 0 )
+3/navigation_offset = Vector2( 0, 0 )
+3/shape_offset = Vector2( 0, 0 )
+3/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+3/shape_one_way = false
+3/shape_one_way_margin = 0.0
+3/shapes = [  ]
+3/z_index = 0
+4/name = "prototype.png 4"
+4/texture = ExtResource( 4 )
+4/tex_offset = Vector2( 0, 0 )
+4/modulate = Color( 1, 1, 1, 1 )
+4/region = Rect2( 8, 8, 8, 8 )
+4/tile_mode = 0
+4/occluder_offset = Vector2( 0, 0 )
+4/navigation_offset = Vector2( 0, 0 )
+4/shape_offset = Vector2( 0, 0 )
+4/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+4/shape_one_way = false
+4/shape_one_way_margin = 0.0
+4/shapes = [  ]
+4/z_index = 0
+5/name = "prototype.png 5"
+5/texture = ExtResource( 4 )
+5/tex_offset = Vector2( 0, 0 )
+5/modulate = Color( 1, 1, 1, 1 )
+5/region = Rect2( 0, 16, 8, 8 )
+5/tile_mode = 0
+5/occluder_offset = Vector2( 0, 0 )
+5/navigation_offset = Vector2( 0, 0 )
+5/shape_offset = Vector2( 0, 0 )
+5/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+5/shape_one_way = false
+5/shape_one_way_margin = 0.0
+5/shapes = [  ]
+5/z_index = 0
+6/name = "prototype.png 6"
+6/texture = ExtResource( 4 )
+6/tex_offset = Vector2( 0, 0 )
+6/modulate = Color( 1, 1, 1, 1 )
+6/region = Rect2( 8, 16, 8, 8 )
+6/tile_mode = 0
+6/occluder_offset = Vector2( 0, 0 )
+6/navigation_offset = Vector2( 0, 0 )
+6/shape_offset = Vector2( 0, 0 )
+6/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+6/shape_one_way = false
+6/shape_one_way_margin = 0.0
+6/shapes = [  ]
+6/z_index = 0
+7/name = "prototype.png 7"
+7/texture = ExtResource( 4 )
+7/tex_offset = Vector2( 0, 0 )
+7/modulate = Color( 1, 1, 1, 1 )
+7/region = Rect2( 16, 16, 8, 8 )
+7/tile_mode = 0
+7/occluder_offset = Vector2( 0, 0 )
+7/navigation_offset = Vector2( 0, 0 )
+7/shape_offset = Vector2( 0, 0 )
+7/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+7/shape_one_way = false
+7/shape_one_way_margin = 0.0
+7/shapes = [  ]
+7/z_index = 0
+8/name = "prototype.png 8"
+8/texture = ExtResource( 4 )
+8/tex_offset = Vector2( 0, 0 )
+8/modulate = Color( 1, 1, 1, 1 )
+8/region = Rect2( 72, 8, 8, 8 )
+8/tile_mode = 0
+8/occluder_offset = Vector2( 0, 0 )
+8/navigation_offset = Vector2( 0, 0 )
+8/shape_offset = Vector2( 0, 0 )
+8/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+8/shape_one_way = false
+8/shape_one_way_margin = 0.0
+8/shapes = [  ]
+8/z_index = 0
+9/name = "prototype.png 9"
+9/texture = ExtResource( 4 )
+9/tex_offset = Vector2( 0, 0 )
+9/modulate = Color( 1, 1, 1, 1 )
+9/region = Rect2( 0, 24, 8, 8 )
+9/tile_mode = 0
+9/occluder_offset = Vector2( 0, 0 )
+9/navigation_offset = Vector2( 0, 0 )
+9/shape_offset = Vector2( 0, 0 )
+9/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+9/shape_one_way = false
+9/shape_one_way_margin = 0.0
+9/shapes = [  ]
+9/z_index = 0
+10/name = "prototype.png 10"
+10/texture = ExtResource( 4 )
+10/tex_offset = Vector2( 0, 0 )
+10/modulate = Color( 1, 1, 1, 1 )
+10/region = Rect2( 0, 32, 8, 8 )
+10/tile_mode = 0
+10/occluder_offset = Vector2( 0, 0 )
+10/navigation_offset = Vector2( 0, 0 )
+10/shape_offset = Vector2( 0, 0 )
+10/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+10/shape_one_way = false
+10/shape_one_way_margin = 0.0
+10/shapes = [  ]
+10/z_index = 0
+11/name = "prototype.png 11"
+11/texture = ExtResource( 4 )
+11/tex_offset = Vector2( 0, 0 )
+11/modulate = Color( 1, 1, 1, 1 )
+11/region = Rect2( 8, 24, 8, 8 )
+11/tile_mode = 0
+11/occluder_offset = Vector2( 0, 0 )
+11/navigation_offset = Vector2( 0, 0 )
+11/shape_offset = Vector2( 0, 0 )
+11/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+11/shape_one_way = false
+11/shape_one_way_margin = 0.0
+11/shapes = [  ]
+11/z_index = 0
+12/name = "prototype.png 12"
+12/texture = ExtResource( 4 )
+12/tex_offset = Vector2( 0, 0 )
+12/modulate = Color( 1, 1, 1, 1 )
+12/region = Rect2( 8, 32, 8, 8 )
+12/tile_mode = 0
+12/occluder_offset = Vector2( 0, 0 )
+12/navigation_offset = Vector2( 0, 0 )
+12/shape_offset = Vector2( 0, 0 )
+12/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+12/shape_one_way = false
+12/shape_one_way_margin = 0.0
+12/shapes = [  ]
+12/z_index = 0
+13/name = "prototype.png 13"
+13/texture = ExtResource( 4 )
+13/tex_offset = Vector2( 0, 0 )
+13/modulate = Color( 1, 1, 1, 1 )
+13/region = Rect2( 16, 24, 8, 8 )
+13/tile_mode = 0
+13/occluder_offset = Vector2( 0, 0 )
+13/navigation_offset = Vector2( 0, 0 )
+13/shape_offset = Vector2( 0, 0 )
+13/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+13/shape_one_way = false
+13/shape_one_way_margin = 0.0
+13/shapes = [  ]
+13/z_index = 0
+
+[sub_resource type="TileSet" id=31]
+0/name = "clouds.png 0"
+0/texture = ExtResource( 14 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 8, 8 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+1/name = "clouds.png 1"
+1/texture = ExtResource( 14 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 8, 0, 8, 8 )
+1/tile_mode = 0
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape_one_way = false
+1/shape_one_way_margin = 0.0
+1/shapes = [  ]
+1/z_index = 0
+2/name = "clouds.png 2"
+2/texture = ExtResource( 14 )
+2/tex_offset = Vector2( 0, 0 )
+2/modulate = Color( 1, 1, 1, 1 )
+2/region = Rect2( 16, 0, 8, 8 )
+2/tile_mode = 0
+2/occluder_offset = Vector2( 0, 0 )
+2/navigation_offset = Vector2( 0, 0 )
+2/shape_offset = Vector2( 0, 0 )
+2/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+2/shape_one_way = false
+2/shape_one_way_margin = 0.0
+2/shapes = [  ]
+2/z_index = 0
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=35]
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="DynamicFont" id=58]
+size = 32
+font_data = ExtResource( 13 )
+
+[sub_resource type="StyleBoxTexture" id=38]
+margin_left = 5.0
+margin_right = 5.0
+margin_top = 6.0
+margin_bottom = 5.0
+
+[sub_resource type="StyleBoxEmpty" id=75]
+
+[sub_resource type="StyleBoxFlat" id=76]
+bg_color = Color( 0, 0, 0, 0.192157 )
+
+[sub_resource type="StyleBoxEmpty" id=78]
+
+[sub_resource type="StyleBoxEmpty" id=79]
+
+[sub_resource type="StyleBoxEmpty" id=77]
+
+[sub_resource type="StyleBoxEmpty" id=42]
+
+[sub_resource type="DynamicFont" id=25]
+font_data = ExtResource( 13 )
+
+[node name="main" type="Node"]
+script = ExtResource( 2 )
+CameraPath = NodePath("camera")
+
+[node name="camera" type="Camera2D" parent="."]
+current = true
+script = ExtResource( 12 )
+
+[node name="screens" type="Node" parent="."]
+
+[node name="fleet" type="Node2D" parent="screens"]
+script = ExtResource( 5 )
+
+[node name="graphics" type="Node2D" parent="screens/fleet"]
+visible = false
+
+[node name="states" type="Node" parent="screens/fleet/graphics"]
+
+[node name="transit" type="Node2D" parent="screens/fleet/graphics/states"]
+visible = false
+
+[node name="CanvasLayer" type="CanvasLayer" parent="screens/fleet/graphics/states/transit"]
+layer = -1
+visible = false
+
+[node name="Sprite" type="TextureRect" parent="screens/fleet/graphics/states/transit/CanvasLayer"]
+material = SubResource( 73 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_scale = Vector2( 2, 2 )
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 2
+
+[node name="Sprite2" type="TextureRect" parent="screens/fleet/graphics/states/transit/CanvasLayer"]
+material = SubResource( 74 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_scale = Vector2( 2, 2 )
+texture = ExtResource( 11 )
+expand = true
+stretch_mode = 2
+
+[node name="sway" type="AnimationPlayer" parent="screens/fleet/graphics"]
+autoplay = "sway"
+anims/RESET = SubResource( 36 )
+anims/sway = SubResource( 37 )
+
+[node name="aircraft" type="Node2D" parent="screens/fleet/graphics"]
+z_index = 1
+
+[node name="aircraft" parent="screens/fleet/graphics/aircraft" instance=ExtResource( 10 )]
+
+[node name="ui" type="CanvasLayer" parent="screens/fleet"]
+visible = false
+
+[node name="details" type="Node" parent="screens/fleet/ui"]
+
+[node name="details" type="NinePatchRect" parent="screens/fleet/ui/details"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -216.0
+margin_top = -383.0
+margin_right = 216.0
+margin_bottom = -159.0
+texture = ExtResource( 33 )
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+
+[node name="contents" type="VBoxContainer" parent="screens/fleet/ui/details/details"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = -8.0
+
+[node name="details" type="Panel" parent="screens/fleet/ui/details/details/contents"]
+margin_right = 416.0
+margin_bottom = 144.0
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 21 )
+
+[node name="actions" type="Panel" parent="screens/fleet/ui/details/details/contents"]
+margin_top = 148.0
+margin_right = 416.0
+margin_bottom = 208.0
+rect_min_size = Vector2( 0, 60 )
+custom_styles/panel = SubResource( 14 )
+
+[node name="buttons" type="HBoxContainer" parent="screens/fleet/ui/details/details/contents/actions"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="left" type="Button" parent="screens/fleet/ui/details/details/contents/actions/buttons"]
+margin_right = 57.0
+margin_bottom = 60.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 28 )
+custom_styles/hover = SubResource( 18 )
+custom_styles/pressed = SubResource( 19 )
+custom_styles/focus = SubResource( 5 )
+custom_styles/normal = SubResource( 20 )
+text = "<"
+
+[node name="cargo" type="Button" parent="screens/fleet/ui/details/details/contents/actions/buttons"]
+margin_left = 61.0
+margin_right = 206.0
+margin_bottom = 60.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.5
+custom_fonts/font = SubResource( 28 )
+custom_styles/hover = SubResource( 11 )
+custom_styles/pressed = SubResource( 12 )
+custom_styles/focus = SubResource( 5 )
+custom_styles/normal = SubResource( 13 )
+
+[node name="depart" type="Button" parent="screens/fleet/ui/details/details/contents/actions/buttons"]
+margin_left = 210.0
+margin_right = 354.0
+margin_bottom = 60.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.5
+custom_fonts/font = SubResource( 28 )
+custom_styles/hover = SubResource( 11 )
+custom_styles/pressed = SubResource( 12 )
+custom_styles/focus = SubResource( 5 )
+custom_styles/normal = SubResource( 13 )
+
+[node name="right" type="Button" parent="screens/fleet/ui/details/details/contents/actions/buttons"]
+margin_left = 358.0
+margin_right = 416.0
+margin_bottom = 60.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 28 )
+custom_styles/hover = SubResource( 17 )
+custom_styles/pressed = SubResource( 16 )
+custom_styles/focus = SubResource( 5 )
+custom_styles/normal = SubResource( 15 )
+text = ">"
+
+[node name="shop" parent="screens" instance=ExtResource( 6 )]
+
+[node name="overworld" type="Node2D" parent="screens"]
+script = ExtResource( 1 )
+CameraPath = NodePath("../../camera")
+
+[node name="map" type="TileMap" parent="screens/overworld"]
+tile_set = SubResource( 1 )
+cell_size = Vector2( 8, 8 )
+format = 1
+script = ExtResource( 3 )
+CloudPath = NodePath("../clouds")
+
+[node name="clouds" type="TileMap" parent="screens/overworld"]
+visible = false
+modulate = Color( 0, 0, 0, 0.0666667 )
+tile_set = SubResource( 31 )
+cell_size = Vector2( 8, 8 )
+format = 1
+script = ExtResource( 15 )
+
+[node name="daylight" type="CanvasModulate" parent="screens/overworld"]
+script = ExtResource( 18 )
+MorningColor = Color( 1, 0.890196, 0.623529, 1 )
+DayColor = Color( 1, 1, 1, 1 )
+EveningColor = Color( 0.972549, 0.682353, 0.376471, 1 )
+NightColor = Color( 0.105882, 0.0705882, 0.266667, 1 )
+
+[node name="locations" type="Node2D" parent="screens/overworld"]
+
+[node name="ui" type="CanvasLayer" parent="screens/overworld"]
+
+[node name="debug" type="Panel" parent="screens/overworld/ui"]
+visible = false
+margin_left = 6.0
+margin_top = 6.0
+margin_right = 440.0
+margin_bottom = 38.0
+custom_styles/panel = SubResource( 2 )
+
+[node name="status" type="Label" parent="screens/overworld/ui/debug"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+text = "status"
+valign = 1
+
+[node name="switcher" parent="screens/overworld/ui" instance=ExtResource( 16 )]
+
+[node name="resume" type="Node2D" parent="screens"]
+script = ExtResource( 17 )
+
+[node name="ui" type="CanvasLayer" parent="screens/resume"]
+
+[node name="background" type="Panel" parent="screens/resume/ui"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 35 )
+
+[node name="resume_message" type="Label" parent="screens/resume/ui"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -105.0
+margin_top = -15.0
+margin_right = 105.0
+margin_bottom = 15.0
+custom_fonts/font = SubResource( 58 )
+text = "Loading World..."
+
+[node name="nav" type="Node" parent="screens"]
+script = ExtResource( 8 )
+
+[node name="ui" type="CanvasLayer" parent="screens/nav"]
+
+[node name="frame" type="Panel" parent="screens/nav/ui"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -162.5
+margin_top = -145.0
+margin_right = 162.5
+margin_bottom = -32.0
+custom_styles/panel = SubResource( 38 )
+
+[node name="contents" type="NinePatchRect" parent="screens/nav/ui/frame"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -179.0
+margin_right = 179.0
+margin_bottom = 48.0
+texture = ExtResource( 27 )
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 20
+
+[node name="buttons" type="HBoxContainer" parent="screens/nav/ui/frame/contents"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -149.0
+margin_top = -20.0
+margin_right = 150.0
+margin_bottom = 20.0
+
+[node name="fleet" type="Button" parent="screens/nav/ui/frame/contents/buttons"]
+margin_right = 97.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+custom_styles/hover = SubResource( 75 )
+custom_styles/pressed = SubResource( 76 )
+custom_styles/focus = SubResource( 78 )
+custom_styles/disabled = SubResource( 79 )
+custom_styles/normal = SubResource( 77 )
+text = "Fleet"
+
+[node name="shop" type="Button" parent="screens/nav/ui/frame/contents/buttons"]
+margin_left = 101.0
+margin_right = 198.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+custom_styles/hover = SubResource( 75 )
+custom_styles/pressed = SubResource( 76 )
+custom_styles/focus = SubResource( 78 )
+custom_styles/disabled = SubResource( 79 )
+custom_styles/normal = SubResource( 77 )
+text = "Shop"
+
+[node name="map" type="Button" parent="screens/nav/ui/frame/contents/buttons"]
+margin_left = 202.0
+margin_right = 299.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+custom_styles/hover = SubResource( 75 )
+custom_styles/pressed = SubResource( 76 )
+custom_styles/focus = SubResource( 78 )
+custom_styles/disabled = SubResource( 79 )
+custom_styles/normal = SubResource( 77 )
+text = "Map"
+
+[node name="info" type="Panel" parent="screens/nav/ui"]
+anchor_right = 1.0
+margin_left = 24.0
+margin_top = 68.0
+margin_right = -24.0
+margin_bottom = 119.0
+custom_styles/panel = SubResource( 42 )
+
+[node name="NinePatchRect" type="NinePatchRect" parent="screens/nav/ui/info"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -163.0
+margin_top = -27.5
+margin_right = 163.0
+margin_bottom = 27.5
+texture = ExtResource( 33 )
+patch_margin_left = 19
+patch_margin_top = 12
+patch_margin_right = 20
+patch_margin_bottom = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="screens/nav/ui/info/NinePatchRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 21.0
+margin_right = -16.0
+custom_constants/separation = 0
+
+[node name="Label" type="Label" parent="screens/nav/ui/info/NinePatchRect/HBoxContainer"]
+margin_top = 20.0
+margin_right = 144.0
+margin_bottom = 35.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 25 )
+text = "LVL 1"
+valign = 1
+
+[node name="Label2" type="Label" parent="screens/nav/ui/info/NinePatchRect/HBoxContainer"]
+margin_left = 144.0
+margin_top = 20.0
+margin_right = 289.0
+margin_bottom = 35.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 25 )
+text = "$0.00"
+align = 2
+valign = 1
+
+[node name="passenger" type="Node2D" parent="."]
+script = ExtResource( 20 )
+HairColors = [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ) ]
+
+[node name="sprite" type="Sprite" parent="passenger"]
+texture = ExtResource( 19 )

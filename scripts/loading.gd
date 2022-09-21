@@ -12,6 +12,8 @@ export(DynamicFont) var ListItemFont
 # Generation Nodes
 var MapImgGenTemplate: PackedScene = preload("res://scenes/prefabs/map_image_generation.tscn")
 var LocationTemplate: PackedScene = preload("res://scenes/prefabs/location.tscn")
+var InitialAircraftTemplate: PackedScene = preload("res://scenes/prefabs/aircraft/generic-passenger.tscn")
+var SecondaryAircraftTemplate: PackedScene = preload("res://scenes/prefabs/aircraft/generic.tscn")
 
 # UI Elements
 onready var LoadingBar: ProgressBar = get_node("top/amount")
@@ -48,7 +50,6 @@ func _ready() -> void:
 				add_child(mapImgGen)
 				#GenerationLog.visible = true
 				randomize()
-				Persist.MapSeed = randi()
 				AddMessageGenerationList("Generating world map with seed (" + str(Persist.MapSeed) + ")...")
 				mapImgGen.GenerateWorldMap(LoadingBar, StatusLabel)
 	else:
@@ -79,12 +80,13 @@ func AddMessageGenerationList(message: String) -> void:
 func GenerateWorldLocations() -> bool:
 	var size: Vector2 = Persist.GetWorldMapTexture().get_size()
 	var noise: OpenSimplexNoise = Persist.GetWorldNoise()
+	var waterLevel: float = Persist.MapWaterLevel - 0.5
 	
 	for x in size.x:
 		for y in size.y:
 			if Persist.LocationData.size() < MAX_LOCATION_AMOUNT:
 				var val: float = noise.get_noise_2d(x, y)
-				if (val > 0.2 and val < 0.4) and IsLocationIsolated(Vector2(x, y)):
+				if (val > waterLevel + 0.2 and val < waterLevel + 0.4) and IsLocationIsolated(Vector2(x, y)):
 					var newLoc: Location = Location.new()
 					newLoc.Randomize()
 					newLoc.position = Vector2(x, y)
@@ -101,9 +103,13 @@ func GenerateWorldLocations() -> bool:
 	call_deferred("LocationGenerationFinished")
 	return true
 	
-func GenerateInitialAircraft() -> Aircraft:
-	var newAircraft: Aircraft = Aircraft.new()
-	newAircraft.Name = "Early Horizons"
+func GenerateInitialAircraft(secondary: bool) -> Aircraft:
+	print(secondary)
+	var newAircraft: Aircraft = InitialAircraftTemplate.instance() if !secondary else SecondaryAircraftTemplate.instance()
+	newAircraft.Name = "Early Horizons" if !secondary else "Late Horizons"
+	newAircraft.ResourcePath = InitialAircraftTemplate.resource_path if !secondary else SecondaryAircraftTemplate.resource_path
+	# start are random location
+	newAircraft.LocationID = Persist.LocationData[rand_range(0, Persist.LocationData.size())].ID
 	return newAircraft
 	
 func IsLocationIsolated(location: Vector2) -> bool:
@@ -136,7 +142,10 @@ func OnMapImageGenerationComplete() -> void:
 func LocationGenerationFinished() -> void:
 	var success = LocationGenThread.wait_to_finish()	
 	Persist.FleetData.append(
-		GenerateInitialAircraft()
+		GenerateInitialAircraft(false)
+	)
+	Persist.FleetData.append(
+		GenerateInitialAircraft(true)
 	)
 	AddMessageGenerationList("Generation of locations complete.")
 	SetStatusLabel("Map Generation Complete!")

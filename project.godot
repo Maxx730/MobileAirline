@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/aircraft.gd"
 }, {
+"base": "Node2D",
+"class": "Backdrop",
+"language": "GDScript",
+"path": "res://scripts/backdrop.gd"
+}, {
 "base": "TileMap",
 "class": "Clouds",
 "language": "GDScript",
@@ -114,7 +119,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/passenger.gd"
 }, {
-"base": "Node2D",
+"base": "Backdrop",
 "class": "PrototypeDetails",
 "language": "GDScript",
 "path": "res://scripts/tilemaps/prototype_details.gd"
@@ -218,9 +223,15 @@ _global_script_classes=[ {
 "class": "WorldGen",
 "language": "GDScript",
 "path": "res://scripts/generation/worldgen.gd"
+}, {
+"base": "PanelButton",
+"class": "WorldLocation",
+"language": "GDScript",
+"path": "res://scripts/world_location.gd"
 } ]
 _global_script_class_icons={
 "Aircraft": "",
+"Backdrop": "",
 "Clouds": "",
 "ColorChoice": "",
 "Controls": "",
@@ -261,8 +272,13 @@ _global_script_class_icons={
 "Wave": "",
 "WaveGenerator": "",
 "Weather": "",
-"WorldGen": ""
+"WorldGen": "",
+"WorldLocation": ""
 }
+
+[NativeLib]
+
+Python="/usr/bin/python3"
 
 [application]
 
@@ -272,6 +288,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
+LocalNotification="*res://scripts/localnotification.gd"
 Enums="*res://scripts/global/enums.gd"
 Events="*res://scripts/global/events.gd"
 Data="*res://scripts/data.gd"
@@ -279,6 +296,7 @@ Settings="*res://scripts/global/settings.gd"
 Persist="*res://scripts/persist.gd"
 Transition="*res://scripts/global/transition.gd"
 GlobalDialog="*res://scripts/global/dialog.gd"
+Utils="*res://scripts/global/utils.gd"
 
 [debug]
 
@@ -297,6 +315,10 @@ window/handheld/orientation="portrait"
 window/stretch/mode="2d"
 window/stretch/aspect="keep_width"
 
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/NativeLib/plugin.cfg" )
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
@@ -307,4 +329,5 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+environment/default_clear_color=Color( 0, 0, 0, 1 )
 environment/default_environment="res://default_env.tres"

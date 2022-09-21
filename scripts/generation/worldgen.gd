@@ -20,6 +20,8 @@ onready var DetailSlider: Slider = get_node("frame/interface/sliders/options/det
 onready var WaterSlider: Slider = get_node("frame/interface/sliders/options/water/value")
 onready var GranualaritySlider: Slider = get_node("frame/interface/sliders/options/granularity/value")
 
+onready var MapSizeOption: OptionButton = get_node("frame/interface/sliders/options/size/value")
+
 # Debug Elements
 onready var DebugSeedLabel: Label = get_node("frame/interface/debug/list/seed")
 onready var DebugZoomLabel: Label = get_node("frame/interface/debug/list/zoom")
@@ -135,14 +137,16 @@ func OnUseValuesPressed() -> void:
 	Persist.MapOctaves = NoiseSource.octaves
 	Persist.MapPeriod = NoiseSource.period
 	Persist.MapLacunarity = NoiseSource.lacunarity
+	Persist.MapWaterLevel = WaterSlider.value
+	Persist.MapSize = MapSizeOption.selected
 	NextScene = "res://scenes/screens/begin.tscn"
 	Transition.TransitionStart(false)
 	
 func OnPersistLoaded() -> void:
 	var noiseText: NoiseTexture = get_node("frame/map").texture
 	if noiseText:
-		noiseText.width = 100 * (Persist.MapSize + 1)
-		noiseText.height = 100 * (Persist.MapSize + 1)
+		noiseText.width = 400 * (Persist.MapSize + 1)
+		noiseText.height = 400 * (Persist.MapSize + 1)
 		
 	
 # Persistence Methods

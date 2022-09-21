@@ -33,6 +33,7 @@ func CreateTransitionNode() -> void:
 	var canvas = CanvasLayer.new()
 	TransitionPanel = Panel.new()
 	
+	TransitionPanel.name = "transition-panel"
 	TransitionPanel.mouse_filter = 2
 	TransitionPanel.mouse_default_cursor_shape = 2
 	TransitionPanel.anchor_bottom = 0

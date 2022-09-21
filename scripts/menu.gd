@@ -55,6 +55,9 @@ func ModifyContinueLayout(newGame: bool = true) -> void:
 			
 		if ContinueGameButton:
 			ContinueGameButton.visible = true
+			
+		if WorldGenerationButton:
+			WorldGenerationButton.visible = false
 
 # Connected Methods
 func OnNewGamePressed() -> void:

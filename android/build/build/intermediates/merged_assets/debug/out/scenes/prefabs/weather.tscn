@@ -1,0 +1,119 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://scripts/weather.gd" type="Script" id=1]
+[ext_resource path="res://textures/transit.png" type="Texture" id=2]
+[ext_resource path="res://shaders/clouds.tres" type="Shader" id=3]
+[ext_resource path="res://scripts/thunderstorm.gd" type="Script" id=4]
+[ext_resource path="res://textures/rain-splat.png" type="Texture" id=5]
+
+[sub_resource type="OpenSimplexNoise" id=11]
+period = 66.0
+persistence = 0.836
+lacunarity = 3.25
+
+[sub_resource type="NoiseTexture" id=12]
+seamless = true
+noise = SubResource( 11 )
+
+[sub_resource type="ShaderMaterial" id=10]
+shader = ExtResource( 3 )
+shader_param/pixelate_amount = 40.0
+shader_param/cloud_opacity = 0.15
+shader_param/noise_texture = SubResource( 12 )
+
+[sub_resource type="Curve" id=8]
+max_value = 4.0
+_data = [ Vector2( 0, 4 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=13]
+offsets = PoolRealArray( 0.349794, 0.995885 )
+colors = PoolColorArray( 0.410156, 0.861755, 1, 1, 0.545098, 0.815686, 1, 0.313726 )
+
+[sub_resource type="Gradient" id=9]
+offsets = PoolRealArray( 0.320988, 0.995885 )
+colors = PoolColorArray( 1, 1, 1, 0.572549, 0.545098, 0.815686, 1, 0.313726 )
+
+[node name="weather" type="Node"]
+script = ExtResource( 1 )
+
+[node name="clear" type="Node2D" parent="."]
+visible = false
+
+[node name="overcast" type="Node2D" parent="."]
+visible = false
+
+[node name="cloudy" type="Node2D" parent="."]
+visible = false
+
+[node name="sprite" type="TextureRect" parent="cloudy"]
+material = SubResource( 10 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -240.0
+margin_top = -320.0
+margin_right = 240.0
+margin_bottom = 320.0
+texture = ExtResource( 2 )
+stretch_mode = 2
+
+[node name="rain" type="Node2D" parent="."]
+visible = false
+
+[node name="particles" type="CPUParticles2D" parent="rain"]
+amount = 300
+lifetime = 0.7
+speed_scale = 4.0
+emission_shape = 1
+emission_sphere_radius = 400.0
+gravity = Vector2( 0, 0 )
+radial_accel = -200.0
+radial_accel_random = 0.5
+scale_amount_random = 0.5
+scale_amount_curve = SubResource( 8 )
+color_ramp = SubResource( 13 )
+
+[node name="impact" type="CPUParticles2D" parent="rain"]
+amount = 100
+lifetime = 0.7
+texture = ExtResource( 5 )
+emission_shape = 1
+emission_sphere_radius = 400.0
+gravity = Vector2( 0, 0 )
+color_ramp = SubResource( 9 )
+
+[node name="thunder" type="Node2D" parent="."]
+visible = false
+script = ExtResource( 4 )
+
+[node name="particles" type="CPUParticles2D" parent="thunder"]
+amount = 100
+lifetime = 0.7
+speed_scale = 2.0
+emission_shape = 1
+emission_sphere_radius = 320.0
+gravity = Vector2( 0, 0 )
+radial_accel = -200.0
+radial_accel_random = 0.5
+scale_amount_random = 0.5
+scale_amount_curve = SubResource( 8 )
+color_ramp = SubResource( 9 )
+
+[node name="lightning" type="ColorRect" parent="thunder"]
+visible = false
+margin_left = -240.0
+margin_top = -320.0
+margin_right = 240.0
+margin_bottom = 320.0
+
+[node name="snow" type="Node2D" parent="."]
+visible = false
+
+[node name="particles" type="CPUParticles2D" parent="snow"]
+amount = 100
+lifetime = 3.0
+emission_shape = 1
+emission_sphere_radius = 400.0
+gravity = Vector2( 0, 0 )
+radial_accel = -10.0
+scale_amount_random = 0.5
+scale_amount_curve = SubResource( 8 )

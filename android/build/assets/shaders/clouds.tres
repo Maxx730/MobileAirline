@@ -1,0 +1,24 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type canvas_item;
+
+uniform sampler2D noise_texture;
+uniform float pixelate_amount: hint_range(10.0, 50.0) = 40.0;
+uniform float cloud_opacity: hint_range(0.05, 0.95) = 0.25;
+
+
+void fragment() {
+	vec2 uv = UV;
+	uv.y -= TIME * 0.01;
+	vec4 color = texture(noise_texture, uv);
+	
+	if (color.r > 0.5) {
+		color.a = 0.0;
+	} else {
+		color.a = cloud_opacity;
+		color.rgb = vec3(0.0);
+	}
+	
+	COLOR = color;
+}"

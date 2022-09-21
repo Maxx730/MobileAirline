@@ -1,0 +1,20 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type canvas_item;
+
+uniform float ShadowMovementSpeed: hint_range(0.01, 0.1) = 0.05;
+uniform float ShadowDarkness: hint_range(0.0, 1.0) = 0.25;
+
+void fragment() {
+	vec2 uv = UV;
+	uv.y += TIME * ShadowMovementSpeed;
+	vec4 color = texture(TEXTURE, uv);
+	if (color.r > 0.5) {
+		color.a = ShadowDarkness;
+		color.rgb = vec3(0.0);
+	} else {
+		color.a = 0.0;
+	}
+	COLOR = color;
+}"
