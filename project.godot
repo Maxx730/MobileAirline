@@ -15,9 +15,19 @@ _global_script_classes=[ {
 "path": "res://scripts/aircraft.gd"
 }, {
 "base": "Node2D",
+"class": "AircraftRef",
+"language": "GDScript",
+"path": "res://scripts/aircraft_ref.gd"
+}, {
+"base": "Node2D",
 "class": "Backdrop",
 "language": "GDScript",
 "path": "res://scripts/backdrop.gd"
+}, {
+"base": "Node",
+"class": "Cargo",
+"language": "GDScript",
+"path": "res://scripts/cargo.gd"
 }, {
 "base": "TileMap",
 "class": "Clouds",
@@ -119,11 +129,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/passenger.gd"
 }, {
-"base": "Backdrop",
-"class": "PrototypeDetails",
-"language": "GDScript",
-"path": "res://scripts/tilemaps/prototype_details.gd"
-}, {
 "base": "Node",
 "class": "Record",
 "language": "GDScript",
@@ -224,14 +229,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/generation/worldgen.gd"
 }, {
-"base": "PanelButton",
+"base": "Area2D",
 "class": "WorldLocation",
 "language": "GDScript",
 "path": "res://scripts/world_location.gd"
 } ]
 _global_script_class_icons={
 "Aircraft": "",
+"AircraftRef": "",
 "Backdrop": "",
+"Cargo": "",
 "Clouds": "",
 "ColorChoice": "",
 "Controls": "",
@@ -252,7 +259,6 @@ _global_script_class_icons={
 "Overworld": "",
 "PanelButton": "",
 "Passenger": "",
-"PrototypeDetails": "",
 "Record": "",
 "Resume": "",
 "RunwayLight": "",
@@ -288,7 +294,6 @@ config/icon="res://icon.png"
 
 [autoload]
 
-LocalNotification="*res://scripts/localnotification.gd"
 Enums="*res://scripts/global/enums.gd"
 Events="*res://scripts/global/events.gd"
 Data="*res://scripts/data.gd"
@@ -297,6 +302,7 @@ Persist="*res://scripts/persist.gd"
 Transition="*res://scripts/global/transition.gd"
 GlobalDialog="*res://scripts/global/dialog.gd"
 Utils="*res://scripts/global/utils.gd"
+State="*res://scripts/global/state.gd"
 
 [debug]
 

@@ -36,6 +36,8 @@ animations = [ {
 
 [node name="aircraft" type="Node2D"]
 position = Vector2( 0, -92 )
+z_index = 1
+z_as_relative = false
 script = ExtResource( 1 )
 
 [node name="coloring" type="Sprite" parent="."]
@@ -49,29 +51,30 @@ material = SubResource( 35 )
 scale = Vector2( 3, 3 )
 texture = ExtResource( 2 )
 
-[node name="propellers" type="Node2D" parent="."]
+[node name="propellers" type="Node2D" parent="base"]
+scale = Vector2( 0.333333, 0.333333 )
 
-[node name="propeller1" type="AnimatedSprite" parent="propellers"]
+[node name="propeller1" type="AnimatedSprite" parent="base/propellers"]
 position = Vector2( 51, -38 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 34 )
 frame = 1
 playing = true
 
-[node name="propeller2" type="AnimatedSprite" parent="propellers"]
+[node name="propeller2" type="AnimatedSprite" parent="base/propellers"]
 position = Vector2( -51, -38 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 34 )
 frame = 1
 playing = true
 
-[node name="propeller3" type="AnimatedSprite" parent="propellers"]
+[node name="propeller3" type="AnimatedSprite" parent="base/propellers"]
 position = Vector2( -81, -26 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 34 )
 playing = true
 
-[node name="propeller4" type="AnimatedSprite" parent="propellers"]
+[node name="propeller4" type="AnimatedSprite" parent="base/propellers"]
 position = Vector2( 81, -26 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 34 )

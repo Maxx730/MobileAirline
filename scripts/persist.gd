@@ -5,6 +5,7 @@ var AirlineName: String = "Undefined"
 var AirlineCallSign: String = "XXX"
 var AirlineLogo: String = ""
 var AirlineColor: Color = Color.white
+var AirlineCash: int = 0
 
 # Level Data
 var CurrentEXP: int = 0
@@ -13,6 +14,7 @@ var CurrentEXP: int = 0
 var LocationData: Array = []
 var FleetData: Array = []
 var AvailableAircraft: Array = []
+var AvailableCargo: Array = []
 
 # Settings Data
 var UseDaylight: bool = true
@@ -34,6 +36,10 @@ var ShouldTick: bool = true
 var TickFrequency: float = 1.0
 var LastTick: float = 0.0
 
+# Saves the Persist Object Every 5 Ticks
+var TicksSinceSave: int = 0
+var TicksPerSave: int = 5
+
 signal PersistDataLoaded()
 signal PersistLoadError()
 signal PersistSaveSuccess()
@@ -54,10 +60,12 @@ func Save() -> Dictionary:
 	var data = {
 		"airline_name": AirlineName,
 		"current_exp": CurrentEXP,
+		"cash": AirlineCash,
 		"timestamp": OS.get_unix_time(),
 		"locations": SerializeLocations(),
 		"fleet": SerializeFleet(),
 		"available": SerializeAvailable(),
+		"cargo": SerializeCargo(),
 		"logo": AirlineLogo,
 		"color": str(AirlineColor),
 		"call_sign": AirlineCallSign,
@@ -100,6 +108,7 @@ func Initialize(data) -> void:
 		FleetData = ParseFleet(data.fleet)
 		CompletedFlights = data.stats.completed
 		AvailableAircraft = data.available
+		AirlineCash = data.cash
 		var colorValues = data.color.split(',')
 		AirlineColor = Color(colorValues[0], colorValues[1], colorValues[2])
 		AirlineLogo = data.logo
@@ -133,6 +142,12 @@ func _process(delta: float) -> void:
 	if LastTick >= TickFrequency and ShouldTick:
 		emit_signal("PersistTick")
 		LastTick = 0.0
+		TicksSinceSave += 1
+	
+	if TicksSinceSave > TicksPerSave:
+		TicksSinceSave = 0
+		Save()
+	
 	LastTick += delta
 
 # General Methods
@@ -176,6 +191,15 @@ func GetWorldNoise() -> OpenSimplexNoise:
 	noise.octaves = MapOctaves
 	return noise;
 
+func GetLocationFromLocationId(id) -> Location:
+	var found: Location = null
+	for location in LocationData:
+		if location is Location:
+			if id == location.ID:
+				found = location
+		
+	return found
+
 # Serialize Methods
 func SerializeLocations() -> Array:
 	var serialized = Array()
@@ -184,7 +208,6 @@ func SerializeLocations() -> Array:
 			serialized.append(
 				loc.Serialize()
 			)
-	
 	return serialized
 
 func SerializeFleet() -> Array:
@@ -199,6 +222,14 @@ func SerializeAvailable() -> Array:
 	
 	return serialized
 
+func SerializeCargo() -> Array:
+	var cargo: Array = []
+	for item in AvailableCargo:
+		if item is Cargo:
+			cargo.append(item.Serialize())
+			
+	return cargo
+
 # Deserialization Methods
 func ParseLocations(data) -> Array:
 	var locations: Array = Array()
@@ -211,6 +242,7 @@ func ParseLocations(data) -> Array:
 			newLoc.LocationType = location.type
 			newLoc.CurrentWeather = location.weather
 			newLoc.Unlocked = location.unlocked
+			newLoc.LocationSize = location.size
 			locations.append(newLoc)
 	return locations
 
@@ -218,7 +250,8 @@ func ParseFleet(data) -> Array:
 	var aircraft: Array = Array()
 	for craft in data:
 		if craft is Dictionary:
-			var newCraft: Aircraft = Aircraft.new()
+			var newCraft: Aircraft = load(craft.resource.path).instance()
+			newCraft.name = "aircraft-" + str(data.find(craft))
 			newCraft.Name = craft.name
 			newCraft.LocationID = craft.location.id
 			newCraft.State = craft.state
@@ -226,7 +259,9 @@ func ParseFleet(data) -> Array:
 			newCraft.ResourcePath = craft.resource.path
 			newCraft.MaxFuel = craft.fuel.max
 			newCraft.CurrentFuel = craft.fuel.current
-			newCraft.FuelPerTick
+			newCraft.FuelPerTick = craft.fuel.tick
+			newCraft.Destination = craft.fuel.destination
+			newCraft.MapPosition = Vector2(craft.position.x, craft.position.y)
 			aircraft.append(newCraft)
 	return aircraft
 	

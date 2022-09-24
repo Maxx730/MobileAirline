@@ -164,7 +164,7 @@ FlySpeed = 8.0
 [node name="wave_generator" type="ColorRect" parent="background"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0.0416, 0.384453, 0.52, 1 )
+color = Color( 0.0431373, 0.384314, 0.521569, 1 )
 script = ExtResource( 5 )
 WaveNumber = 3
 WaveSpeed = 10
@@ -180,7 +180,7 @@ texture = ExtResource( 6 )
 [node name="wave" type="AnimatedSprite" parent="background/shore"]
 position = Vector2( 240, 9 )
 frames = SubResource( 1 )
-frame = 3
+frame = 2
 playing = true
 
 [node name="shadows" type="TextureRect" parent="background"]

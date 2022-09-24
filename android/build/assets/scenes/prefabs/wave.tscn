@@ -21,7 +21,7 @@ texture = ExtResource( 1 )
 script = ExtResource( 2 )
 
 [node name="particles" type="CPUParticles2D" parent="."]
-position = Vector2( 328, 48 )
+position = Vector2( 328, 84 )
 amount = 300
 lifetime = 4.0
 local_coords = false

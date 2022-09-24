@@ -6,15 +6,17 @@ export(PackedScene) var WorldLocationPrefab
 export(PackedScene) var AircraftMapRef
 export(NodePath) var CameraRefPath
 
+onready var AircraftList: Node2D = get_node("aircraft_refs")
+
 # Load the mask for the map limits
 var MaskShader = preload("res://shaders/world_mask.tres")
 
-#####################
+##################
 # LIFECYCLE METHODS #
 #####################
 func _ready() -> void:
-	SpawnMap()
-	SpawnMapMask()
+	#SpawnMap()
+	#SpawnMapMask()
 	SpawnLocations()
 	SpawnAircraftRefs()
 	
@@ -56,23 +58,24 @@ func SpawnLocations() -> void:
 		for location in Persist.LocationData:
 			var world = get_node("world")
 			if world and location is Location:
-				var loc: WorldLocation = location.Spawn(
-					load("res://textures/icons/city-icon.png"),
-					WorldLocationPrefab.instance()
-				)
-				loc.rect_position = loc.rect_size / -2
+				var loc: WorldLocation = WorldLocationPrefab.instance()
+				loc.LocationRef = location
+				loc.SetUIElements(location.Name)
 				location.name = "location-" + str(location.ID)
 				location.add_child(loc)
-				location.z_index = 100
-				loc.connect("PanelButtonPressed", self, "OnWorldLocationPressed")
+				loc.connect("OnLocationPressed", self, "OnWorldLocationPressed")
 				world.add_child(location)
 	else:
 		printerr("ERROR: Unable to spawn world locations, prefab for ui missing.")
 
 func SpawnAircraftRefs() -> void:
-	for aircraft in Persist.FleetData:
-		if aircraft is Aircraft:
-			pass
+	if AircraftList and AircraftMapRef:
+		for aircraft in Persist.FleetData:
+			if aircraft is Aircraft:
+				var Mapref: AircraftRef = AircraftMapRef.instance()
+				Mapref.AircraftSource = Persist.FleetData.find(aircraft)
+				Mapref.position = aircraft.MapPosition
+				AircraftList.add_child(Mapref)
 
 ###################
 # GENERAL METHODS #
@@ -84,12 +87,24 @@ func ResizeLocationIcons(scale) -> void:
 			if location.get_child_count() > 0:
 				var panel = location.get_child(0)
 				if panel is WorldLocation:
-					var icon: TextureRect = panel.GetLocationIcon()
-					var label: Label = panel.GetLocationLabel()
-					var panelSize: Vector2 = panel.rect_size
+					pass
 
 #####################
 # CONNECTED METHODS #
 #####################
-func OnWorldLocationPressed() -> void:
-	pass
+func OnWorldLocationPressed(id) -> void:
+	if State.GameplayContext == Enums.GameContext.CHOOSE_DESTINATION:		
+		var dialog: SimpleDialog = GlobalDialog.CreateDialog("Ready to Depart?", "Confirm aircraft travel to ", "Aircraft () ready for departure to ", get_node("ui"), [id])
+		
+		dialog.connect("OnDialogConfirm", self, "OnDepartConfirmed")
+	else:
+		# ask they player if they would like to unlock
+		pass
+
+func OnDepartConfirmed(args) -> void:
+	var craft: Aircraft = Persist.FleetData[State.FocusedAircraft]
+	craft.State = Enums.AircraftStates.TRANSIT
+	craft.Destination = args[0]
+	Events.emit_signal("ContextChanged", Enums.GameContext.IDLE)
+	Events.emit_signal("AircraftChanged", State.FocusedAircraft)
+	Persist.Save()

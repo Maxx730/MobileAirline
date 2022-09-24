@@ -22,7 +22,7 @@ func _ready() -> void:
 	ConnectButtons()
 	Transition.connect("OnTransitionInFinished", self, "OnTransitionInFinished")
 	Transition.connect("OnTransitionOutFinished", self, "OnTransitionOutFinished")
-	Transition.TransitionStart(true)
+	Transition.call_deferred("TransitionStart", true)
 	
 	if Data.DataExists():
 		Persist.Load()

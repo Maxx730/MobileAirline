@@ -32,7 +32,7 @@ void fragment() {
 	// Logic to set different colors for different heights
 	// Ocean starts at 0.5
 	if (color.r < WaterLevel - offset) {
-		if (color.r > WaterLevel - 0.02) {
+		if (color.r > WaterLevel - 0.01) {
 			color = BeachFrothColor;
 		} else if (color.r > WaterLevel - 0.05) {
 			color = FrothOceanColor;
@@ -46,7 +46,7 @@ void fragment() {
 			color = DeepestOceanColor;	
 		}
 	} else {
-		if (color.r < WaterLevel + 0.02) {
+		if (color.r < WaterLevel + 0.005) {
 			color = WetSandGroundColor;
 		} else if (color.r < WaterLevel + 0.03) {
 			color = SandGroundColor;

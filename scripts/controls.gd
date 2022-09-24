@@ -58,37 +58,55 @@ func UpdateAircraftControls(id) -> void:
 	if DepartButton:
 		DepartButton.disabled = state == Enums.AircraftStates.TRANSIT
 
+func EmitAircraftChange() -> void:
+	Events.emit_signal("AircraftChanged", State.FocusedAircraft)
+
+func EmitChangeToMap() -> void:
+	Events.emit_signal("ContextChanged", Enums.GameContext.MAP)
+	
+func EmitIdleChange() -> void:
+	Events.emit_signal("ContextChanged", Enums.GameContext.IDLE)
+
+func EmitShopChange() -> void:
+	Events.emit_signal("ContextChanged", Enums.GameContext.SHOP)
+
 #####################
 # CONNECTED METHODS #
 #####################
 func OnNextAircraftPressed() -> void:
-	if FocusedAircraft  + 1 < Persist.FleetData.size():
-		FocusedAircraft += 1
+	if State.FocusedAircraft  + 1 < Persist.FleetData.size():
+		State.FocusedAircraft += 1
 	else:
-		FocusedAircraft = 0
+		State.FocusedAircraft = 0
 		
-	Events.emit_signal("AircraftChanged", FocusedAircraft)
+	var changeAircraft: FuncRef = funcref(self, "EmitAircraftChange")
+	Transition.QuickTransition(changeAircraft)
 	
 func OnPreviousAircraftPressed() -> void:
-	if FocusedAircraft > 0:
-		FocusedAircraft -= 1
+	if State.FocusedAircraft > 0:
+		State.FocusedAircraft -= 1
 	else:
-		FocusedAircraft = Persist.FleetData.size() - 1
+		State.FocusedAircraft = Persist.FleetData.size() - 1
 		
-	Events.emit_signal("AircraftChanged", FocusedAircraft)
+	var changeAircraft: FuncRef = funcref(self, "EmitAircraftChange")
+	Transition.QuickTransition(changeAircraft)
 
 func OnSettingsButtonPressed() -> void:
 	NextScene = "res://scenes/screens/settings.tscn"
 	Transition.TransitionStart(false)
+	Persist.ShouldTick = false
 
 func OnShopButtonPressed() -> void:
-	Events.emit_signal("ContextChanged", Enums.GameContext.SHOP)
+	var shopRef: FuncRef = funcref(self, "EmitShopChange")
+	Transition.QuickTransition(shopRef)
 
 func OnMapButtonPressed() -> void:
-	Events.emit_signal("ContextChanged", Enums.GameContext.MAP)
+	var changeToMap: FuncRef = funcref(self, "EmitChangeToMap")
+	Transition.QuickTransition(changeToMap)
 
 func OnBackButtonPressed() -> void:
-	Events.emit_signal("ContextChanged", Enums.GameContext.IDLE)
+	var idleRef: FuncRef = funcref(self, "EmitIdleChange")
+	Transition.QuickTransition(idleRef)
 
 func OnTransitionOutFinished() -> void:
 	if NextScene != null:
@@ -99,6 +117,6 @@ func OnContextChanged(context) -> void:
 	UpdateAircraftControls(0)
 
 func OnDepartPressed() -> void:
-	var aircraft: Aircraft = Persist.FleetData[FocusedAircraft]
+	var aircraft: Aircraft = Persist.FleetData[State.FocusedAircraft]
 	if aircraft:
 		Events.emit_signal("ContextChanged", Enums.GameContext.CHOOSE_DESTINATION)

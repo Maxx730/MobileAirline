@@ -2,13 +2,6 @@ extends Node
 
 class_name Gameplay
 
-# KEEPS TRACK OF THE GIVEN SCREEN 
-# THE PLAYER IS ON AS WELL AS
-# THE CONTEXT THE PLAYER IS IN I.E LOADING 
-# CARGO WOULD REQUIRE THE SHOP SCREEN
-var GameplayState: int = Enums.GameplayScreens.AIRCRAFT
-var GameplayContext: int = Enums.GameContext.IDLE
-
 ###########
 # SCREENS #
 ###########
@@ -36,7 +29,7 @@ func PersistDataLoaded() -> void:
 		Events.emit_signal("AircraftChanged", 0)
 
 func OnContextChanged(context) -> void:
-	GameplayContext = context
+	State.GameplayContext = context
 
 #####################
 # GENERAL METHODS   #
@@ -49,8 +42,8 @@ func SpawnFleetData(aircraftData: Array) -> void:
 	if AircraftDisplayPath and get_node(AircraftDisplayPath):
 		for aircraft in aircraftData:
 			if aircraft is Aircraft:
-				print(aircraft.ResourcePath)
 				var craft: Aircraft = load(aircraft.ResourcePath).instance()
-				get_node(AircraftDisplayPath).add_child(craft)
+				craft.position = Vector2.ZERO
+				get_node(AircraftDisplayPath).add_child(aircraft)
 
 	Events.emit_signal("AircraftSpawned")

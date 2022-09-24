@@ -5,10 +5,7 @@ class_name DetailCamera
 export(NodePath) var ZoomInPath
 export(NodePath) var ZoomOutPath
 export(NodePath) var RecenterPath
-
 export(float, 5.0, 25,0) var DragSpeed = 15.0
-
-onready var GamePlayRef: Gameplay = get_tree().root.get_node("gameplay")
 
 var MouseIsDown: bool = false
 var TargetZoom: float = 1.0
@@ -35,7 +32,7 @@ func _ready() -> void:
 	TargetPosition = Persist.GetWorldMapImage().get_size() / 2
 
 func _input(event) -> void:
-	if GamePlayRef and GamePlayRef.GameplayContext == Enums.GameContext.MAP or GamePlayRef.GameplayContext == Enums.GameContext.CHOOSE_DESTINATION:
+	if State.GameplayContext == Enums.GameContext.MAP or State.GameplayContext == Enums.GameContext.CHOOSE_DESTINATION:
 		if event is InputEventMouseButton:
 			if event.pressed and event.button_index == BUTTON_LEFT:
 				MouseIsDown = true
@@ -49,7 +46,7 @@ func _input(event) -> void:
 		update()
 
 func _process(delta) -> void:
-	if GamePlayRef and GamePlayRef.GameplayContext == Enums.GameContext.MAP or GamePlayRef.GameplayContext == Enums.GameContext.CHOOSE_DESTINATION:
+	if State.GameplayContext == Enums.GameContext.MAP or State.GameplayContext == Enums.GameContext.CHOOSE_DESTINATION:
 		var nextZoom = move_toward(zoom.x, TargetZoom, delta * ZoomSpeed)
 		zoom = Vector2(nextZoom, nextZoom)
 		position = position.move_toward(TargetPosition, 25)

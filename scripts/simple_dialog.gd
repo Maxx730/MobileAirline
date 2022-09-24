@@ -11,8 +11,10 @@ onready var TitleLabel: Label = get_node("top/title")
 onready var SubtitleLabel: Label = get_node("top/subtitle")
 onready var MessageLabel: Label = get_node("content/message")
 
-signal OnDialogConfirm()
-signal OnDialogCancel()
+var DialogArgs: Array
+
+signal OnDialogConfirm(args)
+signal OnDialogCancel(args)
 
 # Lifecycle Methods
 func _ready() -> void:
@@ -37,11 +39,14 @@ func SetDialogInformation(title, subtitle, message) -> void:
 	if MessageLabel:
 		MessageLabel.text = message
 
+func AddData(args: Array = []) -> void:
+	DialogArgs = args
+
 # Connected Methods
 func OnConfirmClicked() -> void:
-	emit_signal("OnDialogConfirm")
+	emit_signal("OnDialogConfirm", DialogArgs)
 	self.queue_free()
 	
 func OnCancelClicked() -> void:
-	emit_signal("OnDialogCancel")
+	emit_signal("OnDialogCancel", DialogArgs)
 	self.queue_free()

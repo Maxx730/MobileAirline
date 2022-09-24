@@ -4,8 +4,12 @@ class_name Details
 
 onready var FocusedAircraftName: Label = get_node("ui/interface/title/list/name")
 onready var FocusedAircraftCallSign: Label = get_node("ui/interface/title/list/callsign")
+onready var FocusedAircraftContext: Label = get_node("ui/interface/title/list/location")
 onready var FleetList: Node = get_node("aircraft/fleet")
 onready var BackdropList: Node2D = get_node("backdrops/backgrounds")
+
+# Aircraft Information Elements
+onready var FuelBar: ProgressBar = get_node("ui/interface/info/list/fuel/value")
 
 #####################
 # LIFECYCLE METHODS #
@@ -14,6 +18,7 @@ func _ready() -> void:
 	Events.connect("AircraftChanged", self, "OnFocusedAircraftChanged")
 	Events.connect("AircraftSpawned", self, "HideAllAircraft")
 	Events.connect("ContextChanged", self, "OnGameplayContextChange")
+	Persist.connect("PersistTick", self, "WorldTick")
 	
 #####################
 # CONNECTED METHODS #
@@ -25,12 +30,13 @@ func OnFocusedAircraftChanged(id: int) -> void:
 	ShowBackdrop(
 		GetBackdropBasedOnState(craft.State)	
 	)
+	UpdateAircraftInfo()
 
 func OnGameplayContextChange(context) -> void:
 	if context == Enums.GameContext.IDLE:
-		ShowAircraft(0)
+		ShowAircraft(State.FocusedAircraft)
 		ShowBackdrop(
-			GetBackdropBasedOnState(Persist.FleetData[0].State)
+			GetBackdropBasedOnState(Persist.FleetData[State.FocusedAircraft].State)
 		)
 	else:
 		HideAllBackdrops()
@@ -50,6 +56,18 @@ func UpdateDetailUI(aircraft: Aircraft) -> void:
 				after += word[0]
 		FocusedAircraftCallSign.text = Persist.AirlineCallSign + "-" + after
 
+	if FocusedAircraftContext:
+		if aircraft.State == Enums.AircraftStates.TRANSIT:
+			if aircraft.Destination > -1:
+				var dest = Persist.GetLocationFromLocationId(aircraft.Destination)
+				FocusedAircraftContext.text = "In Transit to " + dest.Name
+		else:
+			var location = Persist.GetLocationFromLocationId(aircraft.LocationID)
+			FocusedAircraftContext.text = "Landed in " + location.Name
+
+func WorldTick() -> void:
+	UpdateAircraftInfo()
+
 ####################
 # AIRCRAFT METHODS #
 ####################
@@ -62,6 +80,12 @@ func ShowAircraft(id: int = 0) -> void:
 	if FleetList.get_child_count() > id:
 		FleetList.get_child(id).visible = true
 
+func UpdateAircraftInfo() -> void:
+	var aircraft: Aircraft = Persist.FleetData[State.FocusedAircraft]
+	if FuelBar:
+		FuelBar.max_value = aircraft.MaxFuel
+		FuelBar.value = aircraft.CurrentFuel
+	
 ####################
 # BACKDROP METHODS #
 ####################

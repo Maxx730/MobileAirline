@@ -5,11 +5,11 @@ var DialogTemplate: PackedScene = preload("res://scenes/prefabs/ui/simple_dialog
 # Lifecycle Methods
 
 # General Methods
-func CreateDialog(title: String = "", subtitle: String = "", message: String = "", parent: Node = null) -> SimpleDialog:
+func CreateDialog(title: String = "", subtitle: String = "", message: String = "", parent: Node = null, args: Array = []) -> SimpleDialog:
 	var newDialog = DialogTemplate.instance() as SimpleDialog
 	newDialog.call_deferred("SetDialogInformation", title, subtitle, message)
+	newDialog.call_deferred("AddData", args)
 	if parent:
-		print("Adding new dialog to parent...")
 		parent.add_child(newDialog)
 		newDialog.popup()
 	return newDialog

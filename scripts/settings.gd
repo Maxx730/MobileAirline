@@ -64,7 +64,7 @@ func OnApplyButtonPressed() -> void:
 func OnTransitionBackFinished() -> void:
 	get_tree().change_scene("res://scenes/screens/menu.tscn")
 
-func OnClearDataConfirm() -> void:
+func OnClearDataConfirm(args) -> void:
 	ClearButton.Disabled = true
 	ClearButton.FormatDisabled(true)
 	Data.ClearData()

@@ -104,12 +104,13 @@ func GenerateWorldLocations() -> bool:
 	return true
 	
 func GenerateInitialAircraft(secondary: bool) -> Aircraft:
-	print(secondary)
 	var newAircraft: Aircraft = InitialAircraftTemplate.instance() if !secondary else SecondaryAircraftTemplate.instance()
 	newAircraft.Name = "Early Horizons" if !secondary else "Late Horizons"
 	newAircraft.ResourcePath = InitialAircraftTemplate.resource_path if !secondary else SecondaryAircraftTemplate.resource_path
+	var locId = Persist.LocationData[rand_range(0, Persist.LocationData.size())].ID
 	# start are random location
-	newAircraft.LocationID = Persist.LocationData[rand_range(0, Persist.LocationData.size())].ID
+	newAircraft.LocationID = locId
+	newAircraft.MapPosition = Persist.GetLocationFromLocationId(locId).position
 	return newAircraft
 	
 func IsLocationIsolated(location: Vector2) -> bool:

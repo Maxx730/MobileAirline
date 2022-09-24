@@ -1,0 +1,17 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type canvas_item;
+
+uniform float radius: hint_range(0.0, 1.0) = 0.4;
+uniform float blur: hint_range(0.0, 1.0) = 0.1;
+
+float circle(vec2 position, float rad, float feather)
+{
+	return smoothstep(rad, rad + feather, length(position - vec2(0.5)));
+}
+
+void fragment() {
+	COLOR.rgba = vec4(circle(UV, radius, blur));
+	COLOR.rgb = vec3(0, 0, 0);
+}"
