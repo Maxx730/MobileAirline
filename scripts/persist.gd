@@ -15,6 +15,7 @@ var LocationData: Array = []
 var FleetData: Array = []
 var AvailableAircraft: Array = []
 var AvailableCargo: Array = []
+var AvailablePassengers: Array = []
 
 # Settings Data
 var UseDaylight: bool = true
@@ -32,7 +33,7 @@ var MapWaterLevel: float = 0.5
 var CompletedFlights: int = 0
 
 # World Tick
-var ShouldTick: bool = true
+var ShouldTick: bool = false
 var TickFrequency: float = 1.0
 var LastTick: float = 0.0
 
@@ -113,10 +114,10 @@ func Initialize(data) -> void:
 		AirlineColor = Color(colorValues[0], colorValues[1], colorValues[2])
 		AirlineLogo = data.logo
 		AirlineCallSign = data.call_sign
+		AvailableCargo = ParseCargo(data.cargo)
 		ParseSettings(data.settings)
 		ParseMapSettings(data.map)
 		emit_signal("PersistDataLoaded")
-		ShouldTick = true
 	else:
 		printerr("ERROR: Unable to inistialize save data.")
 		emit_signal("PersistLoadError")
@@ -143,10 +144,10 @@ func _process(delta: float) -> void:
 		emit_signal("PersistTick")
 		LastTick = 0.0
 		TicksSinceSave += 1
+		Save()
 	
 	if TicksSinceSave > TicksPerSave:
 		TicksSinceSave = 0
-		Save()
 	
 	LastTick += delta
 
@@ -200,6 +201,22 @@ func GetLocationFromLocationId(id) -> Location:
 		
 	return found
 
+func GetUnlockedLocations() -> Array:
+	var unlocked: Array = []
+	for location in LocationData:
+		if location is Location:
+			if location.Unlocked:
+				unlocked.append(location)
+	return unlocked
+
+func GetPotentialDestinations(locationId) -> Array:
+	var destinations: Array = GetUnlockedLocations()
+	for location in destinations:
+		if location is Location:
+			if location.ID == locationId:
+				destinations.remove(destinations.find(location))
+	return destinations
+
 # Serialize Methods
 func SerializeLocations() -> Array:
 	var serialized = Array()
@@ -230,6 +247,9 @@ func SerializeCargo() -> Array:
 			
 	return cargo
 
+func SerializePassengers() -> Array:
+	return []
+
 # Deserialization Methods
 func ParseLocations(data) -> Array:
 	var locations: Array = Array()
@@ -257,9 +277,7 @@ func ParseFleet(data) -> Array:
 			newCraft.State = craft.state
 			newCraft.DesignColor = craft.design.color
 			newCraft.ResourcePath = craft.resource.path
-			newCraft.MaxFuel = craft.fuel.max
 			newCraft.CurrentFuel = craft.fuel.current
-			newCraft.FuelPerTick = craft.fuel.tick
 			newCraft.Destination = craft.fuel.destination
 			newCraft.MapPosition = Vector2(craft.position.x, craft.position.y)
 			aircraft.append(newCraft)
@@ -269,3 +287,14 @@ func ParseAvailable() -> Array:
 	var available: Array = Array()
 	
 	return available
+
+func ParseCargo(data) -> Array:
+	var items: Array = []
+	for cargo in data:
+		var item: Cargo = Cargo.new()
+		item.Location = cargo.location
+		item.Description = cargo.description
+		item.Destination = cargo.destination
+		items.append(item)
+		
+	return items

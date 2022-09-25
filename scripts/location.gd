@@ -180,3 +180,17 @@ func Spawn(locationSprite: Texture, locationUi: Node2D = null) -> Node2D:
 		locName.text = Name
 	return locationUi
 
+# GENERAL METHODS
+func OnWorldTick() -> void:
+	# ONLY SPAWN NEW CARGO ON LOCATIONS THAT 
+	# ARE UNLOCKED AND ONLY SET DESTINATIONS 
+	# FOR UNLOCKED LOCATIONS
+	if ShouldSpawnCargo() and self.Unlocked:
+		var cargo: Cargo = Cargo.new()
+		cargo.Location = self.ID
+		Persist.AvailableCargo.append(cargo)
+		
+	
+func ShouldSpawnCargo() -> bool:
+	randomize()
+	return randf() < 0.05

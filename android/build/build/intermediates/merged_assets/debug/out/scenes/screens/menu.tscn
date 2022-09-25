@@ -36,6 +36,7 @@ animations = [ {
 shader = ExtResource( 11 )
 shader_param/ShadowMovementSpeed = 0.02
 shader_param/ShadowDarkness = 0.1
+shader_param/ShadowOffset = 50.0
 
 [sub_resource type="ShaderMaterial" id=3]
 shader = ExtResource( 15 )
@@ -180,7 +181,7 @@ texture = ExtResource( 6 )
 [node name="wave" type="AnimatedSprite" parent="background/shore"]
 position = Vector2( 240, 9 )
 frames = SubResource( 1 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="shadows" type="TextureRect" parent="background"]

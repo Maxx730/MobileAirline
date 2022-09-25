@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scripts/world_location.gd" type="Script" id=1]
 [ext_resource path="res://textures/icons/overworld-airport.png" type="Texture" id=2]
 [ext_resource path="res://fonts/ThaleahFat.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://textures/icons/lock-icon.png" type="Texture" id=4]
 
 [sub_resource type="DynamicFont" id=2]
 outline_size = 1
@@ -37,3 +38,7 @@ texture = ExtResource( 2 )
 
 [node name="collider" type="CollisionShape2D" parent="."]
 shape = SubResource( 3 )
+
+[node name="lock" type="Sprite" parent="."]
+position = Vector2( 16, -16 )
+texture = ExtResource( 4 )

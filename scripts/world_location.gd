@@ -4,6 +4,7 @@ class_name WorldLocation
 
 export(float) var AnimationSpeed: float = 0.5
 
+onready var TowerIcon: Sprite = get_node("icon")
 onready var LockIcon: Sprite = get_node("lock")
 
 var LocationRef: Location
@@ -37,3 +38,6 @@ func SetUIElements(name) -> void:
 func UpdateUI() -> void:
 	if LockIcon:
 		LockIcon.visible = !LocationRef.Unlocked
+
+	if TowerIcon and !LocationRef.Unlocked:
+		TowerIcon.modulate = Color(1, 1, 1, 0.25)

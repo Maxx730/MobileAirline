@@ -181,7 +181,7 @@ texture = ExtResource( 6 )
 [node name="wave" type="AnimatedSprite" parent="background/shore"]
 position = Vector2( 240, 9 )
 frames = SubResource( 1 )
-frame = 3
+frame = 1
 playing = true
 
 [node name="shadows" type="TextureRect" parent="background"]

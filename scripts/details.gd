@@ -2,14 +2,16 @@ extends Screen
 
 class_name Details
 
-onready var FocusedAircraftName: Label = get_node("ui/interface/title/list/name")
-onready var FocusedAircraftCallSign: Label = get_node("ui/interface/title/list/callsign")
-onready var FocusedAircraftContext: Label = get_node("ui/interface/title/list/location")
+onready var FocusedAircraftName: Label = get_node("ui/interface/info/details/name")
+onready var FocusedAircraftCallSign: Label = get_node("ui/interface/info/details/callsign")
+onready var FocusedAircraftContext: Label = get_node("ui/interface/info/details/location")
 onready var FleetList: Node = get_node("aircraft/fleet")
 onready var BackdropList: Node2D = get_node("backdrops/backgrounds")
 
 # Aircraft Information Elements
-onready var FuelBar: ProgressBar = get_node("ui/interface/info/list/fuel/value")
+onready var FuelBar: ProgressBar = get_node("ui/interface/info/list/fuel/stack/value")
+onready var FuelText: Label = get_node("ui/interface/info/list/fuel/stack/percent")
+
 
 #####################
 # LIFECYCLE METHODS #
@@ -18,6 +20,7 @@ func _ready() -> void:
 	Events.connect("AircraftChanged", self, "OnFocusedAircraftChanged")
 	Events.connect("AircraftSpawned", self, "HideAllAircraft")
 	Events.connect("ContextChanged", self, "OnGameplayContextChange")
+	Events.connect("AircraftLanded", self, "OnAircraftLanded")
 	Persist.connect("PersistTick", self, "WorldTick")
 	
 #####################
@@ -40,6 +43,9 @@ func OnGameplayContextChange(context) -> void:
 		)
 	else:
 		HideAllBackdrops()
+
+func OnAircraftLanded(id) -> void:
+	print(id)
 
 ###################
 # GENERAL METHODS #
@@ -85,6 +91,9 @@ func UpdateAircraftInfo() -> void:
 	if FuelBar:
 		FuelBar.max_value = aircraft.MaxFuel
 		FuelBar.value = aircraft.CurrentFuel
+	
+	if FuelText:
+		FuelText.text = str(floor((aircraft.CurrentFuel / aircraft.MaxFuel) * 100)) + "%"
 	
 ####################
 # BACKDROP METHODS #

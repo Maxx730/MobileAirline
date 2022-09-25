@@ -17,6 +17,7 @@ func _ready() -> void:
 	Events.connect("ContextChanged", self, "OnContextChanged")
 	Persist.connect("PersistDataLoaded", self, "PersistDataLoaded")
 	Persist.Load()
+	Persist.ShouldTick = true
 		
 #####################
 # CONNECTED METHODS #

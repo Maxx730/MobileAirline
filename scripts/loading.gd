@@ -141,13 +141,20 @@ func OnMapImageGenerationComplete() -> void:
 	LocationGenThread.start(self, "GenerateWorldLocations")
 
 func LocationGenerationFinished() -> void:
-	var success = LocationGenThread.wait_to_finish()	
-	Persist.FleetData.append(
-		GenerateInitialAircraft(false)
-	)
-	Persist.FleetData.append(
-		GenerateInitialAircraft(true)
-	)
+	var success = LocationGenThread.wait_to_finish()
+	var InitialFirst: Aircraft = GenerateInitialAircraft(false)
+	var InitialSecond: Aircraft = GenerateInitialAircraft(true)
+	
+	Persist.LocationData[0].Unlocked = true
+	Persist.LocationData[1].Unlocked = true
+	Persist.LocationData[2].Unlocked = true
+	
+	InitialFirst.LocationID = Persist.LocationData[0].ID
+	InitialSecond.LocationID = Persist.LocationData[1].ID
+	
+	Persist.FleetData.append(InitialFirst)
+	Persist.FleetData.append(InitialSecond)
+	
 	AddMessageGenerationList("Generation of locations complete.")
 	SetStatusLabel("Map Generation Complete!")
 	SetLoadingLevel(100)
@@ -170,5 +177,6 @@ func AddMapPreview() -> void:
 	PreviewRef = mapTexture
 	mapTexture.centered = false
 	mapTexture.scale = Vector2(previewScale, previewScale)
+	mapTexture.visible = false
 	RootFrame.add_child(mapTexture)
 	RootFrame.move_child(mapTexture, 0)

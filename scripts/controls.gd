@@ -2,16 +2,17 @@ extends Node
 
 class_name Controls
 
-onready var FocusedButtons: Control = get_node("ui/bottom")
-onready var BackPanelButton: PanelButton = get_node("ui/back")
+onready var FocusedButtons: Control = get_node("ui/frame/bottom")
+onready var BackPanelButton: PanelButton = get_node("ui/frame/back")
 
-onready var NextButton: Button = get_node("ui/bottom/switcher/buttons/next")
-onready var PreviousButton: Button = get_node("ui/bottom/switcher/buttons/prev")
-onready var SettingsButton: PanelButton = get_node("ui/top/settings")
-onready var ShopButton: PanelButton = get_node("ui/bottom/shop")
-onready var MapButton: PanelButton = get_node("ui/bottom/map")
-onready var BackButton: PanelButton = get_node("ui/back")
-onready var DepartButton: Button = get_node("ui/bottom/switcher/buttons/depart")
+onready var NextButton: Button = get_node("ui/frame/bottom/switcher/buttons/next")
+onready var PreviousButton: Button = get_node("ui/frame/bottom/switcher/buttons/prev")
+onready var SettingsButton: PanelButton = get_node("ui/frame/head/settings")
+onready var ShopButton: PanelButton = get_node("ui/frame/bottom/shop")
+onready var MapButton: PanelButton = get_node("ui/frame/bottom/map")
+onready var BackButton: PanelButton = get_node("ui/frame/back")
+onready var DepartButton: Button = get_node("ui/frame/bottom/switcher/buttons/depart")
+onready var GlobalPanel: Panel = get_node("ui/frame/global")
 
 var FocusedAircraft: int = 0
 var NextScene = null
@@ -52,6 +53,7 @@ func UpdateControls(context) -> void:
 	var showBack: bool = context == Enums.GameContext.SHOP or context == Enums.GameContext.MAP or context == Enums.GameContext.CHOOSE_DESTINATION
 	BackPanelButton.visible = showBack
 	FocusedButtons.visible = !showBack
+	GlobalPanel.visible = !showBack
 
 func UpdateAircraftControls(id) -> void:
 	var state: int = Persist.FleetData[id].State
@@ -69,6 +71,11 @@ func EmitIdleChange() -> void:
 
 func EmitShopChange() -> void:
 	Events.emit_signal("ContextChanged", Enums.GameContext.SHOP)
+
+func EmitDepartChange() -> void:
+	var aircraft: Aircraft = Persist.FleetData[State.FocusedAircraft]
+	if aircraft:
+		Events.emit_signal("ContextChanged", Enums.GameContext.CHOOSE_DESTINATION)
 
 #####################
 # CONNECTED METHODS #
@@ -117,6 +124,5 @@ func OnContextChanged(context) -> void:
 	UpdateAircraftControls(0)
 
 func OnDepartPressed() -> void:
-	var aircraft: Aircraft = Persist.FleetData[State.FocusedAircraft]
-	if aircraft:
-		Events.emit_signal("ContextChanged", Enums.GameContext.CHOOSE_DESTINATION)
+	var departRef: FuncRef = funcref(self, "EmitDepartChange")
+	Transition.QuickTransition(departRef)

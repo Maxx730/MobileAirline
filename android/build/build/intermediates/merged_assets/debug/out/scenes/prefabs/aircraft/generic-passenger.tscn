@@ -44,23 +44,25 @@ scale = Vector2( 0.333333, 0.333333 )
 position = Vector2( 51, -38 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 34 )
+frame = 1
 playing = true
 
 [node name="propeller2" type="AnimatedSprite" parent="base/propellers"]
 position = Vector2( -51, -38 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 34 )
+frame = 1
 playing = true
 
 [node name="propeller3" type="AnimatedSprite" parent="base/propellers"]
 position = Vector2( -81, -26 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 34 )
-frame = 1
 playing = true
 
 [node name="propeller4" type="AnimatedSprite" parent="base/propellers"]
 position = Vector2( 81, -26 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 34 )
+frame = 1
 playing = true

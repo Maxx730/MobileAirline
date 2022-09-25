@@ -64,6 +64,7 @@ func SpawnLocations() -> void:
 				location.name = "location-" + str(location.ID)
 				location.add_child(loc)
 				loc.connect("OnLocationPressed", self, "OnWorldLocationPressed")
+				loc.UpdateUI()
 				world.add_child(location)
 	else:
 		printerr("ERROR: Unable to spawn world locations, prefab for ui missing.")
@@ -93,10 +94,20 @@ func ResizeLocationIcons(scale) -> void:
 # CONNECTED METHODS #
 #####################
 func OnWorldLocationPressed(id) -> void:
-	if State.GameplayContext == Enums.GameContext.CHOOSE_DESTINATION:		
-		var dialog: SimpleDialog = GlobalDialog.CreateDialog("Ready to Depart?", "Confirm aircraft travel to ", "Aircraft () ready for departure to ", get_node("ui"), [id])
+	if State.GameplayContext == Enums.GameContext.CHOOSE_DESTINATION:
+		var aircraft: Aircraft = Persist.FleetData[State.FocusedAircraft]
+		var location: Location = Persist.GetLocationFromLocationId(id)
+		var distance: float = location.position.distance_to(aircraft.MapPosition)
 		
-		dialog.connect("OnDialogConfirm", self, "OnDepartConfirmed")
+		if location.Unlocked:
+			if distance < aircraft.MaxFuel * aircraft.MilesPerGallon:
+				var dialog: SimpleDialog = GlobalDialog.CreateDialog("Ready to Depart?", "Confirm aircraft travel to ", "Aircraft () ready for departure to ", get_node("ui"), [id])
+				
+				dialog.connect("OnDialogConfirm", self, "OnDepartConfirmed")
+			else:
+				GlobalDialog.CreateAlert("Unable to Depart!", "Not enough fuel to reach", "Uh Oh! Looks like there is not enough fuel to make it this far. Try flying to a closer airport or using an aircraft with a larger fuel tank.", get_node("ui"))
+		else:
+			GlobalDialog.CreateAlert("Unable to Depart!", "not unlocked.", "Uh Oh! This airport is still locked.  Use cash to unlock this airport and begin delivering cargo.", get_node("ui"))
 	else:
 		# ask they player if they would like to unlock
 		pass
@@ -105,6 +116,9 @@ func OnDepartConfirmed(args) -> void:
 	var craft: Aircraft = Persist.FleetData[State.FocusedAircraft]
 	craft.State = Enums.AircraftStates.TRANSIT
 	craft.Destination = args[0]
+	# FOR NOW JUST REFILL THE CRAFT WORRY ABOUT THE COST
+	# LATER
+	craft.CurrentFuel = craft.MaxFuel
 	Events.emit_signal("ContextChanged", Enums.GameContext.IDLE)
 	Events.emit_signal("AircraftChanged", State.FocusedAircraft)
 	Persist.Save()

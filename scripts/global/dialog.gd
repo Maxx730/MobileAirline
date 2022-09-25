@@ -1,6 +1,7 @@
 extends Node
 
 var DialogTemplate: PackedScene = preload("res://scenes/prefabs/ui/simple_dialog.tscn")
+var AlertTemplate: PackedScene = preload("res://scenes/prefabs/ui/simple_alert.tscn")
 
 # Lifecycle Methods
 
@@ -13,3 +14,10 @@ func CreateDialog(title: String = "", subtitle: String = "", message: String = "
 		parent.add_child(newDialog)
 		newDialog.popup()
 	return newDialog
+
+func CreateAlert(title: String = "", subtitle: String = "", message: String = "", parent: Node = null) -> void:
+	var newAlert = AlertTemplate.instance() as SimpleAlert
+	newAlert.call_deferred("SetAlertInformation", title, subtitle, message)
+	if parent:
+		parent.add_child(newAlert)
+		newAlert.popup()

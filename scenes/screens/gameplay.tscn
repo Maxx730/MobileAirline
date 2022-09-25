@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=2]
+[gd_scene load_steps=86 format=2]
 
 [ext_resource path="res://scripts/gameplay.gd" type="Script" id=1]
 [ext_resource path="res://scripts/screens.gd" type="Script" id=2]
@@ -34,7 +34,6 @@
 [ext_resource path="res://scenes/prefabs/seagulls/seagulls_group_2.tscn" type="PackedScene" id=32]
 [ext_resource path="res://textures/icons/forward-arrow-icon-export.png" type="Texture" id=33]
 [ext_resource path="res://textures/repeat-prototype-dark.png" type="Texture" id=34]
-[ext_resource path="res://textures/icons/fuel.png" type="Texture" id=35]
 [ext_resource path="res://scenes/prefabs/ui/aircraft_ref.tscn" type="PackedScene" id=36]
 [ext_resource path="res://shaders/scroll.tres" type="Shader" id=37]
 [ext_resource path="res://textures/icons/cash_dash.png" type="Texture" id=38]
@@ -48,26 +47,28 @@ size = 24
 font_data = ExtResource( 6 )
 
 [sub_resource type="DynamicFont" id=17]
-font_data = ExtResource( 5 )
-
-[sub_resource type="DynamicFont" id=54]
 size = 12
 font_data = ExtResource( 5 )
 
+[sub_resource type="StyleBoxFlat" id=59]
+bg_color = Color( 0, 0, 0, 1 )
+border_width_top = 4
+border_color = Color( 1, 1, 1, 1 )
+anti_aliasing = false
+
+[sub_resource type="DynamicFont" id=54]
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=58]
+size = 12
+font_data = ExtResource( 6 )
+
 [sub_resource type="StyleBoxFlat" id=48]
-bg_color = Color( 1, 1, 1, 1 )
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
+bg_color = Color( 0.415686, 0.854902, 0, 1 )
 anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id=47]
-bg_color = Color( 0.1, 0.1, 0.1, 1 )
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
+bg_color = Color( 0.18, 0.18, 0.18, 1 )
 anti_aliasing = false
 
 [sub_resource type="StyleBoxEmpty" id=55]
@@ -182,28 +183,9 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxEmpty" id=19]
-
-[sub_resource type="ShaderMaterial" id=24]
-shader = ExtResource( 17 )
-shader_param/blur_amount = 2.0
-shader_param/mix_amount = 0.5
-shader_param/color_over = null
-
-[sub_resource type="StyleBoxFlat" id=25]
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-
 [sub_resource type="StyleBoxFlat" id=43]
-bg_color = Color( 0, 0, 0, 1 )
-border_width_left = 6
-border_width_top = 6
-border_width_bottom = 6
+bg_color = Color( 0.1, 0.1, 0.1, 1 )
 border_color = Color( 1, 1, 1, 1 )
-corner_radius_top_left = 24
-corner_radius_bottom_left = 24
 anti_aliasing = false
 
 [sub_resource type="StyleBoxEmpty" id=3]
@@ -213,23 +195,17 @@ size = 32
 font_data = ExtResource( 4 )
 
 [sub_resource type="StyleBoxFlat" id=9]
-bg_color = Color( 0, 0, 0, 1 )
-border_width_top = 6
-border_width_bottom = 6
+bg_color = Color( 0.12, 0.12, 0.12, 1 )
 border_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="StyleBoxFlat" id=13]
 bg_color = Color( 0.09, 0.09, 0, 1 )
-border_width_top = 6
-border_width_bottom = 6
 border_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="StyleBoxEmpty" id=6]
 
 [sub_resource type="StyleBoxFlat" id=7]
-bg_color = Color( 0.0196078, 0.0196078, 0.0196078, 1 )
-border_width_top = 6
-border_width_bottom = 6
+bg_color = Color( 0.1, 0.1, 0.1, 1 )
 border_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="DynamicFont" id=42]
@@ -237,33 +213,33 @@ size = 32
 font_data = ExtResource( 4 )
 
 [sub_resource type="StyleBoxFlat" id=12]
-bg_color = Color( 0.0196078, 0.0196078, 0.0196078, 1 )
-border_width_top = 6
-border_width_bottom = 6
+bg_color = Color( 0.1, 0.1, 0.1, 1 )
 border_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="StyleBoxEmpty" id=14]
 
 [sub_resource type="StyleBoxFlat" id=45]
 bg_color = Color( 0.137255, 0.137255, 0.137255, 1 )
-border_width_top = 6
-border_width_bottom = 6
+border_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="StyleBoxFlat" id=15]
-bg_color = Color( 0.0196078, 0.0196078, 0.0196078, 1 )
-border_width_top = 6
-border_width_bottom = 6
+bg_color = Color( 0.137255, 0.137255, 0.137255, 1 )
 border_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="StyleBoxFlat" id=44]
-bg_color = Color( 0, 0, 0, 1 )
-border_width_top = 6
-border_width_right = 6
-border_width_bottom = 6
+bg_color = Color( 0.1, 0.1, 0.1, 1 )
 border_color = Color( 1, 1, 1, 1 )
-corner_radius_top_right = 24
-corner_radius_bottom_right = 24
 anti_aliasing = false
+
+[sub_resource type="ShaderMaterial" id=60]
+shader = ExtResource( 17 )
+shader_param/blur_amount = 2.0
+shader_param/mix_amount = 0.5
+shader_param/color_over = null
+
+[sub_resource type="StyleBoxFlat" id=61]
+
+[sub_resource type="StyleBoxEmpty" id=62]
 
 [sub_resource type="DynamicFont" id=53]
 extra_spacing_top = 1
@@ -291,12 +267,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="title" type="NinePatchRect" parent="screens/details/ui/interface"]
+visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -180.0
-margin_top = 72.0
+margin_top = 128.0
 margin_right = 136.0
-margin_bottom = 176.0
+margin_bottom = 232.0
 texture = ExtResource( 12 )
 patch_margin_left = 12
 patch_margin_top = 12
@@ -322,128 +299,131 @@ uppercase = true
 [node name="location" type="Label" parent="screens/details/ui/interface/title/list"]
 margin_top = 30.0
 margin_right = 278.0
-margin_bottom = 53.0
+margin_bottom = 47.0
 custom_fonts/font = SubResource( 17 )
 text = "Landed at [Location]"
 uppercase = true
 
 [node name="callsign" type="Label" parent="screens/details/ui/interface/title/list"]
-margin_top = 49.0
+margin_top = 43.0
 margin_right = 278.0
-margin_bottom = 72.0
+margin_bottom = 60.0
 custom_fonts/font = SubResource( 17 )
 text = "CALLSIGN"
 uppercase = true
 
-[node name="info" type="NinePatchRect" parent="screens/details/ui/interface"]
+[node name="info" type="Panel" parent="screens/details/ui/interface"]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -180.0
-margin_top = -176.0
-margin_right = 180.0
-margin_bottom = -126.0
-texture = ExtResource( 12 )
-patch_margin_left = 12
-patch_margin_top = 12
-patch_margin_right = 11
-patch_margin_bottom = 12
+margin_left = -240.0
+margin_top = -193.0
+margin_right = 240.0
+margin_bottom = -98.0
+custom_styles/panel = SubResource( 59 )
 
 [node name="list" type="HBoxContainer" parent="screens/details/ui/interface/info"]
-anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 20.0
-margin_top = -66.0
-margin_right = -20.0
-margin_bottom = -18.0
 custom_constants/separation = 12
 
 [node name="cargo" type="HBoxContainer" parent="screens/details/ui/interface/info/list"]
-margin_top = 31.0
-margin_right = 30.0
-margin_bottom = 48.0
+visible = false
+margin_right = 48.0
+margin_bottom = 32.0
 size_flags_vertical = 8
 custom_constants/separation = 7
 
 [node name="icon" type="TextureRect" parent="screens/details/ui/interface/info/list/cargo"]
-margin_right = 16.0
-margin_bottom = 16.0
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
 size_flags_vertical = 0
 texture = ExtResource( 42 )
+expand = true
 
 [node name="value" type="Label" parent="screens/details/ui/interface/info/list/cargo"]
-margin_left = 23.0
-margin_right = 30.0
-margin_bottom = 17.0
+margin_left = 39.0
+margin_top = 4.0
+margin_right = 48.0
+margin_bottom = 27.0
 custom_fonts/font = SubResource( 54 )
 text = "0"
 
 [node name="passengers" type="HBoxContainer" parent="screens/details/ui/interface/info/list"]
-margin_left = 42.0
-margin_top = 31.0
-margin_right = 72.0
-margin_bottom = 48.0
+visible = false
+margin_left = 60.0
+margin_right = 108.0
+margin_bottom = 32.0
 size_flags_vertical = 8
 custom_constants/separation = 7
 
 [node name="icon" type="TextureRect" parent="screens/details/ui/interface/info/list/passengers"]
-margin_right = 16.0
-margin_bottom = 16.0
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
 size_flags_vertical = 0
 texture = ExtResource( 41 )
+expand = true
 
 [node name="value" type="Label" parent="screens/details/ui/interface/info/list/passengers"]
-margin_left = 23.0
-margin_right = 30.0
-margin_bottom = 17.0
+margin_left = 39.0
+margin_top = 4.0
+margin_right = 48.0
+margin_bottom = 27.0
 custom_fonts/font = SubResource( 54 )
 text = "0"
 
-[node name="speed" type="HBoxContainer" parent="screens/details/ui/interface/info/list"]
-margin_left = 84.0
-margin_top = 31.0
-margin_right = 196.0
-margin_bottom = 48.0
+[node name="spacer" type="Control" parent="screens/details/ui/interface/info/list"]
+visible = false
+margin_right = 218.0
+margin_bottom = 66.0
 size_flags_horizontal = 3
-size_flags_vertical = 8
-custom_constants/separation = 7
-
-[node name="icon" type="TextureRect" parent="screens/details/ui/interface/info/list/speed"]
-margin_right = 16.0
-margin_bottom = 16.0
-size_flags_vertical = 0
-texture = ExtResource( 40 )
-
-[node name="value" type="Label" parent="screens/details/ui/interface/info/list/speed"]
-margin_left = 23.0
-margin_right = 71.0
-margin_bottom = 17.0
-custom_fonts/font = SubResource( 54 )
-text = "250MPH"
 
 [node name="fuel" type="HBoxContainer" parent="screens/details/ui/interface/info/list"]
-margin_left = 208.0
-margin_top = 32.0
-margin_right = 320.0
-margin_bottom = 48.0
+margin_top = 93.0
+margin_right = 480.0
+margin_bottom = 95.0
 size_flags_horizontal = 3
 size_flags_vertical = 10
 custom_constants/separation = 12
 
 [node name="icon" type="TextureRect" parent="screens/details/ui/interface/info/list/fuel"]
-margin_right = 16.0
-margin_bottom = 16.0
+visible = false
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
 size_flags_vertical = 0
-texture = ExtResource( 35 )
+texture = ExtResource( 40 )
+expand = true
 
-[node name="value" type="ProgressBar" parent="screens/details/ui/interface/info/list/fuel"]
-margin_left = 28.0
-margin_top = 4.0
-margin_right = 112.0
-margin_bottom = 12.0
-rect_min_size = Vector2( 0, 8 )
+[node name="stack" type="VBoxContainer" parent="screens/details/ui/interface/info/list/fuel"]
+margin_right = 480.0
+margin_bottom = 2.0
+size_flags_horizontal = 3
+
+[node name="label" type="Label" parent="screens/details/ui/interface/info/list/fuel/stack"]
+visible = false
+margin_right = 439.0
+margin_bottom = 17.0
+custom_fonts/font = SubResource( 58 )
+text = "FUEL"
+align = 1
+
+[node name="percent" type="Label" parent="screens/details/ui/interface/info/list/fuel/stack"]
+visible = false
+margin_top = 21.0
+margin_right = 439.0
+margin_bottom = 38.0
+custom_fonts/font = SubResource( 58 )
+text = "0%"
+align = 1
+
+[node name="value" type="ProgressBar" parent="screens/details/ui/interface/info/list/fuel/stack"]
+margin_right = 480.0
+margin_bottom = 2.0
+rect_min_size = Vector2( 0, 2 )
 size_flags_horizontal = 3
 size_flags_vertical = 4
 custom_styles/fg = SubResource( 48 )
@@ -451,7 +431,42 @@ custom_styles/bg = SubResource( 47 )
 value = 50.0
 percent_visible = false
 
+[node name="details" type="VBoxContainer" parent="screens/details/ui/interface/info"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -25.5
+margin_bottom = 25.5
+custom_constants/separation = 0
+
+[node name="name" type="Label" parent="screens/details/ui/interface/info/details"]
+margin_right = 480.0
+margin_bottom = 34.0
+custom_fonts/font = SubResource( 16 )
+text = "Aircraft Title"
+align = 1
+uppercase = true
+
+[node name="location" type="Label" parent="screens/details/ui/interface/info/details"]
+margin_top = 34.0
+margin_right = 480.0
+margin_bottom = 51.0
+custom_fonts/font = SubResource( 17 )
+text = "Landed at [Location]"
+align = 1
+uppercase = true
+
+[node name="callsign" type="Label" parent="screens/details/ui/interface/info/details"]
+visible = false
+margin_top = 65.0
+margin_right = 448.0
+margin_bottom = 88.0
+custom_fonts/font = SubResource( 17 )
+text = "CALLSIGN"
+uppercase = true
+
 [node name="cargohold" type="NinePatchRect" parent="screens/details/ui/interface"]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -683,6 +698,7 @@ tile_data = PoolIntArray( -2031659, 0, 0, -2031658, 0, 0, -2031657, 0, 0, -20316
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_bottom = -57.0
 mouse_filter = 2
 
 [node name="zoom" type="Panel" parent="screens/map/ui/interface"]
@@ -762,19 +778,25 @@ script = ExtResource( 7 )
 
 [node name="ui" type="CanvasLayer" parent="controls"]
 
-[node name="back" type="Panel" parent="controls/ui"]
+[node name="frame" type="Control" parent="controls/ui"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -255.0
+
+[node name="back" type="Panel" parent="controls/ui/frame"]
 visible = false
 material = SubResource( 26 )
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 24.0
-margin_top = -88.0
-margin_right = 88.0
-margin_bottom = -24.0
+margin_left = 32.0
+margin_top = -144.0
+margin_right = 96.0
+margin_bottom = -80.0
 custom_styles/panel = SubResource( 27 )
 script = ExtResource( 9 )
 
-[node name="icon" type="TextureRect" parent="controls/ui/back"]
+[node name="icon" type="TextureRect" parent="controls/ui/frame/back"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -786,60 +808,28 @@ margin_bottom = 20.0
 texture = ExtResource( 21 )
 stretch_mode = 4
 
-[node name="top" type="HBoxContainer" parent="controls/ui"]
+[node name="top" type="HBoxContainer" parent="controls/ui/frame"]
 anchor_right = 1.0
 margin_left = 48.0
-margin_top = 72.0
+margin_top = -512.0
 margin_right = -32.0
-margin_bottom = 136.0
+margin_bottom = -448.0
 
-[node name="spacer" type="Panel" parent="controls/ui/top"]
-margin_right = 332.0
-margin_bottom = 64.0
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 4.0
-custom_styles/panel = SubResource( 19 )
-
-[node name="settings" type="Panel" parent="controls/ui/top"]
-material = SubResource( 24 )
-margin_left = 336.0
-margin_right = 400.0
-margin_bottom = 64.0
-rect_min_size = Vector2( 64, 0 )
-custom_styles/panel = SubResource( 25 )
-script = ExtResource( 9 )
-
-[node name="icon" type="TextureRect" parent="controls/ui/top/settings"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -16.0
-margin_top = -16.0
-margin_right = 16.0
-margin_bottom = 16.0
-texture = ExtResource( 10 )
-expand = true
-stretch_mode = 4
-
-[node name="bottom" type="HBoxContainer" parent="controls/ui"]
+[node name="bottom" type="HBoxContainer" parent="controls/ui/frame"]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 60.0
-margin_top = -102.0
-margin_right = -60.0
-margin_bottom = -38.0
+margin_top = -98.0
 custom_constants/separation = -1
 
-[node name="shop" type="Panel" parent="controls/ui/bottom"]
-margin_right = 60.0
-margin_bottom = 64.0
+[node name="shop" type="Panel" parent="controls/ui/frame/bottom"]
+margin_right = 80.0
+margin_bottom = 98.0
 size_flags_horizontal = 3
 custom_styles/panel = SubResource( 43 )
 script = ExtResource( 9 )
 
-[node name="icon" type="TextureRect" parent="controls/ui/bottom/shop"]
+[node name="icon" type="TextureRect" parent="controls/ui/frame/bottom/shop"]
 visible = false
 anchor_left = 0.5
 anchor_top = 0.5
@@ -852,22 +842,22 @@ margin_bottom = 20.0
 texture = ExtResource( 14 )
 expand = true
 
-[node name="switcher" type="Panel" parent="controls/ui/bottom"]
-margin_left = 59.0
-margin_right = 300.0
-margin_bottom = 64.0
+[node name="switcher" type="Panel" parent="controls/ui/frame/bottom"]
+margin_left = 79.0
+margin_right = 400.0
+margin_bottom = 98.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 4.0
 custom_styles/panel = SubResource( 3 )
 
-[node name="buttons" type="HBoxContainer" parent="controls/ui/bottom/switcher"]
+[node name="buttons" type="HBoxContainer" parent="controls/ui/frame/bottom/switcher"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_constants/separation = 0
 
-[node name="prev" type="Button" parent="controls/ui/bottom/switcher/buttons"]
-margin_right = 60.0
-margin_bottom = 64.0
+[node name="prev" type="Button" parent="controls/ui/frame/bottom/switcher/buttons"]
+margin_right = 80.0
+margin_bottom = 98.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 custom_fonts/font = SubResource( 1 )
@@ -878,10 +868,10 @@ custom_styles/normal = SubResource( 7 )
 icon = ExtResource( 21 )
 icon_align = 1
 
-[node name="depart" type="Button" parent="controls/ui/bottom/switcher/buttons"]
-margin_left = 60.0
-margin_right = 180.0
-margin_bottom = 64.0
+[node name="depart" type="Button" parent="controls/ui/frame/bottom/switcher/buttons"]
+margin_left = 80.0
+margin_right = 240.0
+margin_bottom = 98.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
@@ -894,10 +884,10 @@ custom_styles/normal = SubResource( 15 )
 disabled = true
 text = "DEPART"
 
-[node name="next" type="Button" parent="controls/ui/bottom/switcher/buttons"]
-margin_left = 180.0
-margin_right = 241.0
-margin_bottom = 64.0
+[node name="next" type="Button" parent="controls/ui/frame/bottom/switcher/buttons"]
+margin_left = 240.0
+margin_right = 321.0
+margin_bottom = 98.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 custom_fonts/font = SubResource( 1 )
@@ -908,15 +898,15 @@ custom_styles/normal = SubResource( 7 )
 icon = ExtResource( 33 )
 icon_align = 1
 
-[node name="map" type="Panel" parent="controls/ui/bottom"]
-margin_left = 299.0
-margin_right = 360.0
-margin_bottom = 64.0
+[node name="map" type="Panel" parent="controls/ui/frame/bottom"]
+margin_left = 399.0
+margin_right = 480.0
+margin_bottom = 98.0
 size_flags_horizontal = 3
 custom_styles/panel = SubResource( 44 )
 script = ExtResource( 9 )
 
-[node name="icon" type="TextureRect" parent="controls/ui/bottom/map"]
+[node name="icon" type="TextureRect" parent="controls/ui/frame/bottom/map"]
 visible = false
 anchor_left = 0.5
 anchor_top = 0.5
@@ -929,38 +919,58 @@ margin_bottom = 20.0
 texture = ExtResource( 13 )
 expand = true
 
-[node name="head" type="NinePatchRect" parent="controls/ui"]
+[node name="global" type="Panel" parent="controls/ui/frame"]
+material = SubResource( 60 )
+anchor_top = 1.0
 anchor_right = 1.0
-margin_left = 60.0
-margin_top = 15.0
-margin_right = -32.0
-margin_bottom = 63.0
-texture = ExtResource( 12 )
-patch_margin_left = 12
-patch_margin_top = 12
-patch_margin_right = 12
-patch_margin_bottom = 11
+anchor_bottom = 1.0
+margin_top = -255.0
+margin_bottom = -193.0
+custom_styles/panel = SubResource( 61 )
 
-[node name="cash" type="HBoxContainer" parent="controls/ui/head"]
+[node name="settings" type="Panel" parent="controls/ui/frame/global"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -32.0
+margin_right = 64.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 64, 0 )
+custom_styles/panel = SubResource( 62 )
+script = ExtResource( 9 )
+
+[node name="icon" type="TextureRect" parent="controls/ui/frame/global/settings"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+texture = ExtResource( 10 )
+expand = true
+stretch_mode = 4
+
+[node name="cash" type="HBoxContainer" parent="controls/ui/frame/global"]
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -368.0
 margin_right = -16.0
 
-[node name="value" type="Label" parent="controls/ui/head/cash"]
-margin_top = 16.0
+[node name="value" type="Label" parent="controls/ui/frame/global/cash"]
+margin_top = 23.0
 margin_right = 325.0
-margin_bottom = 32.0
+margin_bottom = 39.0
 size_flags_horizontal = 11
 custom_fonts/font = SubResource( 53 )
 align = 2
 valign = 1
 
-[node name="icon" type="TextureRect" parent="controls/ui/head/cash"]
+[node name="icon" type="TextureRect" parent="controls/ui/frame/global/cash"]
 margin_left = 329.0
 margin_right = 352.0
-margin_bottom = 48.0
+margin_bottom = 62.0
 size_flags_horizontal = 8
 texture = ExtResource( 38 )
 stretch_mode = 4

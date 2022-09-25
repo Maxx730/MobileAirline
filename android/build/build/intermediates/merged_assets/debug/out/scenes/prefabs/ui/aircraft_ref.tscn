@@ -8,5 +8,4 @@ z_index = 3
 script = ExtResource( 2 )
 
 [node name="icon" type="Sprite" parent="."]
-rotation = 1.5708
 texture = ExtResource( 1 )

@@ -1,6 +1,6 @@
 extends Node
 
-const TRANSITION_SPEED = 0.15
+const TRANSITION_SPEED = 0.35
 
 var TransShader: Shader = preload("res://shaders/transition.tres")
 var TransitionPanel: Panel
