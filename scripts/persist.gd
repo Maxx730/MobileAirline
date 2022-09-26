@@ -217,6 +217,13 @@ func GetPotentialDestinations(locationId) -> Array:
 				destinations.remove(destinations.find(location))
 	return destinations
 
+func GetLocationCargo(id) -> Array:
+	var cargo: Array = []
+	for item in AvailableCargo:
+		if item is Cargo and item.Location == id:
+			cargo.append(cargo)
+	return cargo
+
 # Serialize Methods
 func SerializeLocations() -> Array:
 	var serialized = Array()

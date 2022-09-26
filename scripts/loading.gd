@@ -82,23 +82,11 @@ func GenerateWorldLocations() -> bool:
 	var noise: OpenSimplexNoise = Persist.GetWorldNoise()
 	var waterLevel: float = Persist.MapWaterLevel - 0.5
 	
-	for x in size.x:
-		for y in size.y:
-			if Persist.LocationData.size() < MAX_LOCATION_AMOUNT:
-				var val: float = noise.get_noise_2d(x, y)
-				if (val > waterLevel + 0.2 and val < waterLevel + 0.4) and IsLocationIsolated(Vector2(x, y)):
-					var newLoc: Location = Location.new()
-					newLoc.Randomize()
-					newLoc.position = Vector2(x, y)
-					PreviewRef.add_child(
-						newLoc.Spawn(LocationSprite)
-					)
-					Persist.LocationData.append(newLoc)
-					AddMessageGenerationList("Location Generated: " + newLoc.Name)
-					
-					var amountDone = floor((Persist.LocationData.size() / float(MAX_LOCATION_AMOUNT)) * 50)
-					SetLoadingLevel(LoadingBar.value + amountDone)
-					SetStatusLabel(str(clamp(LoadingBar.value + amountDone, 0, 100)) + "%")
+	for i in range(MAX_LOCATION_AMOUNT):
+		pass
+	
+	SetLoadingLevel(LoadingBar.value + amountDone)
+	SetStatusLabel(str(clamp(LoadingBar.value + amountDone, 0, 100)) + "%")
 	
 	call_deferred("LocationGenerationFinished")
 	return true
@@ -107,10 +95,6 @@ func GenerateInitialAircraft(secondary: bool) -> Aircraft:
 	var newAircraft: Aircraft = InitialAircraftTemplate.instance() if !secondary else SecondaryAircraftTemplate.instance()
 	newAircraft.Name = "Early Horizons" if !secondary else "Late Horizons"
 	newAircraft.ResourcePath = InitialAircraftTemplate.resource_path if !secondary else SecondaryAircraftTemplate.resource_path
-	var locId = Persist.LocationData[rand_range(0, Persist.LocationData.size())].ID
-	# start are random location
-	newAircraft.LocationID = locId
-	newAircraft.MapPosition = Persist.GetLocationFromLocationId(locId).position
 	return newAircraft
 	
 func IsLocationIsolated(location: Vector2) -> bool:
@@ -150,7 +134,10 @@ func LocationGenerationFinished() -> void:
 	Persist.LocationData[2].Unlocked = true
 	
 	InitialFirst.LocationID = Persist.LocationData[0].ID
+	InitialFirst.MapPosition = Persist.GetLocationFromLocationId(InitialFirst.LocationID).position
 	InitialSecond.LocationID = Persist.LocationData[1].ID
+	InitialSecond.MapPosition = Persist.GetLocationFromLocationId(InitialSecond.LocationID).position
+
 	
 	Persist.FleetData.append(InitialFirst)
 	Persist.FleetData.append(InitialSecond)

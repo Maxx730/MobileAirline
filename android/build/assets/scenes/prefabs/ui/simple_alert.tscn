@@ -1,0 +1,137 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://fonts/OpenSans-Bold.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://fonts/OpenSans-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://scripts/simple_alert.gd" type="Script" id=3]
+[ext_resource path="res://shaders/blur.tres" type="Shader" id=4]
+
+[sub_resource type="ShaderMaterial" id=36]
+shader = ExtResource( 4 )
+shader_param/blur_amount = 2.0
+shader_param/mix_amount = 0.6
+shader_param/color_over = null
+
+[sub_resource type="StyleBoxFlat" id=25]
+bg_color = Color( 0, 0, 0, 0.615686 )
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id=28]
+bg_color = Color( 0, 0, 0, 0.529412 )
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+
+[sub_resource type="DynamicFont" id=26]
+size = 24
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=27]
+size = 14
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=35]
+font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=41]
+bg_color = Color( 0.0705882, 0.0705882, 0.0705882, 1 )
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id=40]
+bg_color = Color( 0.0196078, 0.0196078, 0.0196078, 1 )
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxEmpty" id=33]
+
+[sub_resource type="StyleBoxFlat" id=39]
+bg_color = Color( 0, 0, 0, 0.764706 )
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxEmpty" id=30]
+
+[sub_resource type="DynamicFont" id=29]
+font_data = ExtResource( 2 )
+
+[node name="sure" type="PopupDialog"]
+material = SubResource( 36 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -230.0
+margin_top = -140.0
+margin_right = 230.0
+margin_bottom = 140.0
+custom_styles/panel = SubResource( 25 )
+popup_exclusive = true
+script = ExtResource( 3 )
+
+[node name="top" type="Panel" parent="."]
+anchor_right = 1.0
+margin_bottom = 71.0
+custom_styles/panel = SubResource( 28 )
+
+[node name="title" type="Label" parent="top"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 28.0
+margin_top = 2.0
+margin_bottom = -21.0
+custom_fonts/font = SubResource( 26 )
+text = "Confirm New Airline"
+valign = 1
+
+[node name="subtitle" type="Label" parent="top"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 27.0
+margin_top = 25.0
+margin_right = -1.0
+margin_bottom = 2.0
+custom_fonts/font = SubResource( 27 )
+text = "Are these details correct?"
+valign = 1
+
+[node name="actions" type="HBoxContainer" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -61.0
+custom_constants/separation = 0
+
+[node name="confirm" type="Button" parent="actions"]
+margin_right = 460.0
+margin_bottom = 61.0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 35 )
+custom_styles/hover = SubResource( 41 )
+custom_styles/pressed = SubResource( 40 )
+custom_styles/focus = SubResource( 33 )
+custom_styles/normal = SubResource( 39 )
+text = "OK"
+
+[node name="content" type="Panel" parent="."]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 17.0
+margin_top = -49.0
+margin_right = -11.0
+margin_bottom = 47.0
+custom_styles/panel = SubResource( 30 )
+
+[node name="message" type="Label" parent="content"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 11.0
+margin_top = 9.0
+margin_right = -10.0
+margin_bottom = -13.0
+custom_fonts/font = SubResource( 29 )
+text = "If you are sure, make sure your asshole is free for insertion. If you are not sure I hope you get raped by bears"
+autowrap = true

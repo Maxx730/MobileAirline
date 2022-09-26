@@ -185,9 +185,15 @@ func OnWorldTick() -> void:
 	# ONLY SPAWN NEW CARGO ON LOCATIONS THAT 
 	# ARE UNLOCKED AND ONLY SET DESTINATIONS 
 	# FOR UNLOCKED LOCATIONS
-	if ShouldSpawnCargo() and self.Unlocked:
+	var maxAmount = (LocationSize + 1) * 10
+	if ShouldSpawnCargo() and self.Unlocked and Persist.GetLocationCargo(self.ID).size() < maxAmount:
+		randomize()
 		var cargo: Cargo = Cargo.new()
+		var potentialDest: Array = Persist.GetPotentialDestinations(self.ID)
+		
 		cargo.Location = self.ID
+		cargo.Destination = potentialDest[rand_range(0, potentialDest.size())].ID
+		
 		Persist.AvailableCargo.append(cargo)
 		
 	
